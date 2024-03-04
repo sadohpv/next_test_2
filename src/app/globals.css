@@ -2,32 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "IgNormal";
+  src        : url(../styles/font/InstagramSans.ttf);
+}
+
+@font-face {
+  font-family: "IgBold";
+  src        : url(../styles/font/InstagramSansBold.ttf);
+}
+
+@font-face {
+  font-family: "IgLight";
+  src        : url(../styles/font/InstagramSansLight.ttf);
+}
+
+@font-face {
+  font-family: "IgMedium";
+  src        : url(../styles/font/InstagramSansMedium.ttf);
+}
+
 :root {
-  --foreground-rgb: 0, 0, 0;
+  --foreground-rgb      : 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --background-end-rgb  : 255, 255, 255;
+  --dark-background     : #202020;
+  --hover-color         : #313131;
+  --text-color          : white;
+  --border-navbar-button : 12px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
+    --foreground-rgb      : 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background-end-rgb  : 0, 0, 0;
   }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
+  font-family: "IgNormal";
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+* {
+  box-sizing: border-box;
+  margin    : 0;
+  padding   : 0;
+  border    : 0;
+}
+
+ol,
+ul {
+  list-style: none;
 }

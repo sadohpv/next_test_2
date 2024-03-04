@@ -1,0 +1,154 @@
+.navbar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 0;
+  padding: 8px 12px;
+  gap: 3px;
+  animation: navbar 0.5s ease-in-out forwards;
+  .logo {
+    height: 60px;
+  }
+  .nav_item {
+    width: 220px;
+    height: 48px;
+    display: flex;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    gap: 16px;
+    // background-color: red;
+    animation: navbar_item 0.5s ease-in-out forwards;
+    span {
+      animation: navbar_item_title 0.5s ease-in-out forwards;
+    }
+    &:hover {
+      background-color: var(--hover-color);
+    }
+    .icon {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  .nav_box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+  }
+}
+.short {
+  animation: short_navbar 0.5s ease-in-out forwards;
+  .nav_item {
+    animation: short_navbar_item 0.5s ease-in-out forwards;
+    span {
+      animation: short_navbar_item_title 0.5s ease-in-out forwards;
+    }
+  }
+}
+.disable {
+  cursor: default;
+  user-select: none;
+  pointer-events: none;
+}
+@keyframes navbar {
+  0% {
+    width: 72px;
+  }
+  100% {
+    width: 250px;
+  }
+}
+@keyframes short_navbar {
+  0% {
+    width: 250px;
+  }
+  100% {
+    width: 72px;
+  }
+}
+@keyframes short_navbar_item {
+  0% {
+    width: 220px;
+  }
+  100% {
+    width: 48px;
+  }
+}
+@keyframes short_navbar_item_title {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+@keyframes navbar_item {
+  0% {
+    width: 48px;
+  }
+  100% {
+    width: 220px;
+  }
+}
+@keyframes navbar_item_title {
+  0% {
+    opacity: 0;
+    display: none;
+  }
+  50% {
+    opacity: 0.5;
+    display: block;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+// Media Query
+@media (max-width: 1260px) {
+  .navbar {
+    width: 72px !important;
+    .nav_box {
+      a,
+      div {
+        width: 48px !important;
+        span {
+          display: none;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0;
+    flex-direction: row;
+    .logo {
+      display: none;
+    }
+    .nav_box {
+      flex-direction: row;
+      justify-content: space-around;
+      flex: 1;
+      a,
+      div {
+        width: 42px !important;
+        height: 42px;
+        padding: 9px;
+        div{
+          padding:0;
+        }
+        &::before{
+          width: 42px;
+          height: 42px;
+        }
+        span {
+          opacity: 0;
+        }
+      }
+    }
+  }
+}

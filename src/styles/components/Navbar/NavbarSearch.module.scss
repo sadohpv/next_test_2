@@ -1,0 +1,13 @@
+.navbar_search {
+  position: fixed;
+  width: 100vw;
+  height: 48px;
+  background-color: var(--dark-background);
+  display: none;
+  top: 0;
+}
+@media (max-width: 768px) {
+  .navbar_search {
+    display: block;
+  }
+}
