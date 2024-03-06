@@ -5,8 +5,9 @@ import styles from "$comp/Navbar/CreateComp.module.scss";
 import { CreateIcon } from "~/assets/icon";
 import { usePathname } from "next/navigation";
 import { FC, useState, useEffect } from "react";
-import TippyCustom from "~/utility/TooltipCustom";
-import { useMediaQuery, useWindowSize } from "usehooks-ts";
+import TippyCustom from "~/utility/Tippy/TooltipCustom";
+
+import { FormattedMessage } from "react-intl";
 const cx = classNames.bind(styles);
 interface CreateCompProps {
   setModal: (modal: boolean) => void;
@@ -38,7 +39,10 @@ const CreateComp: FC<CreateCompProps> = ({
   };
 
   return tippy !== null ? (
-    <TippyCustom content={"Create"} place={tippy === true ? "top" : "right"}>
+    <TippyCustom
+      content={<FormattedMessage id="Navbar.create" />}
+      place={tippy === true ? "top" : "right"}
+    >
       <div
         className={cx("nav_item", modal && "active", page === 3 && "border")}
         onClick={handleToggle}
@@ -49,7 +53,9 @@ const CreateComp: FC<CreateCompProps> = ({
             strokeWidth={page === 3 ? "2.5" : "1.5"}
           />
         </div>
-        <span>Create</span>
+        <span>
+          <FormattedMessage id="Navbar.create" />
+        </span>
       </div>
     </TippyCustom>
   ) : (
@@ -63,7 +69,9 @@ const CreateComp: FC<CreateCompProps> = ({
           strokeWidth={page === 3 ? "2.5" : "1.5"}
         />
       </div>
-      <span>Create</span>
+      <span>
+        <FormattedMessage id="Navbar.create" />
+      </span>
     </div>
   );
 };

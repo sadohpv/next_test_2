@@ -1,0 +1,48 @@
+.wrapper {
+  width: 100%;
+  // height: 60px;
+  // background-color: var(--hover-color);
+  padding: 8px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .main {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  flex: 1;
+
+  }
+  .avatar {
+    display: flex;
+    height: 44px;
+    width: 44px;
+  }
+  .infor {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+
+    .username {
+      font-family: "IgMedium";
+    }
+    .fullname {
+      font-family: "IgLight";
+      user-select: none;
+    }
+  }
+}
+
+.button_follow {
+  display: flex;
+  align-items: center;
+  color: var(--primary-color);
+  font-family: IgMedium;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover {
+    color: var(--primary-color-hover);
+  }
+}

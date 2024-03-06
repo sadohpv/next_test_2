@@ -5,7 +5,8 @@ import styles from "$comp/Navbar/NotifyComp.module.scss";
 import { HeartIcon } from "~/assets/icon";
 import { usePathname } from "next/navigation";
 import { FC, useState } from "react";
-import TippyCustom from "~/utility/TooltipCustom";
+import TippyCustom from "~/utility/Tippy/TooltipCustom";
+import { FormattedMessage } from "react-intl";
 const cx = classNames.bind(styles);
 interface NotifyCompProps {
   setModal: (modal: boolean) => void;
@@ -35,8 +36,11 @@ const NotifyComp: FC<NotifyCompProps> = ({
       setModal(true);
     }
   };
-  return tippy!==null ? (
-    <TippyCustom content={"Notify"} place={tippy === true ? "top" : "right"}>
+  return tippy !== null ? (
+    <TippyCustom
+      content={<FormattedMessage id="Navbar.notify" />}
+      place={tippy === true ? "top" : "right"}
+    >
       <div
         className={cx("nav_item", modal && "active", page === 2 && "border")}
         onClick={handleToggle}
@@ -44,7 +48,9 @@ const NotifyComp: FC<NotifyCompProps> = ({
         <div className={cx("icon")}>
           <HeartIcon fill={page === 2 ? "var(--text-color)" : "none"} />
         </div>
-        <span>Notify</span>
+        <span>
+          <FormattedMessage id="Navbar.notify" />
+        </span>
       </div>
     </TippyCustom>
   ) : (
@@ -55,7 +61,9 @@ const NotifyComp: FC<NotifyCompProps> = ({
       <div className={cx("icon")}>
         <HeartIcon fill={page === 2 ? "var(--text-color)" : "none"} />
       </div>
-      <span>Notify</span>
+      <span>
+        <FormattedMessage id="Navbar.notify" />
+      </span>
     </div>
   );
 };

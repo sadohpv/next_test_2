@@ -1,0 +1,11 @@
+.tippy-box[data-theme~='element'][data-placement~='bottom-start'] {
+    /* margin-left     : -2px; */
+    background-color: transparent !important;
+
+}
+
+.tippy-box[data-theme~='element'] .tippy-content {
+    padding: 0 !important;
+    /* background-color: transparent !important; */
+
+}

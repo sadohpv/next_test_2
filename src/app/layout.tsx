@@ -5,6 +5,7 @@ import Navbar from "~/components/Navbar/Navbar";
 import styles from "$app/App.module.scss";
 import classNames from "classnames/bind";
 import NavbarSearch from "~/components/Navbar/NavbarSearch";
+import IntlProviderWrapper from "~/utility/Language/IntlProviderWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 const cx = classNames.bind(styles);
@@ -20,16 +21,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className={cx("boss")}>
-          <nav>
-            <NavbarSearch />
+      <IntlProviderWrapper>
+        <body className={inter.className}>
+          <div className={cx("boss")}>
+            <nav>
+              <NavbarSearch />
 
-            <Navbar />
-          </nav>
-          <div className={cx("body")}>{children}</div>
-        </div>
-      </body>
+              <Navbar />
+            </nav>
+            <div className={cx("body")}>{children}</div>
+          </div>
+        </body>
+      </IntlProviderWrapper>
     </html>
   );
 }

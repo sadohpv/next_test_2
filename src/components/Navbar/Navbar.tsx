@@ -9,7 +9,9 @@ import NotifyComp from "./NotifyComp";
 import SearchComp from "./SearchComp";
 import CreateComp from "./CreateComp";
 import { useWindowSize } from "usehooks-ts";
-import TooltipCustom from "~/utility/TooltipCustom";
+import TooltipCustom from "~/utility/Tippy/TooltipCustom";
+import TippyCustom from "~/utility/Tippy/TooltipCustom";
+import { FormattedMessage } from "react-intl";
 const cx = classNames.bind(styles);
 
 function Navbar() {
@@ -55,7 +57,9 @@ function Navbar() {
             )}
             {(page !== 0 || router !== "/") && <HomeIcon />}
           </div>
-          <span>Home</span>
+          <span>
+            <FormattedMessage id="Navbar.home"/>
+          </span>
         </Link>
 
         <SearchComp

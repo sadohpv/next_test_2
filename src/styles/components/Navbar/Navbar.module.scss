@@ -43,7 +43,7 @@
   .nav_item {
     animation: short_navbar_item 0.5s ease-in-out forwards;
     span {
-      animation: short_navbar_item_title 0.5s ease-in-out forwards;
+      animation: short_navbar_item_title 0.2s ease-in-out forwards;
     }
   }
 }
@@ -98,8 +98,8 @@
     opacity: 0;
     display: none;
   }
-  50% {
-    opacity: 0.5;
+  60% {
+    opacity: 0;
     display: block;
   }
   100% {

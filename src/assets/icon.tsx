@@ -93,16 +93,12 @@ export const CreateIcon = ({
     </svg>
   );
 };
-export const AvatarDefault = ({
-  width = "24px",
-  height = "24px",
-}) => {
+export const AvatarDefault = ({ width = "24px", height = "24px" }) => {
   return (
     <svg
       fill="#000000"
       width={width}
       height={height}
-      
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 512 512"
@@ -121,6 +117,39 @@ export const AvatarDefault = ({
           />
         </g>
       </g>
+    </svg>
+  );
+};
+export const CopyRightIcon = ({ width = "24px", height = "24px" }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 256 256"
+      id="copyright"
+      width={width}
+      height={height}
+      fill="#ffffff"
+
+    >
+      <rect width="256" height="256" fill="none"></rect>
+      <circle
+        cx="128"
+        cy="128"
+        r="96"
+        fill="none"
+        stroke="#ffffff"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="16"
+      ></circle>
+      <path
+        fill="none"
+        stroke="#ffffff"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="16"
+        d="M160.00112,152.00142a40,40,0,1,1-.00029-48.013"
+      ></path>
     </svg>
   );
 };

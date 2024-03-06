@@ -1,13 +1,14 @@
 import Tippy, { TippyProps } from "@tippyjs/react";
 import React, { ReactNode, ReactElement } from "react";
 import "tippy.js/animations/scale.css";
-
 import "tippy.js/dist/tippy.css";
+import "./TippyCustom.css";
 interface TippyCustomProps {
   children: ReactElement;
   content: string | ReactElement;
-  place?: "top" | "bottom" | "left" | "right" | "auto";
+  place?: "top" | "bottom" | "left" | "right" | "auto" |"bottom-start";
   haveClick?: boolean;
+  theme?: undefined | string;
 }
 
 const TippyCustom: React.FC<TippyCustomProps> = ({
@@ -15,6 +16,7 @@ const TippyCustom: React.FC<TippyCustomProps> = ({
   content,
   place = "auto",
   haveClick = false,
+  theme = "",
 }) => {
   return (
     <Tippy
@@ -22,10 +24,12 @@ const TippyCustom: React.FC<TippyCustomProps> = ({
       arrow={false}
       placement={place}
       animation={"scale"}
-      trigger={haveClick === true ? "click" : "mouseenter"}
+      // trigger={haveClick === true ? "click" : "mouseenter"}
       zIndex={9999}
       interactive={haveClick}
       // popperOptions={['bottom', 'right']}
+      theme={theme}
+      
     >
       {children}
     </Tippy>

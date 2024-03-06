@@ -18,7 +18,7 @@ const Avatar: FC<AvatarProps> = ({ src, link = "#", size = "36" }) => {
       {src ? (
         <img src={src} alt="Avatar" />
       ) : (
-        <AvatarDefault width={`${size}`} height={`${size}`} />
+        <AvatarDefault width={`${30}`} height={`${30}`} />
       )}
     </Link>
   );

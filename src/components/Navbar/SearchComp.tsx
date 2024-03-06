@@ -5,7 +5,8 @@ import styles from "$comp/Navbar/SearchComp.module.scss";
 import { SearchIcon } from "~/assets/icon";
 import { usePathname } from "next/navigation";
 import { FC, useState } from "react";
-import TooltipCustom from "~/utility/TooltipCustom";
+import TooltipCustom from "~/utility/Tippy/TooltipCustom";
+import { FormattedMessage } from "react-intl";
 const cx = classNames.bind(styles);
 interface SearchCompProps {
   setModal: (modal: boolean) => void;
@@ -34,8 +35,11 @@ const SearchComp: FC<SearchCompProps> = ({
       setModal(true);
     }
   };
-  return tippy !==null ? (
-    <TooltipCustom content="Search" place={tippy === true ? "top" : "right"}>
+  return tippy !== null ? (
+    <TooltipCustom
+      content={<FormattedMessage id="Navbar.search" />}
+      place={tippy === true ? "top" : "right"}
+    >
       <div
         className={cx("nav_item", modal && "active", page === 1 && "border")}
         onClick={handleToggle}
@@ -46,7 +50,9 @@ const SearchComp: FC<SearchCompProps> = ({
             strokeWidth={page === 1 ? "3" : "none"}
           />
         </div>
-        <span>Search</span>
+        <span>
+          <FormattedMessage id="Navbar.search" />
+        </span>
       </div>
     </TooltipCustom>
   ) : (
@@ -60,7 +66,9 @@ const SearchComp: FC<SearchCompProps> = ({
           strokeWidth={page === 1 ? "3" : "none"}
         />
       </div>
-      <span>Search</span>
+      <span>
+        <FormattedMessage id="Navbar.search" />
+      </span>
     </div>
   );
 };
