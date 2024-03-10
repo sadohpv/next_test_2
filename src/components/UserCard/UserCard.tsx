@@ -12,16 +12,18 @@ const cx = classNames.bind(styles);
 export default function UserCard() {
   return (
     <div className={cx("wrapper")}>
-      <TippyCustom
-        content={<UserCardHover />}
-        haveClick
-        theme="element"
-        place="bottom-start"
-      >
-        <div className={cx("avatar")}>
-          <Avatar size={32} />
-        </div>
-      </TippyCustom>
+      <span>
+        <TippyCustom
+          content={<UserCardHover />}
+          haveClick
+          theme="element"
+          place="bottom-start"
+        >
+          <div className={cx("avatar")}>
+            <Avatar size={32} />
+          </div>
+        </TippyCustom>
+      </span>
       <div className={cx("infor")}>
         <Link href={`/#`} className={cx("username")}>
           <span>kusa.kari.2110</span>

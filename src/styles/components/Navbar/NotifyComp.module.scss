@@ -2,12 +2,14 @@
   width: 220px;
   height: 48px;
   display: flex;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 12px;
   font-size: 16px;
   gap: 16px;
   position: relative;
   animation: navbar_item 0.5s ease-in-out forwards;
+  color: var(--text-color);
+
   span {
     animation: navbar_item_title 0.5s ease-in-out forwards;
   }
@@ -36,7 +38,7 @@
     left: 0px;
     border-radius: var(--border-navbar-button);
 
-    border: 2px solid white;
+    border: 2px solid var(--text-color);
   }
 }
 @keyframes navbar_item {

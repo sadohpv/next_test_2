@@ -7,7 +7,14 @@
     "home": "Home",
     "search": "Search",
     "notify": "Notifications",
-    "create": "Create"
+    "create": "Create",
+    "setting" : "Settings",
+    "more" : "More",
+    "language" : "Language",
+    "Theme" : "Theme",
+    "Light" : "Light",
+    "Dark" : "Dark"
+
   },
   "Submain": {
     "suggested": "Suggested for you",

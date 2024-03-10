@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { CopyRightIcon } from "~/assets/icon";
 import Submain from "~/components/App/Submain";
 import { FormattedMessage } from "react-intl";
+import { useSelector } from "react-redux";
+
 const cx = classNames.bind(styles);
 
 export default function Home() {
@@ -29,6 +31,8 @@ export default function Home() {
     }
   }, []);
 //  console.log(width);
+  // const theme = useSelector((state:any) =>state.app.theme);
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("main")}>

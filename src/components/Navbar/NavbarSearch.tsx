@@ -5,9 +5,9 @@ import styles from "$comp/Navbar/NavbarSearch.module.scss";
 import { CreateIcon, HeartIcon, HomeIcon, SearchIcon } from "~/assets/icon";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import NotifyComp from "./NotifyComp";
-import SearchComp from "./SearchComp";
-import CreateComp from "./CreateComp";
+import NotifyComp from "./NotifyComps/NotifyComp";
+import SearchComp from "./SearchComps/SearchComp";
+import CreateComp from "./CreateComps/CreateComp";
 import { useMediaQuery } from "usehooks-ts";
 const cx = classNames.bind(styles);
 

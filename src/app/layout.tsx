@@ -6,7 +6,8 @@ import styles from "$app/App.module.scss";
 import classNames from "classnames/bind";
 import NavbarSearch from "~/components/Navbar/NavbarSearch";
 import IntlProviderWrapper from "~/utility/Language/IntlProviderWrapper";
-
+import ReduxProvider from "~/redux/ReduxProvider";
+import ThemeProviderWrapper from "~/utility/Themes/ThemeProvider";
 const inter = Inter({ subsets: ["latin"] });
 const cx = classNames.bind(styles);
 export const metadata: Metadata = {
@@ -21,18 +22,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <IntlProviderWrapper>
+      <ReduxProvider>
         <body className={inter.className}>
           <div className={cx("boss")}>
-            <nav>
-              <NavbarSearch />
+            <ThemeProviderWrapper>
+              <IntlProviderWrapper>
+                <nav>
+                  <NavbarSearch />
 
-              <Navbar />
-            </nav>
-            <div className={cx("body")}>{children}</div>
+                  <Navbar />
+                </nav>
+                <div className={cx("body")}>{children}</div>
+              </IntlProviderWrapper>
+            </ThemeProviderWrapper>
           </div>
         </body>
-      </IntlProviderWrapper>
+      </ReduxProvider>
     </html>
   );
 }

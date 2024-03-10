@@ -7,7 +7,14 @@
     "home": "Trang chủ",
     "search": "Tìm kiếm",
     "notify": "Thông báo",
-    "create": "Tạo"
+    "create": "Tạo",
+    "setting" : "Cài đặt",
+    "more" : "Thêm",
+    "language" : "Ngôn ngữ",
+    "Theme" : "Giao Diện",
+    "Light" : "Sáng",
+    "Dark" : "Tối"
+
   },
   "Submain": {
     "suggested": "Gợi ý cho bạn",

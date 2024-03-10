@@ -3,10 +3,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  position: relative;
   top: 0;
   padding: 8px 12px;
   gap: 3px;
   animation: navbar 0.5s ease-in-out forwards;
+  box-shadow: 0 0 6px 2px var(--nav-shadow);
+  &:before {
+    content: " ";
+    position: absolute;
+    height: 100%;
+    width: 1px;
+    background-color: var(--nav-shadow);
+    top: 0;
+    right: 0;
+  }
   .logo {
     height: 60px;
   }
@@ -18,7 +30,8 @@
     padding: 12px;
     font-size: 16px;
     gap: 16px;
-    // background-color: red;
+    color: var(--text-color);
+
     animation: navbar_item 0.5s ease-in-out forwards;
     span {
       animation: navbar_item_title 0.5s ease-in-out forwards;
@@ -46,6 +59,15 @@
       animation: short_navbar_item_title 0.2s ease-in-out forwards;
     }
   }
+}
+.nav_first {
+  display: flex;
+  flex-direction: column;
+}
+.nav_last {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .disable {
   cursor: default;
@@ -138,10 +160,10 @@
         width: 42px !important;
         height: 42px;
         padding: 9px;
-        div{
-          padding:0;
+        div {
+          padding: 0;
         }
-        &::before{
+        &::before {
           width: 42px;
           height: 42px;
         }
@@ -151,4 +173,12 @@
       }
     }
   }
+  .nav_first {
+    width: 100%;
+  }
+  .nav_last {
+    display: none;
+  }
 }
+
+// Nav Modal
