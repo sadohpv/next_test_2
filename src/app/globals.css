@@ -24,7 +24,8 @@
 
 :root {
 
-  --background-color      : #202020;
+  --background-color      : black;
+  --background-color-hover: #202020;
   --nav-shadow            : rgba(27, 27, 27, 0.491);
   --hover-color           : #313131;
   --text-color            : white;
@@ -32,6 +33,8 @@
   --primary-color         : #14acfc;
   --primary-color-hover   : #e0f1ff;
   --background-color-modal: #e0f1ff;
+  --white-color           : white;
+  --black-color           : black;
 }
 
 
@@ -70,30 +73,72 @@ ul {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: black;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   /* background: rgba(234, 234, 234, 0.214); */
   border-radius: 10px;
-  background   : var(--text-color);
+  background   : white;
+}
+
+/* Navbar */
+nav {
+  display         : flex;
+  height          : 100vh;
+  background-color: var(--background-color);
+  max-width       : 244px;
+  min-width       : 72px;
+
+  position: fixed;
+  left    : 0;
+}
+
+@media (max-width: 768px) {
+
+  nav {
+    width    : 100%;
+    height   : 48px;
+    bottom   : 0;
+    min-width: 100%;
+
+  }
+
+
 }
 
 /* THEME */
 
 .theme-dark,
 .theme-light {
-  width  : 100%;
-  display: flex;
+  width   : 100%;
+  display : flex;
+  position: relative;
 }
 
 .theme-light {
-  --text-color      : black;
-  --background-color: white;
-  --hover-color     : #e9e9e9;
+  --text-color         : black;
+  --background-color   : white;
+  --hover-color        : #e9e9e9;
+  --white-color        : black;
+  --black-color        : white;
+  --primary-color-hover: #282828;
+
 }
 
 .theme-dark {
   --background-color-modal: #282828;
+}
+
+.theme-light::before,
+.theme-dark::before {
+  content         : "";
+  height          : 100%;
+  width           : 2px;
+  background-color: black;
+  position        : absolute;
+  top             : 0;
+  right           : 0;
+
 }

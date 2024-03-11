@@ -2,7 +2,13 @@
 import Link from "next/link";
 import classNames from "classnames/bind";
 import styles from "$comp/Navbar/Navbar.module.scss";
-import { CreateIcon, HeartIcon, HomeIcon, SearchIcon } from "~/assets/icon";
+import {
+  CreateIcon,
+  HeartIcon,
+  HomeIcon,
+  LogoIcon,
+  SearchIcon,
+} from "~/assets/icon";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import NotifyComp from "./NotifyComps/NotifyComp";
@@ -66,7 +72,16 @@ function Navbar() {
   return (
     <div className={cx("navbar", modal && "short")}>
       <div className={cx("nav_first")}>
-        <div className={cx("logo")}>Logo ZOOI</div>
+        <Link href={"/"} onClick={handleNavigate}>
+          <div className={cx("logo")}>
+            <div className={cx("logo_icon")}>
+              <LogoIcon />
+            </div>
+            <div className={cx("logo_title")}>
+              <span>ZOOI</span>
+            </div>
+          </div>
+        </Link>
         <div className={cx("nav_box")}>
           <Link
             className={cx("nav_item", page === 0 && "disable")}
@@ -111,13 +126,7 @@ function Navbar() {
       </div>
       {navLast === true && (
         <div className={cx("nav_last")}>
-          <MoreNavComp
-            page={page}
-            setPage={setPage}
-            setModal={setModal}
-            modal={modal}
-            tippy={tippy}
-          />
+          <MoreNavComp tippy={tippy} modal={modal} position="top" />
         </div>
       )}
     </div>

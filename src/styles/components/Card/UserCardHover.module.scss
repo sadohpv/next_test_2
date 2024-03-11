@@ -102,13 +102,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--text-color);
     span {
       user-select: none;
       font-family: IgMedium;
     }
     &:hover {
       background-color: var(--primary-color-hover);
-      color: black;
+      color: var(--background-color);
     }
   }
 }

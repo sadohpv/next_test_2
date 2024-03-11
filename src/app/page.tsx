@@ -8,6 +8,8 @@ import { CopyRightIcon } from "~/assets/icon";
 import Submain from "~/components/App/Submain";
 import { FormattedMessage } from "react-intl";
 import { useSelector } from "react-redux";
+import NavbarSearch from "~/components/Navbar/NavbarSearch";
+import Navbar from "~/components/Navbar/Navbar";
 
 const cx = classNames.bind(styles);
 
@@ -30,17 +32,20 @@ export default function Home() {
       setSubmain(false);
     }
   }, []);
-//  console.log(width);
+  //  console.log(width);
   // const theme = useSelector((state:any) =>state.app.theme);
 
   return (
-    <div className={cx("wrapper")}>
-      <div className={cx("main")}>
-      
+    <>
+      <nav>
+        <NavbarSearch />
+
+        <Navbar />
+      </nav>
+      <div className={cx("wrapper")}>
+        <div className={cx("main")}></div>
+        {submain && <Submain />}
       </div>
-      {submain && (
-        <Submain />
-      )} 
-    </div>
+    </>
   );
 }

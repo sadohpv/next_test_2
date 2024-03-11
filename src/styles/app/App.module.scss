@@ -5,21 +5,14 @@
   height: 100%;
   display: flex;
   font-family: "IgNormal";
-  nav {
-    display: flex;
-    height: 100vh;
-    background-color: var(--background-color);
-    max-width: 244px;
-    min-width: 72px;
-    // font-family: "IgLigh";
-    position: fixed;
-    // width: inherit;
-  }
 
   .body {
     flex: 1;
-    padding-left: 244px;
+    // padding-left: 244px;
+    background-color: var(--background-color);
+
     .wrapper {
+       padding-left: 244px;
       background-color: var(--background-color);
     }
   }
@@ -28,7 +21,9 @@
 @media (max-width: 1260px) {
   .boss {
     .body {
-      padding-left: 72px;
+      .wrapper {
+        padding-left: 72px;
+      }
     }
   }
 }
@@ -173,7 +168,7 @@
       width: 100%;
       height: 1px;
       background-color: var(--nav-shadow);
-    bottom: 0;
+      bottom: 0;
       left: 0;
     }
     .recommend_title {
@@ -182,11 +177,12 @@
     }
     .recommend_button {
       // font-family: IgLight;
+      color: var(--text-color);
       cursor: pointer;
       span {
         &:hover {
           text-decoration: underline;
-          color: var(--primary-color-hover);
+          color: var(--primary-color);
         }
       }
     }

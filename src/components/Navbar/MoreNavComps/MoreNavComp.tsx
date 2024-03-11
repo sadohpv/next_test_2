@@ -10,46 +10,53 @@ import { FormattedMessage } from "react-intl";
 
 import MoreNavModal from "./MoreNavModal";
 const cx = classNames.bind(styles);
-interface SettingCompProps {
-  setModal: (modal: boolean) => void;
-  modal: boolean;
-  tippy: boolean | null;
-  page: number;
-  setPage: (page: number) => void;
+interface MoreNavCompProps {
+  tippy?: boolean | null;
+  modal?: boolean;
+  position: "top" | "bottom-left" | "left" | "right";
 }
 
-const SettingComp: FC<SettingCompProps> = ({
-  setModal,
+const MoreNavComp: FC<MoreNavCompProps> = ({
   modal,
-  page,
-  setPage,
   tippy,
+  position = "top",
 }) => {
   const [active, setActive] = useState<boolean>(false);
   // console.log(router);
   const router = usePathname();
   const handleToggle = () => {
-    if (page === 4) {
-      setPage(0);
-      // setModal(false);
-    } else {
-      setPage(4);
-      // setModal(true);
-    }
+    setActive(!active);
+    // if (page === 4) {
+    //   setPage(0);
+    //   // setModal(false);
+    // } else {
+    //   setPage(4);
+    //   // setModal(true);
+    // }
   };
   return tippy !== null ? (
     <>
-      {page === 4 && (
-        <div className={cx("modal")}>
+      {active === true && (
+        <div className={cx("modal", position)}>
           <MoreNavModal />
         </div>
       )}
       <TooltipCustom
         content={<FormattedMessage id="Navbar.more" />}
-        place={tippy === true ? "top" : "right"}
+        place={
+          tippy === true
+            ? "top"
+            : position === "bottom-left"
+            ? "bottom"
+            : "right"
+        }
       >
         <div
-          className={cx("nav_item", modal && "active", page === 4 && "border")}
+          className={cx(
+            "nav_item",
+            modal && "active",
+            active === true && "border"
+          )}
           onClick={handleToggle}
         >
           <div className={cx("icon")}>
@@ -66,13 +73,18 @@ const SettingComp: FC<SettingCompProps> = ({
     </>
   ) : (
     <>
-      {page === 4 && (
-        <div className={cx("modal")}>
+      {active === true && (
+        <div className={cx("modal", position)}>
           <MoreNavModal />
         </div>
       )}
       <div
-        className={cx("nav_item", modal && "active", page === 4 && "border")}
+        className={cx(
+          "nav_item",
+          modal && "active",
+
+          active === true && "border"
+        )}
         onClick={handleToggle}
       >
         <div className={cx("icon")}>
@@ -86,4 +98,4 @@ const SettingComp: FC<SettingCompProps> = ({
   );
 };
 
-export default SettingComp;
+export default MoreNavComp;

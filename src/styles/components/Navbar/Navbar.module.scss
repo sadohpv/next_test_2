@@ -21,6 +21,27 @@
   }
   .logo {
     height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding: 0 6px;
+    .logo_icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo_title {
+      font-size: 18px;
+      font-family: IgBold;
+      letter-spacing: 2px;
+      color: var(--text-color);
+      animation: navbar_item_title 0.5s ease-in-out forwards;
+    }
   }
   .nav_item {
     width: 220px;
@@ -53,6 +74,11 @@
 }
 .short {
   animation: short_navbar 0.5s ease-in-out forwards;
+  .logo {
+    .logo_title {
+      animation: short_navbar_item_title 0.2s ease-in-out forwards;
+    }
+  }
   .nav_item {
     animation: short_navbar_item 0.5s ease-in-out forwards;
     span {
@@ -66,8 +92,10 @@
 }
 .nav_last {
   width: 100%;
+  height: 48px;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .disable {
   cursor: default;
@@ -133,6 +161,11 @@
 @media (max-width: 1260px) {
   .navbar {
     width: 72px !important;
+    .logo {
+      .logo_title {
+        display: none;
+      }
+    }
     .nav_box {
       a,
       div {

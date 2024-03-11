@@ -1,6 +1,6 @@
 .nav_item {
-  width: 220px;
-  height: 48px;
+  width: 100%;
+  height: 100%;
   display: flex;
   color: var(--text-color);
 
@@ -22,8 +22,8 @@
 }
 
 .active {
-  width: 48px;
-  height: 48px;
+  width: 100%;
+  height: 100%;
 
   animation: short_navbar_item 0.5s ease-in-out forwards;
   span {
@@ -62,7 +62,17 @@
     }
   }
 }
-
+@media (max-width: 768px) {
+  .nav_item {
+    width: 40px !important;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    span {
+      display: none;
+    }
+  }
+}
 // Animation
 @keyframes short_navbar_item {
   0% {
@@ -125,7 +135,17 @@
     opacity: 0.3;
   }
   to {
-    left: 12px;
+    left: 0px;
+    opacity: 1;
+  }
+}
+@keyframes modal-bottom-left {
+  from {
+    right: -20px;
+    opacity: 0.3;
+  }
+  to {
+    right: 0px;
     opacity: 1;
   }
 }
@@ -135,15 +155,21 @@
   height: 405px;
   background-color: var(--background-color-modal);
   position: absolute;
-  bottom: 60px;
+  // bottom: 60px;
   border-radius: 12px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   animation: modal 0.5s ease-in-out forwards;
   padding: 8px;
-  
-
+}
+.top {
+  bottom: 60px;
+}
+.bottom-left {
+  top: 60px;
+  right: 0;
+  animation: modal-bottom-left 0.5s ease-in-out forwards;
 }
 .more_item {
   width: 100%;
@@ -164,7 +190,6 @@
   .more_icon {
     font-size: 16px;
     pointer-events: none;
-
   }
   .language_button {
     flex: 1;

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "~/components/Navbar/Navbar";
+
 import styles from "$app/App.module.scss";
 import classNames from "classnames/bind";
-import NavbarSearch from "~/components/Navbar/NavbarSearch";
+
 import IntlProviderWrapper from "~/utility/Language/IntlProviderWrapper";
 import ReduxProvider from "~/redux/ReduxProvider";
 import ThemeProviderWrapper from "~/utility/Themes/ThemeProvider";
@@ -22,22 +22,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ReduxProvider>
-        <body className={inter.className}>
-          <div className={cx("boss")}>
+      <body className={inter.className}>
+        <div className={cx("boss")}>
+          <ReduxProvider>
             <ThemeProviderWrapper>
-              <IntlProviderWrapper>
-                <nav>
-                  <NavbarSearch />
-
-                  <Navbar />
-                </nav>
-                <div className={cx("body")}>{children}</div>
-              </IntlProviderWrapper>
+              <div className={cx("body")}>
+                <IntlProviderWrapper>{children}</IntlProviderWrapper>
+              </div>
             </ThemeProviderWrapper>
-          </div>
-        </body>
-      </ReduxProvider>
+          </ReduxProvider>
+        </div>
+      </body>
     </html>
   );
 }

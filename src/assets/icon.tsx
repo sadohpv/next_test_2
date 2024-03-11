@@ -217,3 +217,50 @@ export const MoonIcon = ({ width = "24px", height = "24px" }) => {
     </svg>
   );
 };
+export const LogoIcon = ({ width = "24px", height = "24px" }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      width="60px"
+      height="60px"
+      viewBox="0 0 60 60"
+      version="1.1"
+    >
+      <g id="surface1">
+        <rect
+          x="0"
+          y="0"
+          width="60"
+          height="60"
+          fillOpacity="1"
+          fill="var(--white-color)"
+        />
+        <path
+          fillOpacity="0"
+          strokeWidth="2"
+          stroke="var(--black-color)"
+          d="M 19.816406 36.078125 L 35.042969 15.90625 L 42.804688 15.90625 L 27.578125 36.078125 L 19.816406 36.078125 "
+        />
+        <path
+          fillOpacity="0"
+          strokeWidth="2"
+          stroke="var(--black-color)"
+          d="M 29.539062 36.078125 L 37.34375 25.738281 L 45.105469 25.738281 L 37.300781 36.078125 L 29.539062 36.078125 "
+        />
+        <path
+          fillOpacity="0"
+          strokeWidth="2"
+          stroke="var(--black-color)"
+          d="M 46.164062 37.433594 L 18.863281 37.429688 L 13.835938 44.089844 L 37.433594 44.09375 C 42.148438 44.09375 44.894531 42.175781 46.164062 37.433594 "
+        />
+        <path
+          fillOpacity="0"
+          strokeWidth="2"
+          stroke="var(--black-color)"
+          d="M 15.25 22.09375 L 28.714844 22.09375 L 33.382812 15.90625 L 13.835938 15.90625 L 15.25 22.09375 "
+        />
+      </g>
+    </svg>
+  );
+};
