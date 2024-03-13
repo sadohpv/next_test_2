@@ -1,7 +1,13 @@
 {
-  "Home": {
-    "story": "Tin",
-    "reels": "Video ngắn"
+  "Login": {
+    "Login": "Đăng Nhập",
+    "Email": "Email",
+    "Password" : "Mật khẩu",
+    "Phonenumber" : "Số điện thoại",
+    "Register" : "Đăng ký",
+    "Username" : "Tên người dùng",
+    "Gender" : "Giới tính",
+    "Address" : "Địa chỉ"
   },
   "Navbar": {
     "home": "Trang chủ",

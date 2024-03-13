@@ -1,7 +1,13 @@
 {
-  "Home": {
-    "story": "Story",
-    "reels": "Reels"
+  "Login": {
+    "Login": "Login",
+    "Email": "Email",
+    "Password" : "Password",
+    "Phonenumber" : "Phone number",
+    "Register" : "Register",
+    "Username" : "Username",
+    "Gender" : "Gender",
+    "Address" : "Address"
   },
   "Navbar": {
     "home": "Home",
