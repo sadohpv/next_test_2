@@ -5,6 +5,9 @@ import styles from "$app/auth/Login.module.scss";
 import FallingStars from "~/components/Funny/FallingStars";
 import { FormattedMessage } from "react-intl";
 import Link from "next/link";
+import TippyCustom from "~/utility/Tippy/TooltipCustom";
+import Candle from "~/components/Funny/Candle";
+import authServices from "~/services/authServices";
 
 const cx = classNames.bind(styles);
 
@@ -14,9 +17,65 @@ const LoginPage: FC<LoginPageProps> = () => {
   const [loginType, SetLoginType] = useState<boolean>(false);
   const [account, setAccount] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [notify, setNotify] = useState<string>(
+    "I will tell you if something went wrong !"
+  );
+  const [color, setColor] = useState<string>("white");
+  const handleLogin = async () => {
+    console.log(password === "");
+    if (password === "" || account === "") {
+      setColor("red");
+      setNotify("Missing data!");
+    } else {
+      if (loginType === false) {
+        let emailRegex = /^[a-zA-Z0-9._]+(@gmail.com)$/;
 
-  const handleLogin = () => {
-    alert(account);
+        if (emailRegex.test(account)) {
+          setColor("yellow");
+          setNotify("Processing...");
+          const res = await authServices.handleLogin(
+            account,
+            password,
+            loginType
+          );
+          console.log(res);
+          if (res) {
+            if (res.result !== undefined) {
+              console.log("Login");
+              setColor("green");
+
+              setNotify("OK ! Let go");
+            } else {
+              if (res.data !== undefined) {
+                setColor("red");
+
+                setNotify(res.data.MS);
+              }
+            }
+          } else {
+            setColor("red");
+            setNotify("Something wrong! Try again later");
+          }
+        } else {
+          setColor("red");
+          setNotify("Invalid email");
+        }
+      } else {
+        let phoneRegex = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
+
+        if (phoneRegex.test(account)) {
+          const res = await authServices.handleLogin(
+            account,
+            password,
+            loginType
+          );
+          console.log(res);
+        } else {
+          setColor("red");
+          setNotify("Invalid phone number");
+        }
+      }
+    }
   };
   const handleSwitchAccountLogin = () => {
     SetLoginType(!loginType);
@@ -99,6 +158,11 @@ const LoginPage: FC<LoginPageProps> = () => {
           </div>
         </div>
       </div>
+      <TippyCustom content={notify}>
+        <div className={cx("notify_box")}>
+          <Candle color={color} />
+        </div>
+      </TippyCustom>
     </div>
   );
 };

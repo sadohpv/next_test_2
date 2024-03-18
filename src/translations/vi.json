@@ -7,7 +7,8 @@
     "Register" : "Đăng ký",
     "Username" : "Tên người dùng",
     "Gender" : "Giới tính",
-    "Address" : "Địa chỉ"
+    "Address" : "Địa chỉ",
+    "Re_Password" : "Nhập lại mật khẩu"
   },
   "Navbar": {
     "home": "Trang chủ",

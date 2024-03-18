@@ -7,7 +7,8 @@
     "Register" : "Register",
     "Username" : "Username",
     "Gender" : "Gender",
-    "Address" : "Address"
+    "Address" : "Address",
+    "Re_Password" : "Re-Password"
   },
   "Navbar": {
     "home": "Home",
