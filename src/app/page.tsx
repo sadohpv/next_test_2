@@ -18,6 +18,7 @@ export default function Home() {
   // console.log(submain);
   const [submain, setSubmain] = useState<boolean>(true);
   const { width = 0, height = 0 } = useWindowSize();
+  const auth = useSelector<any>((state)=>state.auth.auth);
   useEffect(() => {
     if (width >= 1160) {
       setSubmain(true);
@@ -31,6 +32,13 @@ export default function Home() {
     } else {
       setSubmain(false);
     }
+
+    async function fetchData() {
+      if(sessionStorage.getItem("auth") != "true"){
+        console.log("Call API to validator token and set session");
+      }
+    }
+    fetchData();
   }, []);
   //  console.log(width);
   // const theme = useSelector((state:any) =>state.app.theme);

@@ -10,24 +10,14 @@ export function middleware(request: NextRequest) {
     //If is public path
     return NextResponse.next();
   } else {
-    if (request.cookies.get("nextjs")) {
+   
+    if (request.cookies.get("accessToken")) {
       console.log("Cookie exist");
     } else {
-      console.log("Cookies don't exist");
-
-      // return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(new URL("/login", request.url));
     }
   }
-  // console.log(path);
-
-  // if (
-
-  //   request.nextUrl.pathname.startsWith("/login") === false
-  // ) {
-  //   console.log("Navigate Login : ", request.nextUrl.pathname);
-
-  //   return NextResponse.redirect(new URL("/login", request.url));
-  // }
+  
 }
 
 export const config = {

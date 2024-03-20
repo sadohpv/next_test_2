@@ -1,19 +1,27 @@
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const instance = axios.create({
+  withCredentials: true,
   baseURL: "http://localhost:2110",
   headers: {
-    "Access-Control-Allow-Origin": "*",
-    withCredentials: true, // false nếu muốn chặn server set cookies
+    
+    "Access-Control-Allow-Headers": "http://localhost:2110",
+    "Access-Control-Allow-Credentials": "true",
+
+    "Content-Type": "application/json",
   },
 });
 
 instance.interceptors.response.use(
   (response: any) => {
    
+
     return response.data ? response.data : response.status;
   },
   (error: any) => {
+    
+
     let res: { data: any; status: any; headers: any; code: any } = {
       data: undefined,
       status: undefined,
@@ -31,7 +39,6 @@ instance.interceptors.response.use(
     }
 
     return res;
-  
   }
 );
 

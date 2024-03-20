@@ -1,3 +1,4 @@
+
 import axios from "~/utility/Axios/NestjsAPI";
 
 interface RegisterData {
@@ -23,6 +24,7 @@ interface ResponseLogin {
   result?: {
     EC: number;
     MS: string;
+    access_token: string;
   };
   status: number;
   data?: {

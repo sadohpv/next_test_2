@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "$app/auth/Login.module.scss";
 import FallingStars from "~/components/Funny/FallingStars";
@@ -8,7 +8,10 @@ import Link from "next/link";
 import TippyCustom from "~/utility/Tippy/TooltipCustom";
 import Candle from "~/components/Funny/Candle";
 import authServices from "~/services/authServices";
-
+import { useDispatch, useSelector } from "react-redux";
+import { handleLoginRedux } from "~/redux/actions/authAction";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 const cx = classNames.bind(styles);
 
 interface LoginPageProps {}
@@ -21,8 +24,12 @@ const LoginPage: FC<LoginPageProps> = () => {
     "I will tell you if something went wrong !"
   );
   const [color, setColor] = useState<string>("white");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const dispatch = useDispatch<any>();
+  const auth = useSelector<any>((state) => state.auth.auth);
+  const router = useRouter();
   const handleLogin = async () => {
-    console.log(password === "");
     if (password === "" || account === "") {
       setColor("red");
       setNotify("Missing data!");
@@ -38,13 +45,16 @@ const LoginPage: FC<LoginPageProps> = () => {
             password,
             loginType
           );
-          console.log(res);
-          if (res) {
-            if (res.result !== undefined) {
-              console.log("Login");
-              setColor("green");
 
+          if (res && typeof res != "number") {
+            if (
+              res.result !== undefined &&
+              res.result.access_token !== undefined
+            ) {
+              setColor("green");
               setNotify("OK ! Let go");
+              dispatch(handleLoginRedux(true, res.result.access_token));
+              router.push("/");
             } else {
               if (res.data !== undefined) {
                 setColor("red");
@@ -96,74 +106,87 @@ const LoginPage: FC<LoginPageProps> = () => {
       setPassword(e.target.value.trim());
     }
   };
+
+  useEffect(() => {
+    if (sessionStorage.getItem("auth") == "true") {
+      router.push("/");
+    } else {
+      setLoading(true);
+    }
+  }, []);
+
   return (
-    <div className={cx("wrapper")}>
-      <div className={cx("falling_star")}>
-        <FallingStars />
-      </div>
-      <div className={cx("title")}>
-        <span>
-          <FormattedMessage id="Login.Login" />
-        </span>
-      </div>
-      <div className={cx("main")}>
-        <div className={cx("input_box")}>
-          <div className={cx("input_title")}>
-            <div
-              className={cx("switch_login", loginType && "login_active")}
-              onClick={handleSwitchAccountLogin}
-            >
-              <span>
-                <FormattedMessage id="Login.Email" />
-              </span>
-            </div>
-            <div
-              className={cx("switch_login", !loginType && "login_active")}
-              onClick={handleSwitchAccountLogin}
-            >
-              <span>
-                <FormattedMessage id="Login.Phonenumber" />
-              </span>
-            </div>
+    <>
+      {loading && (
+        <div className={cx("wrapper")}>
+          <div className={cx("falling_star")}>
+            <FallingStars />
           </div>
-          <input
-            value={account}
-            type="text"
-            placeholder="Email"
-            onChange={(e) => handleChangeAccount(e)}
-            onKeyDown={(e) => handleChangeKeyDown(e)}
-          />
-        </div>
-        <div className={cx("input_box")}>
-          <div className={cx("input_title")}>
-            <FormattedMessage id="Login.Password" />
-          </div>
-          <input
-            value={password}
-            type="password"
-            onChange={(e) => handleChangePassword(e)}
-            placeholder="Password"
-            onKeyDown={(e) => handleChangeKeyDown(e)}
-          />
-        </div>
-        <div className={cx("action")}>
-          <div className={cx("login_button")} onClick={handleLogin}>
+          <div className={cx("title")}>
             <span>
               <FormattedMessage id="Login.Login" />
             </span>
           </div>
-          <div className={cx("link_sign")}>
-            <span>If you don't have account please click | </span>
-            <Link href="/register"> Register </Link>
+          <div className={cx("main")}>
+            <div className={cx("input_box")}>
+              <div className={cx("input_title")}>
+                <div
+                  className={cx("switch_login", loginType && "login_active")}
+                  onClick={handleSwitchAccountLogin}
+                >
+                  <span>
+                    <FormattedMessage id="Login.Email" />
+                  </span>
+                </div>
+                <div
+                  className={cx("switch_login", !loginType && "login_active")}
+                  onClick={handleSwitchAccountLogin}
+                >
+                  <span>
+                    <FormattedMessage id="Login.Phonenumber" />
+                  </span>
+                </div>
+              </div>
+              <input
+                value={account}
+                type="text"
+                placeholder="Email"
+                onChange={(e) => handleChangeAccount(e)}
+                onKeyDown={(e) => handleChangeKeyDown(e)}
+              />
+            </div>
+            <div className={cx("input_box")}>
+              <div className={cx("input_title")}>
+                <FormattedMessage id="Login.Password" />
+              </div>
+              <input
+                value={password}
+                type="password"
+                onChange={(e) => handleChangePassword(e)}
+                placeholder="Password"
+                onKeyDown={(e) => handleChangeKeyDown(e)}
+              />
+            </div>
+            <div className={cx("action")}>
+              <div className={cx("login_button")} onClick={handleLogin}>
+                <span>
+                  <FormattedMessage id="Login.Login" />
+                </span>
+              </div>
+              <div className={cx("link_sign")}>
+                <span>If you don't have account please click | </span>
+                <Link href="/register"> Register </Link>
+              </div>
+            </div>
           </div>
+          <TippyCustom content={notify}>
+            <div className={cx("notify_box")}>
+              <Candle color={color} />
+            </div>
+          </TippyCustom>
         </div>
-      </div>
-      <TippyCustom content={notify}>
-        <div className={cx("notify_box")}>
-          <Candle color={color} />
-        </div>
-      </TippyCustom>
-    </div>
+      )}
+    </>
   );
 };
 
