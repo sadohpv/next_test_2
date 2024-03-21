@@ -39,7 +39,14 @@
     }
     .body {
       padding-left: 0;
+      .wrapper{
+        padding-left: 0;
+
+      }
     }
+  }
+  .main {
+    margin-top: 48px;
   }
 }
 // Content Home Page
@@ -193,8 +200,4 @@
   }
 }
 
-@media (max-width: 768px) {
-  .main {
-    margin-top: 48px;
-  }
-}
+

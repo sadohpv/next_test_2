@@ -1,13 +1,15 @@
 import { cookies } from "next/headers";
-import { LOGIN, REFRESH } from "../actions/authAction";
+import { LOGIN, REFRESH, HOLD_DATA_OWNER } from "../actions/authAction";
 interface AuthState {
   auth: boolean | null | string;
   token: string | null;
+  data: any;
 }
 
 const INITIAL_STATE: AuthState = {
   auth: false,
   token: null,
+  data: {},
 };
 
 const authReducer = (state: AuthState = INITIAL_STATE, action: any) => {
@@ -17,8 +19,6 @@ const authReducer = (state: AuthState = INITIAL_STATE, action: any) => {
 
       return {
         ...state,
-        auth: action.data.auth,
-        token: action.data.token,
       };
     case REFRESH:
       sessionStorage.setItem("auth", action.data.auth);
@@ -26,6 +26,12 @@ const authReducer = (state: AuthState = INITIAL_STATE, action: any) => {
       return {
         ...state,
         auth: action.data.auth,
+      };
+
+    case HOLD_DATA_OWNER:
+      return {
+        ...state,
+        data: action.data,
       };
     default:
       return state;

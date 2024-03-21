@@ -8,6 +8,7 @@ import classNames from "classnames/bind";
 import IntlProviderWrapper from "~/utility/Language/IntlProviderWrapper";
 import ReduxProvider from "~/redux/ReduxProvider";
 import ThemeProviderWrapper from "~/utility/Themes/ThemeProvider";
+import AuthWrapper from "~/components/Auth/AuthWrapper";
 const inter = Inter({ subsets: ["latin"] });
 const cx = classNames.bind(styles);
 export const metadata: Metadata = {
@@ -27,7 +28,9 @@ export default function RootLayout({
           <ReduxProvider>
             <ThemeProviderWrapper>
               <div className={cx("body")}>
-                <IntlProviderWrapper>{children}</IntlProviderWrapper>
+                <IntlProviderWrapper>
+                  <AuthWrapper>{children}</AuthWrapper>
+                </IntlProviderWrapper>
               </div>
             </ThemeProviderWrapper>
           </ReduxProvider>

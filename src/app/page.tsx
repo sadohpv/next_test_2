@@ -10,6 +10,7 @@ import { FormattedMessage } from "react-intl";
 import { useSelector } from "react-redux";
 import NavbarSearch from "~/components/Navbar/NavbarSearch";
 import Navbar from "~/components/Navbar/Navbar";
+import { useRouter } from "next/navigation";
 
 const cx = classNames.bind(styles);
 
@@ -18,7 +19,7 @@ export default function Home() {
   // console.log(submain);
   const [submain, setSubmain] = useState<boolean>(true);
   const { width = 0, height = 0 } = useWindowSize();
-  const auth = useSelector<any>((state)=>state.auth.auth);
+  const router = useRouter();
   useEffect(() => {
     if (width >= 1160) {
       setSubmain(true);
@@ -34,9 +35,7 @@ export default function Home() {
     }
 
     async function fetchData() {
-      if(sessionStorage.getItem("auth") != "true"){
-        console.log("Call API to validator token and set session");
-      }
+      
     }
     fetchData();
   }, []);

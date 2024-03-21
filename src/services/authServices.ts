@@ -1,4 +1,3 @@
-
 import axios from "~/utility/Axios/NestjsAPI";
 
 interface RegisterData {
@@ -61,7 +60,16 @@ function handleLogin(account: string, password: string, type: boolean) {
 
   return axios.post<ResponseLogin, ResponseLogin>(`/auth/login`, data);
 }
+interface ResponseTokenData {
+  result: any;
+  EC: number;
+  data: any;
+}
+function handleCheckToken() {
+  return axios.get<ResponseTokenData, ResponseTokenData>(`/auth/checkToken`);
+}
 export default {
   handleRegister,
   handleLogin,
+  handleCheckToken,
 };

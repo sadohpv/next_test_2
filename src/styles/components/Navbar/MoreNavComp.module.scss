@@ -167,9 +167,11 @@
   bottom: 60px;
 }
 .bottom-left {
+  
   top: 60px;
   right: 0;
   animation: modal-bottom-left 0.5s ease-in-out forwards;
+  height: calc(405px - 48px);
 }
 .more_item {
   width: 100%;

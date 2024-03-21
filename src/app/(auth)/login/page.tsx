@@ -9,9 +9,9 @@ import TippyCustom from "~/utility/Tippy/TooltipCustom";
 import Candle from "~/components/Funny/Candle";
 import authServices from "~/services/authServices";
 import { useDispatch, useSelector } from "react-redux";
-import { handleLoginRedux } from "~/redux/actions/authAction";
-import { redirect } from "next/navigation";
+import { handleRefreshRedux } from "~/redux/actions/authAction";
 import { useRouter } from "next/navigation";
+
 const cx = classNames.bind(styles);
 
 interface LoginPageProps {}
@@ -25,10 +25,11 @@ const LoginPage: FC<LoginPageProps> = () => {
   );
   const [color, setColor] = useState<string>("white");
   const [loading, setLoading] = useState<boolean>(false);
-
-  const dispatch = useDispatch<any>();
   const auth = useSelector<any>((state) => state.auth.auth);
+  const dispatch = useDispatch<any>();
+
   const router = useRouter();
+
   const handleLogin = async () => {
     if (password === "" || account === "") {
       setColor("red");
@@ -53,7 +54,7 @@ const LoginPage: FC<LoginPageProps> = () => {
             ) {
               setColor("green");
               setNotify("OK ! Let go");
-              dispatch(handleLoginRedux(true, res.result.access_token));
+              dispatch(handleRefreshRedux(true));
               router.push("/");
             } else {
               if (res.data !== undefined) {
@@ -108,12 +109,15 @@ const LoginPage: FC<LoginPageProps> = () => {
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem("auth") == "true") {
-      router.push("/");
-    } else {
-      setLoading(true);
+    async function fetchData() {
+      if (auth === true || sessionStorage.getItem("auth") == "true") {
+        router.push("/");
+      } else {
+        setLoading(true);
+      }
     }
-  }, []);
+    fetchData();
+  }, [auth]);
 
   return (
     <>

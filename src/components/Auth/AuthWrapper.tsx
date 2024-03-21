@@ -1,25 +1,42 @@
 "use client";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { handleRefreshRedux } from "~/redux/actions/authAction";
+import { useDispatch, useSelector } from "react-redux";
+import authServices from "~/services/authServices";
+import { handleHoldDataUserRedux, handleRefreshRedux } from "~/redux/actions/authAction";
 function AuthWrapper({ children }: { children: React.ReactNode }) {
-//   const dispatch = useDispatch<any>();
-//   const auth = useSelector<any>((state) => state.auth.auth);
-//   const router = useRouter();
-  
-//   useEffect(() => {
-//     if (localStorage.getItem("auth") == "true") {
-//         dispatch(handleRefreshRedux(true));
-//       }
-//   }, []);
-//   if (auth) {
-    return <>{children}</>;
-//   } else {
-//     router.push("/login");
-//   }
+  const router = useRouter();
+  const dispatch = useDispatch<any>();
+
+  const auth = useSelector<any>((state) => state.auth.auth);
+  useEffect(() => {
+    async function fetchData() {
+      if (auth === false) {
+        const res = await authServices.handleCheckToken();
+        console.log(res);
+        if (typeof res == "number") {
+
+        } else {
+          if (res.EC === 0) {
+            sessionStorage.setItem("auth", "true");
+
+            dispatch(handleRefreshRedux(true));
+            dispatch(handleHoldDataUserRedux(res.data));
+
+          } else {
+            sessionStorage.removeItem("auth");
+            router.push("/login");
+          }
+        }
+      }
+
+    }
+    fetchData();
+  }, []);
+
+  return <>{children}</>;
 }
 
 export default AuthWrapper;
