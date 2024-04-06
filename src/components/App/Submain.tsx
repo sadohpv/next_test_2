@@ -36,7 +36,7 @@ export default function Submain() {
     <div className={cx("sub_main")}>
       <div className={cx("sub_header")}>
         <Avatar
-          size={28}
+          size={44}
           src={"https://wallpaperset.com/w/full/e/a/7/444549.jpg"}
         />
         <div className={cx("header_infor")}>

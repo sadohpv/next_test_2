@@ -1,0 +1,93 @@
+.mention__control {
+  max-height: 168px;
+  min-height: 24px;
+  margin-top: 8px;
+}
+
+
+.mention__suggestions {
+  width           : 260px;
+  height          : 200px;
+  max-height      : 200px;
+  background-color: red;
+  border-radius   : 8px;
+  padding         : 0px;
+  display         : flex;
+  justify-content : center;
+  overflow        : hidden;
+}
+
+.mention__input {
+  max-height : 168px;
+
+  /* line-height: 16px; */
+  color      : var(--text-color);
+  overflow-y : scroll !important;
+  padding    : 0 2px 0 0px;
+  outline    : none !important;
+}
+
+.item {
+  width        : 100%;
+  height       : 100%;
+  overflow     : hidden;
+  border-radius: 8px;
+  display      : flex;
+
+}
+
+.mention__suggestions__list {
+  width         : 100%;
+  box-sizing    : border-box;
+  padding       : 4px 0px 4px 4px !important;
+  display       : flex;
+  flex-direction: column;
+  gap           : 6px;
+  overflow      : hidden;
+  overflow-y    : scroll;
+}
+
+.mention__suggestions__item {
+  width              : 247px;
+  height             : 42px;
+  padding            : 4px 12px;
+  display            : flex;
+  box-sizing         : border-box;
+  background-color   : red;
+  border-radius      : 8px;
+  /* overflow        : hiddens */
+
+}
+
+.suggest {
+  width  : 100%;
+  height : 100%;
+  display: flex;
+
+}
+
+.box {
+  display: flex;
+  gap    : 6px;
+
+}
+
+.tag_infor {
+  display       : flex;
+  flex-direction: column;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background   : white;
+}

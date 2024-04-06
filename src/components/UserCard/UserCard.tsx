@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import styles from "$comp/Card/UserCard.module.scss";
+import styles from "./style/UserCard.module.scss";
 
 import Avatar from "~/components/Avatar/Avatar";
 
@@ -20,7 +20,7 @@ export default function UserCard() {
           place="bottom-start"
         >
           <div className={cx("avatar")}>
-            <Avatar size={32} />
+            <Avatar size={44} />
           </div>
         </TippyCustom>
       </span>

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import classNames from "classnames/bind";
-import styles from "$comp/Navbar/NotifyComp.module.scss";
+import styles from "./NotifyComp.module.scss";
 import { HeartIcon } from "~/assets/icon";
 import { usePathname } from "next/navigation";
 import { FC, useState } from "react";

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import classNames from "classnames/bind";
-import styles from "$comp/Navbar/MoreNavComp.module.scss";
+import styles from "./MoreNavComp.module.scss";
 
 import { FC, useState } from "react";
 import TooltipCustom from "~/utility/Tippy/TooltipCustom";

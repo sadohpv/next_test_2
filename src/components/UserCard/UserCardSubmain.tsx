@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import styles from "$comp/Card/UserCardSubmain.module.scss";
+import styles from "./style/UserCardSubmain.module.scss";
 
 import Avatar from "~/components/Avatar/Avatar";
 

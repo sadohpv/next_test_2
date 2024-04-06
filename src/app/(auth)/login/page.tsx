@@ -9,7 +9,10 @@ import TippyCustom from "~/utility/Tippy/TooltipCustom";
 import Candle from "~/components/Funny/Candle";
 import authServices from "~/services/authServices";
 import { useDispatch, useSelector } from "react-redux";
-import { handleRefreshRedux } from "~/redux/actions/authAction";
+import {
+  handleHoldDataUserRedux,
+  handleRefreshRedux,
+} from "~/redux/actions/authAction";
 import { useRouter } from "next/navigation";
 
 const cx = classNames.bind(styles);
@@ -113,11 +116,22 @@ const LoginPage: FC<LoginPageProps> = () => {
       if (auth === true || sessionStorage.getItem("auth") == "true") {
         router.push("/");
       } else {
-        setLoading(true);
+        const res = await authServices.handleCheckToken();
+        if (typeof res == "number") {
+        } else {
+          if (res.EC === 0) {
+            sessionStorage.setItem("auth", "true");
+            dispatch(handleRefreshRedux(true));
+            dispatch(handleHoldDataUserRedux(res.data));
+            router.push("/");
+          } else {
+            setLoading(true);
+          }
+        }
       }
     }
     fetchData();
-  }, [auth]);
+  }, []);
 
   return (
     <>

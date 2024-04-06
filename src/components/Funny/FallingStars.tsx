@@ -1,7 +1,7 @@
 "use client";
 import React, { FC, useEffect } from "react";
 import classNames from "classnames/bind";
-import styles from "$comp/Funny/FallingStars.module.scss";
+import styles from "./FallingStars.module.scss";
 
 const cx = classNames.bind(styles);
 
@@ -10,9 +10,9 @@ interface FallingStarsProps {}
 const FallingStars: FC<FallingStarsProps> = () => {
   useEffect(() => {
     function randomText() {
-        var text = ["Thao","T","h","a","o","Th","ao"];
-        let letter = text[Math.floor(Math.random() * text.length)];
-        return letter;
+      var text = ["Thao", "T", "h", "a", "o", "Th", "ao"];
+      let letter = text[Math.floor(Math.random() * text.length)];
+      return letter;
     }
     function stars() {
       let box = document.getElementById("box");
@@ -21,7 +21,7 @@ const FallingStars: FC<FallingStarsProps> = () => {
       box?.appendChild(e);
       e.style.left = Math.random() * +innerWidth + "px";
       let size = Math.random() * 12;
-    //   e.innerText = randomText();
+      //   e.innerText = randomText();
       e.style.fontSize = 20 + size + "px";
       let duration = Math.random() * 5;
       e.style.animationDuration = 5 + duration + "s";

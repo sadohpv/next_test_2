@@ -55,11 +55,33 @@ export const HeartIcon = ({
       width={width}
       height={height}
       id="heart"
-      viewBox="0 0 16 16"
+      viewBox="0 0 16 16 "
     >
       <path
         fill={fill}
         stroke="var(--text-color)"
+        d="M5.047 2.506c-2.114 0-3.533 1.711-3.533 3.824 0 2.398 3.35 5.263 6.22 7.176 2.871-1.913 6.182-4.824 6.221-7.176.035-2.113-1.333-3.824-3.447-3.824-.902 0-1.817.477-2.774 1.433-.957-.956-1.785-1.433-2.687-1.433z"
+      ></path>
+    </svg>
+  );
+};
+export const HeartIconFill = ({
+  width = "24px",
+  height = "24px",
+  fill = "none",
+}) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      id="heart"
+      viewBox="0 0 16 16 "
+     
+    >
+      <path
+        fill={"red"}
+        stroke="red"
         d="M5.047 2.506c-2.114 0-3.533 1.711-3.533 3.824 0 2.398 3.35 5.263 6.22 7.176 2.871-1.913 6.182-4.824 6.221-7.176.035-2.113-1.333-3.824-3.447-3.824-.902 0-1.817.477-2.774 1.433-.957-.956-1.785-1.433-2.687-1.433z"
       ></path>
     </svg>
@@ -97,8 +119,8 @@ export const AvatarDefault = ({ width = "24px", height = "24px" }) => {
   return (
     <svg
       fill="#000000"
-      width={width}
-      height={height}
+      width={`calc(${width} / 2)`}
+      height={`calc(${height} / 2)`}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 512 512"
@@ -261,6 +283,85 @@ export const LogoIcon = ({ width = "24px", height = "24px" }) => {
           d="M 15.25 22.09375 L 28.714844 22.09375 L 33.382812 15.90625 L 13.835938 15.90625 L 15.25 22.09375 "
         />
       </g>
+    </svg>
+  );
+};
+export const ThreeDotsIcon = ({ width = "24px", height = "24px" }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 256 256"
+      id="dots-three"
+      width={width}
+      height={height}
+      fill="var(--text-color)"
+    >
+      <rect width="256" height="256" fill="none"></rect>
+      <circle cx="128" cy="128" r="16"></circle>
+      <circle cx="64" cy="128" r="16"></circle>
+      <circle cx="192" cy="128" r="16"></circle>
+    </svg>
+  );
+};
+export const EarthIcon = ({ width = "24px", height = "24px" }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      fill="var(--text-color)"
+      viewBox="0 0 24 24"
+      id="public"
+    >
+      <path fill="none" d="M0 0h24v24H0V0z"></path>
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-.61.08-1.21.21-1.78L8.99 15v1c0 1.1.9 2 2 2v1.93C7.06 19.43 4 16.07 4 12zm13.89 5.4c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41C17.92 5.77 20 8.65 20 12c0 2.08-.81 3.98-2.11 5.4z"></path>
+    </svg>
+  );
+};
+export const CommentIcon = ({ width = "24px", height = "24px" }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 32 32"
+      id="comment"
+    >
+      <path
+        fill="var(--text-color)"
+        d="M25.784 21.017A10.992 10.992 0 0 0 27 16c0-6.065-4.935-11-11-11S5 9.935 5 16s4.935 11 11 11c1.742 0 3.468-.419 5.018-1.215l4.74 1.185a.996.996 0 0 0 .949-.263 1 1 0 0 0 .263-.95l-1.186-4.74zm-2.033.11.874 3.498-3.498-.875a1.006 1.006 0 0 0-.731.098A8.99 8.99 0 0 1 16 25c-4.963 0-9-4.038-9-9s4.037-9 9-9 9 4.038 9 9a8.997 8.997 0 0 1-1.151 4.395.995.995 0 0 0-.098.732z"
+      ></path>
+    </svg>
+  );
+};
+export const ShareIcon = ({ width = "24px", height = "24px" }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 64 64"
+      id="share"
+    >
+      <path
+        fill="var(--text-color)"
+        d="M6.54 55.08a1.91 1.91 0 0 1-.62-.1 2 2 0 0 1-1.38-2c0-.3 2.06-29.34 31.18-31.62V10.92a2 2 0 0 1 3.43-1.4l19.74 20.16a2 2 0 0 1 0 2.8L39.15 52.64a2 2 0 0 1-3.43-1.4V41c-19.44.74-27.41 13-27.49 13.15a2 2 0 0 1-1.69.93Zm33.18-39.26v7.41a2 2 0 0 1-1.93 2c-18.84.69-25.58 13.24-28 21.31 5-4.32 13.91-9.6 27.81-9.6h.09a2 2 0 0 1 2 2v7.41l15-15.26Z"
+        data-name="Arrow"
+      ></path>
+    </svg>
+  );
+};
+export const SaveIcon = ({ width = "24px", height = "24px" }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 32 32"
+      id="save"
+      fill="var(--text-color)"
+    >
+      <path d="M23 5H9C7.346 5 6 6.346 6 8v19a1 1 0 0 0 1.614.789L16 21.267l8.386 6.522a.996.996 0 0 0 1.053.109A1 1 0 0 0 26 27V8c0-1.654-1.346-3-3-3zm1 19.956-7.386-5.745a.999.999 0 0 0-1.228-.001L8 24.956V8c0-.551.449-1 1-1h14c.551 0 1 .449 1 1v16.956z"></path>
     </svg>
   );
 };

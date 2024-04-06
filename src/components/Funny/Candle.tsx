@@ -1,7 +1,7 @@
 "use client";
 import React, { FC, useEffect } from "react";
 import classNames from "classnames/bind";
-import styles from "$comp/Funny/Candle.module.scss";
+import styles from "./Candle.module.scss";
 
 const cx = classNames.bind(styles);
 

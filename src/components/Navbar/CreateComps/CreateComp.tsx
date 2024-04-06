@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import classNames from "classnames/bind";
-import styles from "$comp/Navbar/CreateComp.module.scss";
+import styles from "./CreateComp.module.scss";
 import { CreateIcon } from "~/assets/icon";
 import { usePathname } from "next/navigation";
 import { FC, useState, useEffect } from "react";

@@ -10,10 +10,24 @@
     flex: 1;
     // padding-left: 244px;
     background-color: var(--background-color);
+    nav{
+      z-index: 1;
 
+    }
     .wrapper {
-       padding-left: 244px;
+      padding-left: 244px;
       background-color: var(--background-color);
+      z-index: 2;
+      .main {
+        height: 100%;
+        min-height: 100vh;
+        padding: 30px 0;
+        display: flex;
+        // justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 30px;
+      }
     }
   }
 }
@@ -39,9 +53,8 @@
     }
     .body {
       padding-left: 0;
-      .wrapper{
+      .wrapper {
         padding-left: 0;
-
       }
     }
   }
@@ -133,8 +146,7 @@
     .sologan {
       margin-top: 8px;
       text-align: justify;
-      // display: flex;
-      // padding-right: 12px;
+      z-index: 0;
       .quote {
         display: flex;
         font-size: 12px;
@@ -199,5 +211,3 @@
     justify-content: space-between;
   }
 }
-
-

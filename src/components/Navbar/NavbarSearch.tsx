@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import classNames from "classnames/bind";
-import styles from "$comp/Navbar/NavbarSearch.module.scss";
+import styles from "./styles/NavbarSearch.module.scss";
 import {
   CreateIcon,
   HeartIcon,

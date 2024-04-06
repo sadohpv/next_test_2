@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import NavbarSearch from "~/components/Navbar/NavbarSearch";
 import Navbar from "~/components/Navbar/Navbar";
 import { useRouter } from "next/navigation";
+import PostComp from "~/components/Post/Post";
 
 const cx = classNames.bind(styles);
 
@@ -34,9 +35,7 @@ export default function Home() {
       setSubmain(false);
     }
 
-    async function fetchData() {
-      
-    }
+    async function fetchData() {}
     fetchData();
   }, []);
   //  console.log(width);
@@ -50,7 +49,11 @@ export default function Home() {
         <Navbar />
       </nav>
       <div className={cx("wrapper")}>
-        <div className={cx("main")}></div>
+        <div className={cx("main")}>
+          <PostComp />
+          <PostComp />
+
+        </div>
         {submain && <Submain />}
       </div>
     </>

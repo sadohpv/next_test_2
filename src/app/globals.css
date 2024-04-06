@@ -6,6 +6,7 @@
   font-family: "IgNormal";
   src        : url(../styles/font/InstagramSans.ttf);
 }
+
 @font-face {
   font-family: "IgBold";
   src        : url(../styles/font/InstagramSansBold.ttf);
@@ -20,10 +21,12 @@
   font-family: "IgMedium";
   src        : url(../styles/font/InstagramSansMedium.ttf);
 }
+
 @font-face {
   font-family: "Lobster";
   src        : url(../styles/font/Lobster-Regular.ttf);
 }
+
 :root {
 
   --background-color      : black;
@@ -143,4 +146,12 @@ nav {
   top             : 0;
   right           : 0;
 
+}
+
+video::-webkit-media-controls-fullscreen-button,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-current-time-display,
+video::-webkit-media-controls-time-remaining-display {
+  display: none;
 }

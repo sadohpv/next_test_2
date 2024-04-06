@@ -2,26 +2,25 @@
   "Login": {
     "Login": "Đăng Nhập",
     "Email": "Email",
-    "Password" : "Mật khẩu",
-    "Phonenumber" : "Số điện thoại",
-    "Register" : "Đăng ký",
-    "Username" : "Tên người dùng",
-    "Gender" : "Giới tính",
-    "Address" : "Địa chỉ",
-    "Re_Password" : "Nhập lại mật khẩu"
+    "Password": "Mật khẩu",
+    "Phonenumber": "Số điện thoại",
+    "Register": "Đăng ký",
+    "Username": "Tên người dùng",
+    "Gender": "Giới tính",
+    "Address": "Địa chỉ",
+    "Re_Password": "Nhập lại mật khẩu"
   },
   "Navbar": {
     "home": "Trang chủ",
     "search": "Tìm kiếm",
     "notify": "Thông báo",
     "create": "Tạo",
-    "setting" : "Cài đặt",
-    "more" : "Thêm",
-    "language" : "Ngôn ngữ",
-    "Theme" : "Giao Diện",
-    "Light" : "Sáng",
-    "Dark" : "Tối"
-
+    "setting": "Cài đặt",
+    "more": "Thêm",
+    "language": "Ngôn ngữ",
+    "Theme": "Giao Diện",
+    "Light": "Sáng",
+    "Dark": "Tối"
   },
   "Submain": {
     "suggested": "Gợi ý cho bạn",
@@ -37,6 +36,17 @@
     "followers": "người theo dõi",
     "following": "đang theo dõi",
     "Follow": "Theo dõi",
-    "Unfollow": "Bỏ theo dõi"
+    "Unfollow": "Bỏ theo dõi",
+    "ShowMore": "Thêm",
+    "ShowLess": "Ẩn"
+  },
+  "Post": {
+    "Share": "Chia sẻ",
+    "Like": "Thích",
+    "Likes": " Lượt thích",
+    "Comment": "Bình luận",
+    "Unlike": "Bỏ thích",
+    "Save": "Lưu",
+    "Show_all_comment": "Tất cả bình luận"
   }
 }

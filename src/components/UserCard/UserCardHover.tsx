@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import styles from "$comp/Card/UserCardHover.module.scss";
+import styles from "./style/UserCardHover.module.scss";
 
 import Avatar from "~/components/Avatar/Avatar";
 
