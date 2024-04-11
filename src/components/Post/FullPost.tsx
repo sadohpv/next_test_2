@@ -18,6 +18,7 @@ import { FormattedMessage, FormattedNumber } from "react-intl";
 import Avatar from "../Avatar/Avatar";
 import TippyCustom from "~/utility/Tippy/TooltipCustom";
 import MentionCustom from "../Mentions/Mention";
+import CommentCard from "../Comment/Comment";
 
 const cx = classNames.bind(styles);
 interface FullPostCompProps {}
@@ -82,7 +83,12 @@ const FullPostComp: FC<FullPostCompProps> = ({}) => {
               <ThreeDotsIcon />
             </div>
           </div>
+        </div>
+        <div className={cx("comments_box")}>
           <div className={cx("content")}>
+            <div className={cx("avatar")}>
+              <Avatar size={32} />
+            </div>
             <div className={cx("content_text")}>
               <ShowMoreText
                 lines={3}
@@ -91,16 +97,31 @@ const FullPostComp: FC<FullPostCompProps> = ({}) => {
                 anchorClass={cx("more_less-button")}
               >
                 <p>
+                  <Link className={cx("name-in-content")} href={`/#`}>
+                    _shiroll
+                  </Link>
                   I come from a long line of below-stairs maids and gardeners.
                   Good ol' peasant stock. My mother and her sister made a
                   quantum leap out of that life. Then I made another quantum
-                  leap. aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                  leap.
                 </p>
               </ShowMoreText>
+              <div className={cx("day")}>
+                <p>2 days ago</p>
+              </div>
             </div>
           </div>
+          <CommentCard />
+          <CommentCard />
+          <CommentCard />
+          <CommentCard />
+          <CommentCard />
+          <CommentCard />
+          <CommentCard />
+          <CommentCard />
+          <CommentCard />
+          <CommentCard />
         </div>
-        <div className={cx("comments_box")}></div>
         <div className={cx("box")}>
           <div className={cx("footer")}>
             <div className={cx("action")}>

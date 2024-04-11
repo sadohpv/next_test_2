@@ -10,70 +10,68 @@ import TippyCustom from "~/utility/Tippy/TooltipCustom";
 import { FormattedMessage } from "react-intl";
 const cx = classNames.bind(styles);
 interface CreateCompProps {
-  setModal: (modal: boolean) => void;
-  modal: boolean;
-  tippy: boolean | null;
+    setModal: (modal: boolean) => void;
+    modal: boolean;
+    tippy: boolean | null;
 
-  page: number;
-  setPage: (page: number) => void;
+    page: number;
+    setPage: (page: number) => void;
 }
 
-const CreateComp: FC<CreateCompProps> = ({
-  setModal,
-  modal,
-  page,
-  setPage,
-  tippy,
-}) => {
-  // console.log(router);
+const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy }) => {
+    // console.log(router);
+    // const [create, setCreate] = useState<boolean>(false);
+    const router = usePathname();
+    const handleToggle = () => {
+        if (page === 3) {
+            setPage(0);
+            setModal(false);
+        } else {
+            setPage(3);
+            setModal(true);
+        }
+    };
 
-  const router = usePathname();
-  const handleToggle = () => {
-    if (page === 3) {
-      setPage(0);
-      setModal(false);
-    } else {
-      setPage(3);
-      setModal(true);
-    }
-  };
-
-  return tippy !== null ? (
-    <TippyCustom
-      content={<FormattedMessage id="Navbar.create" />}
-      place={tippy === true ? "top" : "right"}
-    >
-      <div
-        className={cx("nav_item", modal && "active", page === 3 && "border")}
-        onClick={handleToggle}
-      >
-        <div className={cx("icon")}>
-          <CreateIcon
-            fill={page === 3 ? "var(--text-color)" : "none"}
-            strokeWidth={page === 3 ? "2.5" : "1.5"}
-          />
-        </div>
-        <span>
-          <FormattedMessage id="Navbar.create" />
-        </span>
-      </div>
-    </TippyCustom>
-  ) : (
-    <div
-      className={cx("nav_item", modal && "active", page === 3 && "border")}
-      onClick={handleToggle}
-    >
-      <div className={cx("icon")}>
-        <CreateIcon
-          fill={page === 3 ? "var(--text-color)" : "none"}
-          strokeWidth={page === 3 ? "2.5" : "1.5"}
-        />
-      </div>
-      <span>
-        <FormattedMessage id="Navbar.create" />
-      </span>
-    </div>
-  );
+    return (
+        <>
+            {tippy !== null ? (
+                <TippyCustom content={<FormattedMessage id="Navbar.create" />} place={tippy === true ? "top" : "right"}>
+                    <div className={cx("nav_item", modal && "active", page === 3 && "border")} onClick={handleToggle}>
+                        <div className={cx("icon")}>
+                            <CreateIcon
+                                fill={page === 3 ? "var(--text-color)" : "none"}
+                                strokeWidth={page === 3 ? "2.5" : "1.5"}
+                            />
+                        </div>
+                        <span>
+                            <FormattedMessage id="Navbar.create" />
+                        </span>
+                    </div>
+                </TippyCustom>
+            ) : (
+                <div className={cx("nav_item", modal && "active", page === 3 && "border")} onClick={handleToggle}>
+                    <div className={cx("icon")}>
+                        <CreateIcon
+                            fill={page === 3 ? "var(--text-color)" : "none"}
+                            strokeWidth={page === 3 ? "2.5" : "1.5"}
+                        />
+                    </div>
+                    <span>
+                        <FormattedMessage id="Navbar.create" />
+                    </span>
+                </div>
+            )}
+            {page === 3 && (
+                <div className={cx("modal_create")}>
+                    <div className={cx("main")}>
+                        <div className={cx("header")}>
+                            <span>Create Your Post</span>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
+    );
 };
 
 export default CreateComp;

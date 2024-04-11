@@ -1,8 +1,8 @@
 const routesConfig = {
   home: "/",
   login: "/login",
-  signup: "/signup",
-  user: '/:slug',
+  signup: "/register",
+  user: "/:slug",
   // notFound: '/404',
   // fullPost : '/post/:idPost',
   // friendList: '/friend',

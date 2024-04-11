@@ -10,7 +10,7 @@ interface FallingStarsProps {}
 const FallingStars: FC<FallingStarsProps> = () => {
   useEffect(() => {
     function randomText() {
-      var text = ["Thao", "T", "h", "a", "o", "Th", "ao"];
+      var text = ["Truong Anh"];
       let letter = text[Math.floor(Math.random() * text.length)];
       return letter;
     }
@@ -21,7 +21,7 @@ const FallingStars: FC<FallingStarsProps> = () => {
       box?.appendChild(e);
       e.style.left = Math.random() * +innerWidth + "px";
       let size = Math.random() * 12;
-      //   e.innerText = randomText();
+        // e.innerText = randomText();
       e.style.fontSize = 20 + size + "px";
       let duration = Math.random() * 5;
       e.style.animationDuration = 5 + duration + "s";

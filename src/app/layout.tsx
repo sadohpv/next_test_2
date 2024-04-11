@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 
 import styles from "$app/App.module.scss";
@@ -9,7 +8,6 @@ import IntlProviderWrapper from "~/utility/Language/IntlProviderWrapper";
 import ReduxProvider from "~/redux/ReduxProvider";
 import ThemeProviderWrapper from "~/utility/Themes/ThemeProvider";
 import AuthWrapper from "~/components/Auth/AuthWrapper";
-const inter = Inter({ subsets: ["latin"] });
 const cx = classNames.bind(styles);
 export const metadata: Metadata = {
   title: "ABC",
@@ -23,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <div className={cx("boss")}>
           <ReduxProvider>
             <ThemeProviderWrapper>

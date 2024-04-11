@@ -6,18 +6,17 @@ export function middleware(request: NextRequest) {
   const privateRouters = privateRoutes;
   const publicRouters = publicRoutes;
 
+  console.log("Here", path);
   if (publicRouters.includes(path)) {
     //If is public path
     return NextResponse.next();
   } else {
-   
     if (request.cookies.get("accessToken")) {
       console.log("Cookie exist");
     } else {
       return NextResponse.redirect(new URL("/login", request.url));
     }
   }
-  
 }
 
 export const config = {
