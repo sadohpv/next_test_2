@@ -15,7 +15,6 @@ function AuthWrapper({ children }: { children: React.ReactNode }) {
     async function fetchData() {
       if (auth === false) {
         const res = await authServices.handleCheckToken();
-        console.log(res);
         if (typeof res == "number") {
 
         } else {

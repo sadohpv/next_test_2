@@ -16,6 +16,13 @@
     &:hover {
         background-color: var(--hover-color);
     }
+    align-items: center;
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 .active {
@@ -28,17 +35,9 @@
     }
 }
 .border {
-    &:before {
-        content: "";
-        position: absolute;
-        width: 48px;
-        height: 48px;
-        // background-color: red;
-        top: 0;
-        left: 0px;
-        border-radius: var(--border-navbar-button);
-        border: 2px solid var(--text-color);
-    }
+    border-radius: var(--border-navbar-button);
+    border: 2px solid var(--text-color);
+    padding: 10px;
 }
 @keyframes short_navbar_item {
     0% {
@@ -83,7 +82,11 @@
         width: 48px;
     }
 }
-
+// @media (max-width: px) {
+//     .nav_item {
+//         width: 48px;
+//     }
+// }
 .modal_create {
     position: fixed;
     height: 100%;
@@ -99,28 +102,186 @@
     padding: 12px;
     animation: slide-in 0.5s ease-in-out forwards;
     .main {
-        width: 100%;
-        height: 100%;
+        // width: 400px;
+        width: auto;
+        height: 446px;
         background-color: var(--hover-color);
         border-radius: 12px;
         // border: 1px solid var(--text-color);
         // box-shadow: 0px 0px 3px 1px var(--text-color);
+        overflow: hidden;
         display: flex;
         flex-direction: column;
+
         .header {
             width: 100%;
-            height: 56px;
+            height: 46px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 34px;
+            justify-content: space-between;
+            padding: 0 20px;
+            position: relative;
+            font-size: 14px;
             font-family: IgMedium;
             color: var(--text-color);
             user-select: none;
+            .title {
+                font-size: 14px;
+            }
+            .back {
+                svg {
+                    cursor: pointer;
+                    path {
+                        fill: var(--primary-color);
+                    }
+                    &:hover {
+                        path {
+                            fill: var(--primary-color-hover);
+                        }
+                    }
+                }
+            }
+            .next {
+                color: var(--primary-color);
+                cursor: pointer;
+                &:hover {
+                    color: var(--primary-color-hover);
+                }
+            }
+            &::before {
+                position: absolute;
+                height: 1px;
+                content: "";
+                width: 100%;
+                left: 0;
+                bottom: 0;
+                background-color: var(--grey-fade);
+            }
         }
     }
 }
+//ADD POST BODY
+.body {
+    flex: 1;
+    width: auto;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    .step_1 {
+        height: 100%;
+        width: 400px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        gap: 20px;
+        .tilte_1 {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-color);
+            font-size: 24px;
+            user-select: none;
+            gap: 16px;
+            margin-top: 56px;
+            margin-bottom: 36px;
+        }
+        .input {
+            position: relative;
+            padding: 0 8px;
+            height: 36px;
+            background-color: var(--primary-color);
+            border-radius: 12px;
+            display: flex;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+            input,
+            input::-webkit-file-upload-button {
+                cursor: pointer;
+                border-radius: 12px;
+                overflow: hidden;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                color: transparent;
+            }
+            span {
+                cursor: pointer;
+                font-family: IgMedium;
+            }
+            &:hover {
+                color: var(--background-color);
+                background-color: var(--primary-color-hover);
+            }
+        }
+        #preview {
+            position: absolute;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+    .step_2 {
+        width: 400px;
+    }
+    .step_3 {
+        display: flex;
+    }
+}
 
+// RESPONSIVE
+@media (max-width: 1260px) {
+    .modal_create {
+        width: calc(100vw - 72px - 400px) !important;
+    }
+    .nav_item {
+        width: 48px !important;
+        span {
+            display: none;
+        }
+    }
+}
+@media (max-width: 1160px) {
+    .modal_create {
+        width: calc(100vw - 72px) !important;
+    }
+
+    .nav_item {
+        width: 48px !important;
+        span {
+            display: none;
+        }
+    }
+}
+@media (max-width: 900px) {
+    .step_3 {
+        flex-direction: column;
+        overflow-y: scroll;
+    }
+}
+@media (max-width: 768px) {
+    .nav_item {
+        width: 42px !important;
+        height: 42px !important;
+
+        padding: 9px !important;
+    }
+    .border {
+        padding: 8px !important;
+    }
+
+    .modal_create {
+        left: 0px !important;
+        top: 48px;
+        height: calc(100vh - 96px);
+        width: 100vw !important;
+    }
+}
+//ANIMATION
 @keyframes slide-in {
     from {
         left: 36px;
@@ -129,5 +290,40 @@
     to {
         left: 72px;
         opacity: 1;
+    }
+}
+
+.pic {
+    width: 400px;
+    height: 400px;
+    display: flex;
+    .last_image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+.content_post {
+    flex: 1;
+    // background-color: red;
+    width: 400px;
+    height: 446px !important;
+    padding: 8px;
+    flex-direction: column;
+    display: flex;
+    gap: 10px;
+    .content_header {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        color: var(--text-color);
+        .name {
+            font-family: IgMedium;
+        }
+    }
+    .content_input{
+        display: flex;
+        flex: 1;
+        background-color: antiquewhite;
     }
 }

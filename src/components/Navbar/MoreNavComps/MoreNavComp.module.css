@@ -9,67 +9,49 @@
   gap: 16px;
   position: relative;
   animation: navbar_item 0.5s ease-in-out forwards;
-  .icon {
-    animation: spin_back 0.5s ease-in-out forwards;
-  }
-  span {
-    animation: navbar_item_title 0.5s ease-in-out forwards;
-  }
-  &:hover {
-    background-color: var(--hover-color);
-  }
-  .icon{
-    height: 24px;
-
-  }
+}
+.nav_item .icon {
+  animation: spin_back 0.5s ease-in-out forwards;
+}
+.nav_item span {
+  animation: navbar_item_title 0.5s ease-in-out forwards;
+}
+.nav_item:hover {
+  background-color: var(--hover-color);
+}
+.nav_item .icon {
+  height: 24px;
 }
 
 .active {
   width: 100%;
   height: 100%;
-
   animation: short_navbar_item 0.5s ease-in-out forwards;
-  span {
-    animation: short_navbar_item_title 0.2s ease-in-out forwards;
-  }
 }
-.border {
-  .icon {
-    animation: spin 0.5s ease-in-out forwards;
+.active span {
+  animation: short_navbar_item_title 0.2s ease-in-out forwards;
+}
 
-    svg {
-      g {
-        stroke-width: 2;
-      }
-    }
-  }
-  // &:before {
-  //   content: "";
-  //   position: absolute;
-  //   width: 48px;
-  //   height: 48px;
-  //   // background-color: red;
-  //   top: 0;
-  //   left: 0px;
-  //   border-radius: var(--border-navbar-button);
-  //   border: 2px solid white;
-  // }
+.border .icon {
+  animation: spin 0.5s ease-in-out forwards;
 }
-// Responsive
+.border .icon svg g {
+  stroke-width: 2;
+}
 
 @media (max-width: 1260px) {
   .nav_item {
     width: 48px !important;
-    span {
-      display: none;
-    }
+  }
+  .nav_item span {
+    display: none;
   }
 }
 @media (max-width: 768px) {
   .modal {
     max-height: 300px;
     min-height: 166px;
-    height: calc(100vh - 56px * 3) !important;
+    height: calc(100vh - 168px) !important;
     overflow: scroll;
   }
   .nav_item {
@@ -77,12 +59,11 @@
     padding: 0;
     align-items: center;
     justify-content: center;
-    span {
-      display: none;
-    }
+  }
+  .nav_item span {
+    display: none;
   }
 }
-// Animation
 @keyframes short_navbar_item {
   0% {
     width: 220px;
@@ -137,7 +118,6 @@
     transform: rotate(-180deg);
   }
 }
-
 @keyframes modal {
   from {
     left: -20px;
@@ -158,15 +138,11 @@
     opacity: 1;
   }
 }
-// Modal
 .modal {
   width: 266px;
   height: 405px;
   background-color: var(--background-color-modal);
   position: absolute;
-  // bottom: 60px;
-  // background-color: red;
-
   z-index: 99;
   border-radius: 12px;
   overflow: hidden;
@@ -175,68 +151,59 @@
   animation: modal 0.5s ease-in-out forwards;
   padding: 8px;
 }
+
 .top {
   bottom: 60px;
 }
+
 .bottom-left {
   top: 60px;
   right: 0;
   animation: modal-bottom-left 0.5s ease-in-out forwards;
-  height: calc(405px - 48px);
+  height: 357px;
 }
+
 .more_item {
   width: 100%;
   height: 50px;
   display: flex;
   align-items: center;
   font-family: IgMedium;
-
   border-radius: 12px;
   padding: 0 16px;
   gap: 10px;
   color: var(--text-color);
-
   cursor: pointer;
-  &:hover {
-    background-color: var(--hover-color);
-  }
-  .more_icon {
-    font-size: 16px;
-    pointer-events: none;
-  }
-  .language_button {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    // justify-content: space-around;
-    gap: 10px;
-    user-select: none;
-    pointer-events: none;
-    .language {
-      color: rgb(132, 132, 132);
-    }
-    .lang_active {
-      color: var(--text-color);
-    }
-  }
 }
+.more_item:hover {
+  background-color: var(--hover-color);
+}
+.more_item .more_icon {
+  font-size: 16px;
+  pointer-events: none;
+}
+.more_item .language_button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  pointer-events: none;
+}
+.more_item .language_button .language {
+  color: rgb(132, 132, 132);
+}
+.more_item .language_button .lang_active {
+  color: var(--text-color);
+}
+
 @media (max-width: 1260px) {
   .nav_item {
-      width: 48px !important;
-      span {
-          display: none;
-      }
+    width: 48px !important;
   }
-}
-// @media (max-width: 768px) {
-//   .nav_item {
-//       width: 42px !important;
-//       height: 42px !important;
-//       display: flex;
-//       justify-content: center;
-//       align-items: center;
-//       span {
-//           display: none;
-//       }
-//   }
-// }
+  .nav_item span {
+    display: none;
+  }
+}/*# sourceMappingURL=MoreNavComp.module.css.map */

@@ -1,52 +1,56 @@
 {
-  "Login": {
-    "Login": "Login",
-    "Email": "Email",
-    "Password": "Password",
-    "Phonenumber": "Phone number",
-    "Register": "Register",
-    "Username": "Username",
-    "Gender": "Gender",
-    "Address": "Address",
-    "Re_Password": "Re-Password"
-  },
-  "Navbar": {
-    "home": "Home",
-    "search": "Search",
-    "notify": "Notifications",
-    "create": "Create",
-    "setting": "Settings",
-    "more": "More",
-    "language": "Language",
-    "Theme": "Theme",
-    "Light": "Light",
-    "Dark": "Dark"
-  },
-  "Submain": {
-    "suggested": "Suggested for you",
-    "see_all": "See all"
-  },
-  "Quotes": {
-    "quote_1": "The difference between the novice and the master is that the master has failed more times than the novice has tried",
-    "quote_2": "There are two reasons a person feels the desire to teach something. Either he wants to pass on his successes or he wants to pass on his failures",
-    "quote_3": "In every time, in every world, the strong polish their fangs while the weak polish their wisdom"
-  },
-  "Common": {
-    "posts": "posts",
-    "followers": "followers",
-    "following": "following",
-    "Follow": "Follow",
-    "Unfollow": "Unfollow",
-    "ShowMore" : "More",
-    "ShowLess" : "Hide"
-  },
-  "Post": {
-    "Share": "Share",
-    "Like": "Like",
-    "Likes": " Likes",
-    "Comment": "Comment",
-    "Unlike": "Unlike",
-    "Save": "Save",
-    "Show_all_comment" : "Show all comment"
-  }
+    "Login": {
+        "Login": "Login",
+        "Email": "Email",
+        "Password": "Password",
+        "Phonenumber": "Phone number",
+        "Register": "Register",
+        "Username": "Username",
+        "Gender": "Gender",
+        "Address": "Address",
+        "Re_Password": "Re-Password"
+    },
+    "Navbar": {
+        "home": "Home",
+        "search": "Search",
+        "notify": "Notifications",
+        "create": "Create",
+        "setting": "Settings",
+        "more": "More",
+        "language": "Language",
+        "Theme": "Theme",
+        "Light": "Light",
+        "Dark": "Dark"
+    },
+    "Submain": {
+        "suggested": "Suggested for you",
+        "see_all": "See all"
+    },
+    "Quotes": {
+        "quote_1": "The difference between the novice and the master is that the master has failed more times than the novice has tried",
+        "quote_2": "There are two reasons a person feels the desire to teach something. Either he wants to pass on his successes or he wants to pass on his failures",
+        "quote_3": "In every time, in every world, the strong polish their fangs while the weak polish their wisdom"
+    },
+    "Common": {
+        "posts": "posts",
+        "followers": "followers",
+        "following": "following",
+        "Follow": "Follow",
+        "Unfollow": "Unfollow",
+        "ShowMore": "More",
+        "ShowLess": "Hide"
+    },
+    "Post": {
+        "Share": "Share",
+        "Like": "Like",
+        "Likes": " Likes",
+        "Comment": "Comment",
+        "Unlike": "Unlike",
+        "Save": "Save",
+        "Show_all_comment": "Show all comment",
+        "Next": "Next",
+        "Crop": "Crop",
+        "New_post": "New post",
+        "Upload_image" : "Upload image"
+    }
 }

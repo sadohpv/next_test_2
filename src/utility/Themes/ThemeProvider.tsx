@@ -13,7 +13,6 @@ const ThemeProviderWrapper: FC<ThemeProviderWrapperProps> = ({ children }) => {
   const dispatch = useDispatch<any>();
   const theme = useSelector((state: any) => state.app.theme);
   const [loading, setLoading] = useState(false);
-  console.log("Here");
   useEffect(() => {
     if (window.localStorage.theme === THEME.LIGHT) {
       dispatch(changeThemeRedux(THEME.LIGHT));
@@ -21,7 +20,7 @@ const ThemeProviderWrapper: FC<ThemeProviderWrapperProps> = ({ children }) => {
       dispatch(changeThemeRedux(THEME.DARK));
     }
     setLoading(true);
-    console.log(loading);
+
   });
 
   return <div className={`theme-${theme}`}>{loading === true && <>{children}</>}</div>;
