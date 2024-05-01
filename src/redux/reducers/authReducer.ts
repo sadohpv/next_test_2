@@ -27,6 +27,7 @@ const authReducer = (state: AuthState = INITIAL_STATE, action: any) => {
             };
 
         case HOLD_DATA_OWNER:
+     
             return {
                 ...state,
                 data: action.data,

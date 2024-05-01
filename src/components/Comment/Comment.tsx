@@ -10,78 +10,164 @@ import { FormattedMessage, FormattedNumber } from "react-intl";
 import { FC, useState } from "react";
 import ShowMoreText from "react-show-more-text";
 import { HeartIcon, HeartIconFill, ThreeDotsIcon } from "~/assets/icon";
+import Moment from "react-moment";
+import { useSelector } from "react-redux";
+import commentServices from "~/services/commentServices";
+import Tippy from "@tippyjs/react";
 
 const cx = classNames.bind(styles);
 
 interface CommentCard {
-  data?: object;
+  data?: any;
+  likeCheck: boolean;
 }
-const CommentCard: FC<CommentCard> = ({ data }) => {
-  const [like, setLike] = useState<boolean>(false);
-  const handleLike = () => {
+const CommentCard: FC<CommentCard> = ({ data, likeCheck = false }) => {
+  const [like, setLike] = useState<boolean>(likeCheck);
+  const [modal, setModal] = useState<boolean>(false);
+  const [likeNumber, setLikeNumber] = useState(data.likeNumber);
+  const [confirm, setConfirm] = useState(false);
+  const [confirmType, setConfirmType] = useState(false);
+  const language = useSelector<any>(state => state.app.language);
+  const idUser = useSelector<any>(state => state.auth.data.id);
+
+  const handleLike = async () => {
     setLike(!like);
+    const payload = {
+      userId: idUser,
+      comId: data.id,
+      like: !like,
+    }
+    const result = await commentServices.toggleLikeComment(payload);
+
+    if (like === false) {
+      setLikeNumber(likeNumber + 1)
+    } else {
+      setLikeNumber(likeNumber - 1)
+    }
   };
+  const handleOpenCommentAction = () => {
+    setModal(!modal);
+  }
+  const handleDeleteComment = () => {
+    setConfirm(!confirm);
+    setConfirmType(false);
+  }
+  const handleReportComment = () => {
+    setConfirm(!confirm);
+    setConfirmType(true);
+  }
+  const handleConfirmDelete = async () => {
+    console.log("Call API");
+    setConfirm(!confirm);
+
+  }
   return (
-    <div className={cx("wrapper")}>
-      <div className={cx("avatar")}>
-        <Avatar size={32} />
-      </div>
-      <div className={cx("main")}>
-        <div className={cx("content")}>
-          <div className={cx("text")}>
-            <ShowMoreText
-              lines={3}
-              more={<FormattedMessage id="Common.ShowMore" />}
-              less={<FormattedMessage id="Common.ShowLess" />}
-              expanded={false}
-              truncatedEndingComponent={"..."}
-              anchorClass={cx("more_less-button")}
-            >
+    <>
+      <div className={cx("wrapper")}>
+        <div className={cx("avatar")}>
+          <Avatar size={32} src={data.author.avatar} />
+        </div>
+        <div className={cx("main")}>
+          <div className={cx("content")}>
+            <div className={cx("text")}>
+              <ShowMoreText
+                lines={3}
+                more={<FormattedMessage id="Common.ShowMore" />}
+                less={<FormattedMessage id="Common.ShowLess" />}
+                expanded={false}
+                truncatedEndingComponent={"..."}
+                anchorClass={cx("more_less-button")}
+              >
+                <p>
+                  <Link className={cx("name-in-content")} href={`/${data.author.id}`}>
+                    {data.author.userName}
+                  </Link>
+                  {data.content}
+                </p>
+              </ShowMoreText>
+            </div>
+
+          </div>
+          <div className={cx("infor")}>
+            <div className={cx("day")}>
               <p>
-                There are many variations of passages of Lorem as Ipsum
-                available, but the majority have suffered alteration in some
-                form, by injected humour There are many variations of passages
-                of Lorem as Ipsum available, but the majority have suffered
-                alteration in some form, by injected humourThere are many
-                variations of passages of Lorem as Ipsum available, but the
-                majority have suffered alteration in some form, by injected
-                humour
+                <Moment locale={language == 'en' ? 'en' : 'vi'} fromNow>
+                  {data.createdAt}
+                </Moment>
               </p>
-            </ShowMoreText>
-          </div>
-          <div className={cx("like")}>
-            <div
-              className={cx("like_button", like && "heartAnimation")}
-              onClick={handleLike}
-            >
-              {like ? (
-                <HeartIconFill width="16px" height="16px" />
-              ) : (
-                <HeartIcon width="16px" height="16px" />
-              )}
             </div>
-            <div className={cx("more_button")} onClick={handleLike}>
-              <ThreeDotsIcon width="16px" height="16px" />
+            <div className={cx("like_number")}>
+              <p>
+                <FormattedNumber
+                  notation="compact"
+                  maximumFractionDigits={2}
+                  value={likeNumber}
+                />
+                <FormattedMessage id="Post.Likes" />
+              </p>
             </div>
           </div>
         </div>
-        <div className={cx("infor")}>
-          <div className={cx("day")}>
-            <p>2 days ago</p>
+        <div className={cx("like")}>
+          <div
+            className={cx("like_button", like && "heartAnimation")}
+            onClick={handleLike}
+          >
+            {like ? (
+              <HeartIconFill width="16px" height="16px" />
+            ) : (
+              <HeartIcon width="16px" height="16px" />
+            )}
           </div>
-          <div className={cx("like_number")}>
-            <p>
-              <FormattedNumber
-                notation="compact"
-                maximumFractionDigits={2}
-                value={1234}
-              />
-              <FormattedMessage id="Post.Likes" />
-            </p>
+
+
+          <div className={cx("more_button")} onClick={handleOpenCommentAction}>
+            <ThreeDotsIcon width="16px" height="16px" />
+            {
+              modal &&
+              <div className={cx("modal")} onMouseLeave={handleOpenCommentAction}>
+                <div className={cx("modal_main")}>
+                  <div className={cx("modal_main-button")} onClick={handleDeleteComment}>
+                    <FormattedMessage id="Common.Delete" />
+                  </div>
+                  <div className={cx("modal_main-button")} onClick={handleReportComment}>
+                    <FormattedMessage id="Common.Report" />
+                  </div>
+                </div>
+              </div>
+            }
           </div>
         </div>
       </div>
-    </div>
+      {
+        confirm &&
+        <div className={cx("confirm")}>
+          <div className={cx("confirm_main")}>
+            <div className={cx("message")}>
+              {
+                confirmType ?
+                  <FormattedMessage id="Comment.Report_comment_message" />
+
+                  :
+                  <FormattedMessage id="Comment.Delete_comment_message" />
+              }
+            </div>
+            <div className={cx("confirm_action")}>
+              <div className={cx("confirm_action-button")} onClick={handleConfirmDelete}>
+
+                <FormattedMessage id="Common.Delete" />
+              </div>
+              <div className={cx("confirm_action-button")} onClick={handleDeleteComment}>
+
+                <FormattedMessage id="Common.Cancel" />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      }
+    </>
+
   );
 };
 export default CommentCard;

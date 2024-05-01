@@ -2,8 +2,12 @@
   max-height: 168px;
   min-height: 24px;
   margin-top: 8px;
+  position: relative;
 }
 
+.mention__control::before {
+  display: none;
+}
 
 .mention__suggestions {
   width           : 260px;
@@ -18,22 +22,22 @@
 }
 
 .mention__input {
-  max-height : 168px;
+  max-height: 168px;
 
   /* line-height: 16px; */
-  color      : var(--text-color);
-  overflow-y : scroll !important;
-  padding    : 0 2px 0 0px;
-  outline    : none !important;
+  color     : var(--text-color);
+  overflow-y: scroll !important;
+  padding   : 0 2px 0 0px;
+  outline   : none !important;
 }
 
 .mention__input::-webkit-scrollbar-track {
-    background: var(--background-color);
+  background: var(--background-color);
 }
 
 .mention__input::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: var(--text-color);
+  border-radius: 10px;
+  background   : var(--text-color);
 }
 
 .item {
@@ -45,6 +49,10 @@
 
 }
 
+.item::before {
+  display: none;
+}
+
 .mention__suggestions__list {
   width         : 100%;
   box-sizing    : border-box;
@@ -54,17 +62,103 @@
   gap           : 6px;
   overflow      : hidden;
   overflow-y    : scroll;
+  justify-content: center;
+  align-items: center;
+}
+.mention__suggestions__list::-webkit-scrollbar-track{
+  background-color: transparent;
+  width: 0;
+}
+.mention__suggestions__list::before {
+  display: none;
 }
 
 .mention__suggestions__item {
-  width              : 247px;
-  height             : 42px;
-  padding            : 4px 12px;
+  width              : 240px !important;
+  height             : 48px !important;
+  padding            : 4px 8px;
   display            : flex;
   box-sizing         : border-box;
-  background-color   : red;
+  /* background-color   : red; */
+  /* background-color:; */
   border-radius      : 8px;
   /* overflow        : hiddens */
+  align-items: center;
+  
+}
+/* .mention__suggestions__item:hover{
+  background-color   : rgb(212, 212, 212);
+
+} */
+.mention__suggestions__item::before {
+  display: none;
+}
+.mention__suggestions__item:hover .tag_infor {
+  /* display: none;
+  c */
+  color: var(--text-color);
+}
+.mention__suggestions__item--focused{
+  background-color: var(--background-color-modal);
+  /* color: white !important; */
+}
+.mention__highlighter__substring::before {
+  display: none;
+}
+
+.tag_avt {
+  width          : 40px !important;
+  height         : 40px !important;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+}
+
+.tag_infor {
+  flex  : 1;
+  height: 40px !important;
+  color:  black;
+}
+
+.tag_infor span {
+
+  height: 20px !important;
+
+}
+
+.tag_avt:nth-child(1)::before {
+  display: none;
+}
+
+.tag_avt a::before {
+  display: none;
+
+}
+
+.tag_avt a svg::before, .tag_avt a svg g::before{
+  display: none;
+
+}
+
+.tag_avt a svg {
+  height: 32px !important;
+}
+
+.box,
+.suggest {
+  height: 40px !important;
+}
+
+.box::before {
+  display: none;
+}
+
+.box.focused::before {
+  display: none;
+}
+
+.tag_infor span::before {
+  display: none;
 
 }
 
@@ -75,9 +169,13 @@
 
 }
 
+.suggest::before {
+  display: none;
+}
+
 .box {
   display: flex;
-  gap    : 6px;
+  gap    : 8px;
 
 }
 
@@ -85,4 +183,7 @@
   display       : flex;
   flex-direction: column;
 }
-
+/* 
+.mention__highlighter::before {
+  display: none;
+} */

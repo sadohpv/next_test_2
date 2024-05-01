@@ -38,19 +38,27 @@
         "Follow": "Follow",
         "Unfollow": "Unfollow",
         "ShowMore": "More",
-        "ShowLess": "Hide"
+        "ShowLess": "Hide",
+        "Delete": "Delete",
+        "Report": "Report",
+        "Cancel": "Cancel"
     },
     "Post": {
         "Share": "Share",
         "Like": "Like",
         "Likes": " Likes",
-        "Comment": "Comment",
+        "Comments": " Comments",
         "Unlike": "Unlike",
         "Save": "Save",
         "Show_all_comment": "Show all comment",
         "Next": "Next",
         "Crop": "Crop",
         "New_post": "New post",
-        "Upload_image" : "Upload image"
+        "Upload_image": "Upload image"
+    },
+    "Comment": {
+        "Delete_comment_message": "Are you sure that you wanna delete this comment ?",
+        "Report_comment_message": "Tell us what is wrong with this comment ?"
+
     }
 }

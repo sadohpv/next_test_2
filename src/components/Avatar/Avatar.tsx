@@ -19,7 +19,7 @@ const Avatar: FC<AvatarProps> = ({ src, link = "#", size = 36 }) => {
       style={{ width: `${size}px`, height: `${size}px` }}
       className={cx("wrapper")}
     >
-      {src ? (
+      {src && src != "" ? (
         <img src={src} alt="Avatar" />
       ) : (
         <AvatarDefault width={`${size}`} height={`${size}`} />

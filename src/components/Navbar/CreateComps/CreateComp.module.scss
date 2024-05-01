@@ -307,23 +307,52 @@
     flex: 1;
     // background-color: red;
     width: 400px;
-    height: 446px !important;
+    // height: 400px !important;
     padding: 8px;
     flex-direction: column;
     display: flex;
     gap: 10px;
+    box-sizing: border-box;
     .content_header {
         display: flex;
         gap: 10px;
+        height: 28px;
         align-items: center;
         color: var(--text-color);
         .name {
             font-family: IgMedium;
         }
     }
-    .content_input{
+    .content_input {
         display: flex;
         flex: 1;
-        background-color: antiquewhite;
+        height: 200px;
+        // background-color: antiquewhite;
+        :nth-child(1) {
+            width: 100%;
+            :nth-child(1),
+            :nth-child(2) {
+                max-height: 246px;
+                height: 246px;
+            }
+            :nth-child(1){
+                position: relative;
+                &::before{
+                    position: absolute;
+                    content: "";
+                    height: 1px;
+                    width: 100%;
+                    bottom: 0;
+                    background-color: var(--background-color-modal);
+                }
+            }
+            :nth-child(2)::-webkit-scrollbar-track {
+                background-color: transparent;
+
+               
+            }
+        }
+    }
+    .content_emoji {
     }
 }

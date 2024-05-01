@@ -1,118 +1,227 @@
 .wrapper {
-  display: flex;
-  gap: 10px;
+    display: flex;
+    min-height: 56px;
+    gap: 10px;
 }
 .avatar {
-  padding-top: 4px;
-  height: 100%;
-  width: auto;
-  display: flex;
-  align-items: flex-start;
+    padding-top: 4px;
+    height: 100%;
+    width: auto;
+    display: flex;
+    align-items: flex-start;
 }
 .main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 .content {
-  display: flex;
-  p {
-    // text-align: justify;
-    // text-justify: distribute;
-    // hyphens: auto;
-    text-justify: distribute;
-  }
+    display: flex;
+    p {
+        // text-align: justify;
+        // text-justify: distribute;
+        // hyphens: auto;
+        text-justify: distribute;
+    }
 }
 .text {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  div {
-    width: 100%;
-    span {
-      // display: block;
-      width: 100% !important;
-      br {
-        display: none;
-      }
-      span {
-        width: 100%;
-      }
-    }
-  }
-}
-.like {
-  display: flex;
-  width: 36px;
-  height: 100%;
-  align-items: center;
-  padding-top: 8px;
-  justify-content: flex-start;
-  flex-direction: column;
-  gap: 8px;
-  .like_button,
-  .more_button {
+    flex: 1;
+    min-height: 36px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    overflow: hidden;
-    // background-color: red;
-  }
-  .more_button {
-    display: none;
-    &:hover {
-      background-color: var(--hover-color);
+    div {
+        width: 100%;
+        span {
+            // display: block;
+            width: 100% !important;
+            br {
+                display: none;
+            }
+            span {
+                width: 100%;
+            }
+        }
     }
-  }
-  &:hover {
+}
+.like {
+    display: flex;
+    width: 36px;
+    height: 100%;
+    align-items: center;
+    padding-top: 8px;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    .like_button,
     .more_button {
-      display: flex;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        // overflow: hidden;
     }
-  }
+    .more_button {
+        position: relative;
+        display: none;
+        // overflow: visible;
+        &:hover {
+            background-color: var(--hover-color);
+        }
+    }
+    &:hover {
+        .more_button {
+            display: flex;
+        }
+    }
 }
 
 .infor {
-  display: flex;
-  gap: 10px;
-  font-size: 12px;
-  color: rgb(139, 139, 139);
-  .day {
-    font-family: IgLight;
-  }
-  .like_number {
-    font-family: IgMedium;
-  }
+    display: flex;
+    gap: 10px;
+    font-size: 12px;
+    color: rgb(139, 139, 139);
+    .day {
+        font-family: IgLight;
+    }
+    .like_number {
+        font-family: IgMedium;
+    }
 }
 
 .heartAnimation {
-  animation: heartBeat 0.5s ease-in-out forwards;
+    animation: heartBeat 0.5s ease-in-out forwards;
 }
 
 @keyframes heartBeat {
-  0% {
-    scale: 0.8;
-  }
+    0% {
+        scale: 0.8;
+    }
 
-  33% {
-    scale: 1;
-  }
+    33% {
+        scale: 1;
+    }
 
-  66% {
-    scale: 0.9;
-  }
-  100% {
-    opacity: 1;
-  }
+    66% {
+        scale: 0.9;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 .more_less-button {
     cursor: pointer;
     font-family: IgMedium;
     &:hover {
-      text-decoration: underline;
+        text-decoration: underline;
     }
-  }
+}
+.name-in-content {
+    margin-right: 4px;
+    font-family: IgBold;
+    font-size: 14px;
+}
+// MODAL
+.modal {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    cursor: default;
+    border-radius: 8px;
+    overflow: hidden;
+    bottom: 0px;
+    right: 0;
+    z-index: 2;
+    animation: modal_animation 0.5s ease-in-out forwards;
+    font-size: 12px;
+    .modal_main {
+        // width: 100px;
+        height: 60px;
+        background-color: var(--background-color-modal);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        padding: 4px;
+        .modal_main-button {
+            cursor: pointer;
+
+            width: 100%;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 8px;
+            padding: 0 8px;
+            &:hover {
+                background-color: var(--hover-color);
+            }
+        }
+    }
+}
+@keyframes modal_animation {
+    0% {
+        scale: 0.8;
+    }
+
+    33% {
+        scale: 1;
+    }
+
+    66% {
+        scale: 0.9;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+// CONFIRM
+.confirm {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(82, 81, 81, 0.317);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .confirm_main {
+        width: 240px;
+        height: 120px;
+        background-color: var(--background-color-modal);
+        overflow: hidden;
+        border-radius: 12px;
+        padding: 8px 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        // gap: 20px;
+        .message {
+            height: 30px;
+        }
+        .confirm_action {
+            width: 100%;
+            height: 36px;
+
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            .confirm_action-button {
+                height: 36px;
+                width: 40%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: var(--background-color);
+                overflow: hidden;
+                border-radius: 12px;
+                cursor: pointer;
+            }
+        }
+    }
+}

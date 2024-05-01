@@ -1,57 +1,63 @@
 {
-  "Login": {
-    "Login": "Đăng Nhập",
-    "Email": "Email",
-    "Password": "Mật khẩu",
-    "Phonenumber": "Số điện thoại",
-    "Register": "Đăng ký",
-    "Username": "Tên người dùng",
-    "Gender": "Giới tính",
-    "Address": "Địa chỉ",
-    "Re_Password": "Nhập lại mật khẩu"
-  },
-  "Navbar": {
-    "home": "Trang chủ",
-    "search": "Tìm kiếm",
-    "notify": "Thông báo",
-    "create": "Tạo",
-    "setting": "Cài đặt",
-    "more": "Thêm",
-    "language": "Ngôn ngữ",
-    "Theme": "Giao Diện",
-    "Light": "Sáng",
-    "Dark": "Tối"
-  },
-  "Submain": {
-    "suggested": "Gợi ý cho bạn",
-    "see_all": "Xem thêm"
-  },
-  "Quotes": {
-    "quote_1": "Sự khác biệt giữa người mới và bậc thầy là bậc thầy đã thất bại nhiều lần hơn so với người mới đã từng thử",
-    "quote_2": "Có hai lý do khiến một người cảm thấy muốn dạy điều gì đó. Hoặc là anh ta muốn truyền lại những thành công của mình hoặc anh ta muốn truyền lại những thất bại của mình",
-    "quote_3": "Trong mọi thời đại, trong mọi thế giới, kẻ mạnh đánh bóng răng nanh của mình trong khi kẻ yếu đánh bóng trí tuệ của mình"
-  },
-  "Common": {
-    "posts": "bài viết",
-    "followers": "người theo dõi",
-    "following": "đang theo dõi",
-    "Follow": "Theo dõi",
-    "Unfollow": "Bỏ theo dõi",
-    "ShowMore": "Thêm",
-    "ShowLess": "Ẩn"
-  },
-  "Post": {
-    "Share": "Chia sẻ",
-    "Like": "Thích",
-    "Likes": " Lượt thích",
-    "Comment": "Bình luận",
-    "Unlike": "Bỏ thích",
-    "Save": "Lưu",
-    "Show_all_comment": "Tất cả bình luận",
-    "Next": "Tiếp theo",
-    "Crop": "Chỉnh tỉ lệ",
-    "New_post" : "Bài viết mới",
-    "Upload_image" : "Tải ảnh lên"
-
-  }
+    "Login": {
+        "Login": "Đăng Nhập",
+        "Email": "Email",
+        "Password": "Mật khẩu",
+        "Phonenumber": "Số điện thoại",
+        "Register": "Đăng ký",
+        "Username": "Tên người dùng",
+        "Gender": "Giới tính",
+        "Address": "Địa chỉ",
+        "Re_Password": "Nhập lại mật khẩu"
+    },
+    "Navbar": {
+        "home": "Trang chủ",
+        "search": "Tìm kiếm",
+        "notify": "Thông báo",
+        "create": "Tạo",
+        "setting": "Cài đặt",
+        "more": "Thêm",
+        "language": "Ngôn ngữ",
+        "Theme": "Giao Diện",
+        "Light": "Sáng",
+        "Dark": "Tối"
+    },
+    "Submain": {
+        "suggested": "Gợi ý cho bạn",
+        "see_all": "Xem thêm"
+    },
+    "Quotes": {
+        "quote_1": "Sự khác biệt giữa người mới và bậc thầy là bậc thầy đã thất bại nhiều lần hơn so với người mới đã từng thử",
+        "quote_2": "Có hai lý do khiến một người cảm thấy muốn dạy điều gì đó. Hoặc là anh ta muốn truyền lại những thành công của mình hoặc anh ta muốn truyền lại những thất bại của mình",
+        "quote_3": "Trong mọi thời đại, trong mọi thế giới, kẻ mạnh đánh bóng răng nanh của mình trong khi kẻ yếu đánh bóng trí tuệ của mình"
+    },
+    "Common": {
+        "posts": "bài viết",
+        "followers": "người theo dõi",
+        "following": "đang theo dõi",
+        "Follow": "Theo dõi",
+        "Unfollow": "Bỏ theo dõi",
+        "ShowMore": "Thêm",
+        "ShowLess": "Ẩn",
+        "Delete": "Xoá",
+        "Report": "Báo cáo",
+        "Cancel": "Huỷ"
+    },
+    "Post": {
+        "Share": "Chia sẻ",
+        "Like": "Thích",
+        "Likes": " Lượt thích",
+        "Comments": " Bình luận",
+        "Unlike": "Bỏ thích",
+        "Save": "Lưu",
+        "Show_all_comment": "Tất cả bình luận",
+        "Next": "Tiếp theo",
+        "Crop": "Chỉnh tỉ lệ",
+        "New_post": "Bài viết mới",
+        "Upload_image": "Tải ảnh lên"
+    },
+    "Comment": {
+        "Delete_comment_message": "Bạn chắc chắn muốn xoá bình luận này ?",
+        "Report_comment_message": "Báo cáo với chúng tôi nếu bình luận này vi phạm ?"
+    }
 }

@@ -36,36 +36,52 @@ const NotifyComp: FC<NotifyCompProps> = ({
       setModal(true);
     }
   };
-  return tippy !== null ? (
-    <TippyCustom
-      content={<FormattedMessage id="Navbar.notify" />}
-      place={tippy === true ? "top" : "right"}
-    >
-      <div
-        className={cx("nav_item", modal && "active", page === 2 && "border")}
-        onClick={handleToggle}
-      >
-        <div className={cx("icon")}>
-          <HeartIcon fill={page === 2 ? "var(--text-color)" : "none"} />
-        </div>
-        <span>
-          <FormattedMessage id="Navbar.notify" />
-        </span>
-      </div>
-    </TippyCustom>
-  ) : (
-    <div
-      className={cx("nav_item", modal && "active", page === 2 && "border")}
-      onClick={handleToggle}
-    >
-      <div className={cx("icon")}>
-        <HeartIcon fill={page === 2 ? "var(--text-color)" : "none"} />
-      </div>
-      <span>
-        <FormattedMessage id="Navbar.notify" />
-      </span>
-    </div>
-  );
+  return (
+
+    <>
+      {
+        tippy !== null ? (
+          <TippyCustom
+            content={<FormattedMessage id="Navbar.notify" />}
+            place={tippy === true ? "top" : "right"}
+          >
+            <div
+              className={cx("nav_item", modal && "active", page === 2 && "border")}
+              onClick={handleToggle}
+            >
+              <div className={cx("icon")}>
+                <HeartIcon fill={page === 2 ? "var(--text-color)" : "none"} />
+              </div>
+              <span>
+                <FormattedMessage id="Navbar.notify" />
+              </span>
+            </div>
+          </TippyCustom>
+        ) : (
+          <div
+            className={cx("nav_item", modal && "active", page === 2 && "border")}
+            onClick={handleToggle}
+          >
+            <div className={cx("icon")}>
+              <HeartIcon fill={page === 2 ? "var(--text-color)" : "none"} />
+            </div>
+            <span>
+              <FormattedMessage id="Navbar.notify" />
+            </span>
+
+          </div>
+        )
+      }
+      {
+        page === 2 && (
+          <div className={cx("notify_box")}>
+
+          </div>
+        )
+      }
+    </>
+  )
+
 };
 
 export default NotifyComp;

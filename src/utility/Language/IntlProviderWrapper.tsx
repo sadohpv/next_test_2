@@ -6,6 +6,7 @@ import LanguageUtils from "./LanguageUtils";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLanguageRedux } from "~/redux/actions/appAction";
 import { LANGUAGE } from "../constants/constants";
+import "moment/locale/vi";
 
 interface IntlProviderWrapperProps {
   children: ReactNode;

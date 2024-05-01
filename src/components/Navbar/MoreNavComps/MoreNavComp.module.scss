@@ -166,7 +166,7 @@
   position: absolute;
   // bottom: 60px;
   // background-color: red;
-
+  box-shadow: 1px 1px 3px var(--modal-shadow);
   z-index: 99;
   border-radius: 12px;
   overflow: hidden;

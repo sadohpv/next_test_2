@@ -4,7 +4,6 @@ import classNames from "classnames/bind";
 import styles from "./FullPost.module.scss";
 import {
   CommentIcon,
-  EarthIcon,
   HeartIcon,
   HeartIconFill,
   SaveIcon,
@@ -12,22 +11,39 @@ import {
   ThreeDotsIcon,
 } from "~/assets/icon";
 
-import { FC, useState, useEffect, useRef } from "react";
+import { FC, useState, useRef, useEffect } from "react";
 import ShowMoreText from "react-show-more-text";
 import { FormattedMessage, FormattedNumber } from "react-intl";
 import Avatar from "../Avatar/Avatar";
 import TippyCustom from "~/utility/Tippy/TooltipCustom";
 import MentionCustom from "../Mentions/Mention";
 import CommentCard from "../Comment/Comment";
+import { useSelector } from "react-redux";
+import Moment from "react-moment";
+import postServices from "~/services/postServices";
+import commentServices from "~/services/commentServices";
+// import vi from "moment/locale/vi"
 
 const cx = classNames.bind(styles);
-interface FullPostCompProps {}
+interface FullPostCompProps {
+  data: any;
+  likeList: any;
+  fatherCount?: any;
+  fatherLike?: any;
+}
 
-const FullPostComp: FC<FullPostCompProps> = ({}) => {
+const FullPostComp: FC<FullPostCompProps> = ({ data, likeList, fatherCount, fatherLike }) => {
   const [play, setPlay] = useState<boolean>(false);
-  const [like, setLike] = useState<boolean>(false);
+  const [like, setLike] = useState<boolean>(likeList.includes(data.id));
+  const [likeNumber, setLikeNumber] = useState<number>(data.likeNumber);
+  const [commentNumber, setCommentNumber] = useState<number>(data.commentNumber);
   const [focus, setFocus] = useState<boolean>(false);
+  const [comment, setComment] = useState<any>("");
+  const [commentList, setCommentList] = useState<any>([]);
+  const [commentLikeList, setCommentLikeList] = useState<any>([]);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const language = useSelector<any>(state => state.app.language);
+  const idUser = useSelector<any>(state => state.auth.data.id);
 
   const handlePlayVideo = () => {
     if (videoRef.current !== null) {
@@ -39,8 +55,28 @@ const FullPostComp: FC<FullPostCompProps> = ({}) => {
       setPlay(!play);
     }
   };
-  const handleLike = () => {
+  const handleLike = async () => {
     setLike(!like);
+    const payload = {
+      userId: idUser,
+      postId: data.id,
+      like: !like
+    }
+    const result = await postServices.handleToggleLikePost(payload);
+    if (like === true) {
+      setLikeNumber(likeNumber - 1);
+
+    } else {
+      setLikeNumber(likeNumber + 1);
+
+    }
+    if (fatherLike && typeof fatherLike === 'function') {
+      if (like) {
+        fatherLike();
+      } else {
+        fatherLike();
+      }
+    }
   };
 
   const handleSetPlay = () => {
@@ -49,6 +85,35 @@ const FullPostComp: FC<FullPostCompProps> = ({}) => {
   const handleFocusInput = () => {
     setFocus(!focus);
   };
+  const handlePushComment = async () => {
+    if (comment !== "") {
+      const payload = {
+        userId: idUser,
+        postId: data.id,
+        content: comment,
+      }
+      await commentServices.createComment(payload);
+      setCommentNumber(commentNumber + 1);
+      setComment("");
+      if (fatherCount && typeof fatherCount === 'function') {
+        fatherCount(commentNumber + 1);
+      }
+      fetchData();
+    }
+  }
+  async function fetchData() {
+    const result = await commentServices.getAllComment(data.id, idUser);
+    setCommentList(result.result);
+    setCommentLikeList(result.likeCommentList);
+  }
+
+  useEffect(() => {
+
+
+    fetchData();
+
+
+  }, []);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("body")} onClick={handlePlayVideo}>
@@ -71,11 +136,11 @@ const FullPostComp: FC<FullPostCompProps> = ({}) => {
           <div className={cx("header")}>
             <div className={cx("infor")}>
               <div className={cx("avatar")}>
-                <Avatar size={42} />
+                <Avatar src={data.author.avatar} size={42} />
               </div>
               <div className={cx("title")}>
                 <div className={cx("name")}>
-                  <p>_shiroll</p>
+                  <p>{data.author.userName}</p>
                 </div>
               </div>
             </div>
@@ -85,42 +150,45 @@ const FullPostComp: FC<FullPostCompProps> = ({}) => {
           </div>
         </div>
         <div className={cx("comments_box")}>
-          <div className={cx("content")}>
-            <div className={cx("avatar")}>
-              <Avatar size={32} />
-            </div>
-            <div className={cx("content_text")}>
-              <ShowMoreText
-                lines={3}
-                more={<FormattedMessage id="Common.ShowMore" />}
-                less={<FormattedMessage id="Common.ShowLess" />}
-                anchorClass={cx("more_less-button")}
-              >
-                <p>
-                  <Link className={cx("name-in-content")} href={`/#`}>
-                    _shiroll
-                  </Link>
-                  I come from a long line of below-stairs maids and gardeners.
-                  Good ol' peasant stock. My mother and her sister made a
-                  quantum leap out of that life. Then I made another quantum
-                  leap.
-                </p>
-              </ShowMoreText>
-              <div className={cx("day")}>
-                <p>2 days ago</p>
+          {
+            data.content != "" &&
+            <div className={cx("content")}>
+              <div className={cx("avatar")}>
+                <Avatar size={32} />
+              </div>
+              <div className={cx("content_text")}>
+
+                <ShowMoreText
+                  lines={1}
+                  className={cx("text_content_post")}
+                  // width={436}
+                  more={<FormattedMessage id="Common.ShowMore" />}
+                  less={<FormattedMessage id="Common.ShowLess" />}
+                  anchorClass={cx("more_less-button")}>
+                  <p>
+                    <Link className={cx("name-in-content")} href={`${data.author.id}`}>
+                      {data.author.userName}
+                    </Link>
+                    {data.content}
+                  </p>
+                </ShowMoreText>
+                <div className={cx("day")}>
+                  <p>
+                    <Moment locale={language == 'en' ? 'en' : 'vi'} fromNow>
+                      {data.createdAt}
+                    </Moment>
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <CommentCard />
-          <CommentCard />
-          <CommentCard />
-          <CommentCard />
-          <CommentCard />
-          <CommentCard />
-          <CommentCard />
-          <CommentCard />
-          <CommentCard />
-          <CommentCard />
+          }
+          {
+            commentList.map((commentItem: any) => (
+              <CommentCard key={commentItem.id} likeCheck={commentLikeList.includes(commentItem.id)} data={commentItem} />
+
+            ))
+          }
+
         </div>
         <div className={cx("box")}>
           <div className={cx("footer")}>
@@ -149,7 +217,7 @@ const FullPostComp: FC<FullPostCompProps> = ({}) => {
                 </TippyCustom>
                 <TippyCustom
                   place="top"
-                  content={<FormattedMessage id="Post.Comment" />}
+                  content={<FormattedMessage id="Post.Comments" />}
                 >
                   <div className={cx("action_item")} onClick={handleFocusInput}>
                     <CommentIcon width="28" height="28" />
@@ -180,17 +248,29 @@ const FullPostComp: FC<FullPostCompProps> = ({}) => {
                 <FormattedNumber
                   notation="compact"
                   maximumFractionDigits={2}
-                  value={1234}
+                  value={likeNumber}
                 />
                 <FormattedMessage id="Post.Likes" />
               </p>
+              <p>
+                <FormattedNumber
+                  notation="compact"
+                  maximumFractionDigits={2}
+                  value={commentNumber}
+                />
+                <FormattedMessage id="Post.Comments" />
+              </p>
             </div>
             <div className={cx("day")}>
-              <p>2 days ago</p>
+              <p>
+                <Moment locale={language == 'en' ? 'en' : 'vi'} fromNow>
+                  {data.createdAt}
+                </Moment>
+              </p>
             </div>
           </div>
           <div className={cx("add_comment")}>
-            <MentionCustom focus={focus} />
+            <MentionCustom handlePushComment={handlePushComment} setContent={setComment} focus={focus} />
           </div>
         </div>
       </div>

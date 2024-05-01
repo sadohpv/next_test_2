@@ -1,13 +1,16 @@
 import { Mention, MentionsInput } from "react-mentions";
 import "./MentionStyle.css";
-import classNames from "classnames/bind";
 import { useRef, useState, FC, useEffect } from "react";
 import Avatar from "../Avatar/Avatar";
 interface MentionCustomProps {
   focus?: boolean;
+  currentHeight?: string;
+  maxHeight?: string | number;
+  setContent: any;
+  handlePushComment?: any;
 }
 
-const MentionCustom: FC<MentionCustomProps> = ({ focus }) => {
+const MentionCustom: FC<MentionCustomProps> = ({ handlePushComment, setContent, focus, currentHeight = "16px", maxHeight = 168 }) => {
   const renderSuggestContainer = (children: any) => {
     return <div className="item">{children}</div>;
   };
@@ -22,7 +25,7 @@ const MentionCustom: FC<MentionCustomProps> = ({ focus }) => {
       <div className="suggest">
         <div className={`box ${focused && "focused"}`}>
           <div className="tag_avt">
-            <Avatar src={entry.img} size={32} />
+            <Avatar src={entry.img} size={36} />
           </div>
           <div className="tag_infor">
             <span>{entry.display}</span>
@@ -53,48 +56,72 @@ const MentionCustom: FC<MentionCustomProps> = ({ focus }) => {
       fullName: "John",
       display: "John Wick",
     },
+    {
+      id: 5,
+      fullName: "John",
+      display: "John Wick",
+    },
+    {
+      id: 6,
+      fullName: "John",
+      display: "John Wick",
+    },
   ];
   const ref = useRef<any>();
   const [userComment, setUserComment] = useState("");
   const [commentLast, setCommentLast] = useState("");
-
+  // const [currentHeight, setCurrentHeight] = useState(height ? height : "16px");
+  // const [maxHeight]
   const handleContentPost = (e: { target: any; shiftKey?: any }) => {
-    ref.current.style.height = "16px";
+    ref.current.style.height = currentHeight;
 
     const height = ref.current.scrollHeight;
-    if (height > 0 && height <= 168) {
+    if (height > 0 && height <= maxHeight) {
       ref.current.style.height = ref.current.scrollHeight + "px";
-      console.log(ref.current.style.height);
     } else {
-      // console.log("Here");
-      ref.current.style.height = 168 + "px";
-      console.log(ref.current.style.height);
+      ref.current.style.height = maxHeight + "px";
+
     }
     const content = e.target.value;
     if (e.shiftKey === true) {
     }
     if (!content.startsWith(" ")) {
       setUserComment(content);
+      setContent(content);
     }
   };
 
   const handleContentKeyDown = async (e: any) => {
+
     if (userComment !== "") {
       if (e.keyCode === 13 && e.shiftKey === false) {
-        console.log("OK");
+        if (typeof handlePushComment === 'function') {
+
+          handlePushComment();
+          setContent("");
+          setUserComment("");
+          setCommentLast("");
+
+        }
+        e.preventDefault();
+
       } else if (e.keyCode === 13 && e.shiftKey === true) {
         let breakLine = commentLast.concat("\\b");
 
-        // console.log(breakLine);
+
         setCommentLast(breakLine);
-        // setUserComment(breakLine);
+        setContent(breakLine);
+
       } else {
         setCommentLast(e.target.value);
+        setContent(e.target.value);
+
       }
     } else {
-      if (e.keyCode === 13 && e.shiftKey === false) {
+      if (e.keyCode === 13) {
         e.preventDefault();
       }
+
     }
   };
   useEffect(() => {
@@ -112,6 +139,8 @@ const MentionCustom: FC<MentionCustomProps> = ({ focus }) => {
         inputRef={ref}
         customSuggestionsContainer={renderSuggestContainer}
         placeholder="Comment in this post !"
+        allowSpaceInQuery={true}
+        allowSuggestionsAboveCursor={true}
       >
         <Mention
           trigger={"@"}

@@ -113,7 +113,7 @@
     overflow: hidden;
     overflow-y: scroll;
     gap: 10px;
-
+    padding: 10px 0;
     &::-webkit-scrollbar-track {
         background: var(--background-color);
     }
@@ -153,6 +153,8 @@
         font-family: IgBold;
         font-size: 14px;
         line-height: 18px;
+        display: flex;
+        gap: 10px;
     }
     .action {
         display: flex;
@@ -185,6 +187,7 @@
     position: relative;
 
     .content_text {
+        flex: 1;
         text-align: distribute;
         .name-in-content {
             margin-right: 4px;
@@ -221,6 +224,13 @@
 
 .heartAnimation {
     animation: heartBeat 0.5s ease-in-out forwards;
+}
+
+.text_content_post{
+    width: 100%;
+    span{
+        width: 100%;
+    }
 }
 
 @keyframes heartBeat {

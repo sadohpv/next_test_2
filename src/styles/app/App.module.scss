@@ -11,8 +11,9 @@
     // padding-left: 244px;
     background-color: var(--background-color);
     nav{
+      // position: fixed;
       z-index: 1;
-
+      // top: 0;
     }
     .wrapper {
       padding-left: 244px;
@@ -55,11 +56,13 @@
       padding-left: 0;
       .wrapper {
         padding-left: 0;
+        padding-bottom: 48px;
       }
     }
   }
   .main {
     margin-top: 48px;
+    
   }
 }
 // Content Home Page

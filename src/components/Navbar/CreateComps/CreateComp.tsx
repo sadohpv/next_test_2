@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import styles from "./CreateComp.module.scss";
 import { BackIcon, CameraIcon, CreateIcon } from "~/assets/icon";
 import { usePathname } from "next/navigation";
-import { FC, useState, useEffect, useRef } from "react";
+import { FC, useState, useEffect, useRef, ChangeEvent } from "react";
 import TippyCustom from "~/utility/Tippy/TooltipCustom";
 
 import { FormattedMessage } from "react-intl";
@@ -13,6 +13,8 @@ import CropImage from "./CropImage";
 import getCroppedImg from './cropImg'
 import Avatar from "~/components/Avatar/Avatar";
 import MentionCustom from "~/components/Mentions/Mention";
+import { useSelector } from "react-redux";
+import postServices from "~/services/postServices";
 const cx = classNames.bind(styles);
 interface CreateCompProps {
     setModal: (modal: boolean) => void;
@@ -34,7 +36,8 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
     const imgRef = useRef<any>();
     const [cropArea, setCropArea] = useState<any>(null);
     const [aspectRadio, setAspectRadio] = useState<any>(1 / 1);
-
+    const [content, setContent] = useState<any>("");
+    const idUser = useSelector<any>(state => state.auth.data.id);
     const handleToggle = () => {
         if (page === 3) {
             setPage(0);
@@ -103,11 +106,42 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
                 const result = await getCroppedImg(imgPreview, cropArea,);
                 setImgAfterCrop(result.url);
                 setFile(result.file);
+                const reader = new FileReader();
+                reader.readAsDataURL(result.file);
+                console.log("Here");
+                reader.onload = () => {
+                    setFile(reader.result);
+                };
             }
         } catch (error) {
             console.log(error);
         }
     }
+
+
+
+    const [text, setText] = useState("");
+
+    function handleOnEnter(text: any) {
+        console.log("enter", text);
+    }
+
+    const handleCreatePost = async () => {
+
+
+        let payload = {
+            userId: idUser,
+            img: file,
+            content: content
+        }
+
+        const result = await postServices.handleCreatePost(payload)
+        console.log(result);
+
+    }
+
+
+
     return (
         <>
             {tippy !== null ? (
@@ -156,16 +190,20 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
                                 }
 
                             </div>
-                            <div className={cx("next")} onClick={handleNextStep}>
-                                {
-                                    step === STEP.STEP_TWO &&
+                            {
+                                step === STEP.STEP_TWO &&
+                                <div className={cx("next")} onClick={handleNextStep}>
                                     <FormattedMessage id="Post.Next" />
-                                }
-                                {
-                                    step === STEP.STEP_THREE &&
+                                </div>
+                            }
+
+                            {
+                                step === STEP.STEP_THREE &&
+                                <div className={cx("next")} onClick={handleCreatePost}>
                                     <FormattedMessage id="Post.Share" />
-                                }
-                            </div>
+                                </div>
+                            }
+
                         </div>
                         <div className={cx("body")}>
                             {
@@ -213,8 +251,9 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
                                             </div>
                                         </div>
                                         <div className={cx("content_input")}>
-                                            
+                                            <MentionCustom setContent={setContent} currentHeight="392px" />
                                         </div>
+
                                     </div>
                                 </div>
                             }

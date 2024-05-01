@@ -12,15 +12,19 @@ import NavbarSearch from "~/components/Navbar/NavbarSearch";
 import Navbar from "~/components/Navbar/Navbar";
 import { useRouter } from "next/navigation";
 import PostComp from "~/components/Post/Post";
+import postServices from "~/services/postServices";
 
 const cx = classNames.bind(styles);
 
 export default function Home() {
   // const submain = useMediaQuery("(min-width: 1160px)");
   // console.log(submain);
+  const [postList, setPostList] = useState<any>([]);
   const [submain, setSubmain] = useState<boolean>(true);
   const { width = 0, height = 0 } = useWindowSize();
-  const router = useRouter();
+  const [likePostList, setLikePostList] = useState<any>([]);
+  const idUser = useSelector<any>(state => state.auth.data.id);
+
   useEffect(() => {
     if (width >= 1160) {
       setSubmain(true);
@@ -35,12 +39,21 @@ export default function Home() {
       setSubmain(false);
     }
 
-    async function fetchData() {}
-    fetchData();
   }, []);
   //  console.log(width);
   // const theme = useSelector((state:any) =>state.app.theme);
+  useEffect(() => {
 
+    async function fetchData() {
+      const result = await postServices.getAllPost(idUser);
+      setPostList(result.dataPost);
+      setLikePostList(result.checkLike);
+    }
+    if (idUser) {
+
+      fetchData();
+    }
+  }, [idUser])
   return (
     <>
       <nav>
@@ -50,12 +63,16 @@ export default function Home() {
       </nav>
       <div className={cx("wrapper")}>
         <div className={cx("main")}>
-          <PostComp />
-          <PostComp />
+          {
+            postList.map((postData: any) =>
+              <PostComp key={postData.id} likeList={likePostList} data={postData} />
+            )
+          }
 
         </div>
         {submain && <Submain />}
       </div>
+
     </>
   );
 }

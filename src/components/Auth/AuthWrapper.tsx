@@ -16,18 +16,18 @@ function AuthWrapper({ children }: { children: React.ReactNode }) {
       if (auth === false) {
         const res = await authServices.handleCheckToken();
         if (typeof res == "number") {
-
+          
         } else {
           if (res.EC === 0) {
             sessionStorage.setItem("auth", "true");
-
+         
             dispatch(handleRefreshRedux(true));
             dispatch(handleHoldDataUserRedux(res.data));
-
+          
           } else {
             sessionStorage.removeItem("auth");
             router.push("/login");
-            console.log("Push Catch");
+
           }
         }
       }
