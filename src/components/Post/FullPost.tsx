@@ -26,17 +26,18 @@ import commentServices from "~/services/commentServices";
 
 const cx = classNames.bind(styles);
 interface FullPostCompProps {
-  data: any;
+  data?: any;
   likeList: any;
   fatherCount?: any;
   fatherLike?: any;
+  commentFatherNumber?: any;
 }
 
-const FullPostComp: FC<FullPostCompProps> = ({ data, likeList, fatherCount, fatherLike }) => {
+const FullPostComp: FC<FullPostCompProps> = ({ data, commentFatherNumber, likeList, fatherCount, fatherLike }) => {
   const [play, setPlay] = useState<boolean>(false);
   const [like, setLike] = useState<boolean>(likeList.includes(data.id));
   const [likeNumber, setLikeNumber] = useState<number>(data.likeNumber);
-  const [commentNumber, setCommentNumber] = useState<number>(data.commentNumber);
+  const [commentNumber, setCommentNumber] = useState<number>(commentFatherNumber);
   const [focus, setFocus] = useState<boolean>(false);
   const [comment, setComment] = useState<any>("");
   const [commentList, setCommentList] = useState<any>([]);
@@ -72,13 +73,16 @@ const FullPostComp: FC<FullPostCompProps> = ({ data, likeList, fatherCount, fath
     }
     if (fatherLike && typeof fatherLike === 'function') {
       if (like) {
-        fatherLike();
+        fatherLike(likeNumber - 1);
       } else {
-        fatherLike();
+        fatherLike(likeNumber + 1);
       }
     }
   };
-
+  const deleteCommentCount = () => {
+    setCommentNumber(commentNumber - 1);
+    fatherCount(commentNumber - 1);
+  }
   const handleSetPlay = () => {
     setPlay(false);
   };
@@ -114,22 +118,26 @@ const FullPostComp: FC<FullPostCompProps> = ({ data, likeList, fatherCount, fath
 
 
   }, []);
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("body")} onClick={handlePlayVideo}>
-        <video
-          ref={videoRef}
-          onEnded={handleSetPlay}
-          playsInline
-          disablePictureInPicture
-          disableRemotePlayback
-          preload="metadata"
-          muted
-          controls
-          controlsList="nofullscreen nodownload noremoteplayback noplaybackrate"
-        >
-          <source src="https://res.cloudinary.com/dxtuoottl/video/upload/v1711876624/Video/3333456313215914361_h8kjlz.mp4" />
-        </video>
+        {
+          data.typeFile === false ?
+            <img src={data.img} /> :
+            <video
+              ref={videoRef}
+              onEnded={handleSetPlay}
+              playsInline
+              disablePictureInPicture
+              disableRemotePlayback
+              preload="metadata"
+              muted
+              controls
+              controlsList="nofullscreen nodownload noremoteplayback noplaybackrate">
+              <source src={data.img} />
+            </video>
+        }
       </div>
       <div className={cx("full_comment")}>
         <div className={cx("box")}>
@@ -183,8 +191,8 @@ const FullPostComp: FC<FullPostCompProps> = ({ data, likeList, fatherCount, fath
             </div>
           }
           {
-            commentList.map((commentItem: any) => (
-              <CommentCard key={commentItem.id} likeCheck={commentLikeList.includes(commentItem.id)} data={commentItem} />
+            commentList.map((commentItem: any, index: any) => (
+              <CommentCard index={index} deleteCommentCount={deleteCommentCount} key={commentItem.id} likeCheck={commentLikeList.includes(commentItem.id)} data={commentItem} />
 
             ))
           }

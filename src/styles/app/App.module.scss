@@ -118,10 +118,12 @@
 
       .text {
         font-size: 14px;
-        line-height: 18px;
+        line-height: 22px;
         &:nth-child(1) {
           font-weight: 600;
         }
+        width: 100%;
+        flex: 1;
       }
     }
   }

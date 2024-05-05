@@ -112,7 +112,7 @@
         overflow: hidden;
         display: flex;
         flex-direction: column;
-
+        position: relative;
         .header {
             width: 100%;
             height: 46px;
@@ -225,14 +225,50 @@
             object-fit: contain;
         }
     }
-    .step_2 {
+    .step_2,
+    .step_4 {
         width: 400px;
     }
     .step_3 {
         display: flex;
     }
+    .step_4{
+        object-fit: contain;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        video{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            // pointer-events: none;
+        }
+    }
+    .step_5{
+        display: flex;
+        .pic{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            video{
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+    }
 }
-
+// MODAL
+.modal_loading{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(132, 132, 132, 0.358);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 // RESPONSIVE
 @media (max-width: 1260px) {
     .modal_create {
@@ -335,9 +371,9 @@
                 max-height: 246px;
                 height: 246px;
             }
-            :nth-child(1){
+            :nth-child(1) {
                 position: relative;
-                &::before{
+                &::before {
                     position: absolute;
                     content: "";
                     height: 1px;
@@ -348,8 +384,6 @@
             }
             :nth-child(2)::-webkit-scrollbar-track {
                 background-color: transparent;
-
-               
             }
         }
     }

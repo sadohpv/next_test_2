@@ -242,6 +242,11 @@ export const CommentIcon = ({ width = "24px", height = "24px" }) => {
         </svg>
     );
 };
+export const CommentIconFill = ({ width = "24px", height = "24px", fill = "var(--text-color)" }) => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} fill={fill} viewBox="0 0 512 512"><path d="M512 240c0 114.9-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6C73.6 471.1 44.7 480 16 480c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4l0 0 0 0 0 0 0 0 .3-.3c.3-.3 .7-.7 1.3-1.4c1.1-1.2 2.8-3.1 4.9-5.7c4.1-5 9.6-12.4 15.2-21.6c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208z" /></svg>
+    );
+};
 export const ShareIcon = ({ width = "24px", height = "24px" }) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 64 64" id="share">
@@ -305,5 +310,38 @@ export const AdjustIcon = ({ width = "24px", height = "24px" }) => {
             height={height}
             fill="white"
             viewBox="0 0 24 24" id="image-aspect-ratio"><path fill="none" d="M0 0h24v24H0z"></path><path d="M16 10h-2v2h2v-2zm0 4h-2v2h2v-2zm-8-4H6v2h2v-2zm4 0h-2v2h2v-2zm8-6H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12z"></path></svg>
+    );
+};
+
+export const AddFriendIcon = ({ width = "24px", height = "24px" }) => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width={width}
+            height={height} fill="none" viewBox="0 0 24 24" id="add-user"><path fill="var(--text-color)" fillRule="evenodd" d="M10 5.32843C7.79086 5.32843 6 7.11929 6 9.32843C6 11.5376 7.79086 13.3284 10 13.3284C12.2091 13.3284 14 11.5376 14 9.32843C14 7.11929 12.2091 5.32843 10 5.32843ZM5 9.32843C5 6.56701 7.23858 4.32843 10 4.32843C12.7614 4.32843 15 6.56701 15 9.32843C15 12.0899 12.7614 14.3284 10 14.3284C7.23858 14.3284 5 12.0899 5 9.32843Z" clipRule="evenodd"></path><path fill="var(--text-color)" fillRule="evenodd" d="M2.5164 21.3284H17.4836C17.2263 17.4194 13.9741 14.3284 10 14.3284 6.02588 14.3284 2.7737 17.4194 2.5164 21.3284zM1.5 21.8284C1.5 17.134 5.30558 13.3284 10 13.3284 14.6944 13.3284 18.5 17.134 18.5 21.8284 18.5 22.1046 18.2761 22.3284 18 22.3284H2C1.72386 22.3284 1.5 22.1046 1.5 21.8284zM16.1716 5.82844C16.1716 6.10458 16.3954 6.32844 16.6716 6.32844H22.3284C22.6046 6.32844 22.8284 6.10458 22.8284 5.82844 22.8284 5.5523 22.6046 5.32844 22.3284 5.32844H16.6716C16.3954 5.32844 16.1716 5.5523 16.1716 5.82844z" clipRule="evenodd"></path><path fill="var(--text-color)" fillRule="evenodd" d="M19.5001 9.15686C19.224 9.15686 19.0001 8.933 19.0001 8.65686V3C19.0001 2.72386 19.224 2.5 19.5001 2.5C19.7763 2.5 20.0001 2.72386 20.0001 3V8.65686C20.0001 8.933 19.7763 9.15686 19.5001 9.15686Z" clipRule="evenodd"></path></svg>
+    );
+};
+
+export const ContentIcon = ({ width = "24px", height = "24px" }) => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width={width}
+            height={height} viewBox="0 0 24 24" id="content">
+            <path fill="none" d="M0 0h24v24H0z"></path>
+            <g fill="var(--text-color)">
+                <path d="M11 5.32L9.625 4.219A1.001 1.001 0 009 4H3a1 1 0 00-1 1v13a1 1 0 001 1h5.649L11 20.85V5.32zM20 4h-6c-.227 0-.447.077-.625.219L12 5.32v15.53L14.351 19H20a1 1 0 001-1V5a1 1 0 00-1-1z">
+                </path></g></svg>
+    );
+};
+export const VideoIcon = ({ width = "24px", height = "24px" }) => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width={width}
+            height={height} viewBox="0 0 64 64" id="video"><path fill="var(--text-color)" d="M51.83 56H12.17a10 10 0 0 1-10-10V18a10 10 0 0 1 2.71-6.85 2 2 0 1 1 2.92 2.74A6 6 0 0 0 6.17 18v28a6 6 0 0 0 6 6h39.66a6 6 0 0 0 6-6V18a6 6 0 0 0-6-6H14.76a2 2 0 1 1 0-4h37.07a10 10 0 0 1 10 10v28a10 10 0 0 1-10 10Z"></path><path fill="var(--text-color)" d="M24.88 43.8a3 3 0 0 1-3-3V23.2a3 3 0 0 1 4.42-2.64l16.41 8.8a2 2 0 0 1-1.9 3.52l-14.93-8v14.25l9-4.83a2 2 0 1 1 1.89 3.52L26.3 43.44a3 3 0 0 1-1.42.36Z"></path></svg>
+    );
+};
+export const ImageIcon = ({ width = "24px", height = "24px" }) => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width={width}
+            height={height} viewBox="0 0 512 512" id="image">
+            <circle cx="352" cy="160" r="32" fill="none" stroke="var(--text-color)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32">
+            </circle><rect width="384" height="339" x="64" y="87" fill="none" stroke="var(--text-color)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" rx="32.01" ry="32.01"></rect>
+            <path fill="none" stroke="var(--text-color)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="m64 288 96-96 96 96 64-64 128 128"></path></svg>
     );
 };

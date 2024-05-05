@@ -7,5 +7,5 @@ const rootReducer = combineReducers({
     app: appReducer,
     auth: authReducer,
 });
-
+export type IRootState = ReturnType<typeof rootReducer>
 export default rootReducer;

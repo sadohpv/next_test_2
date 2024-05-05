@@ -20,8 +20,10 @@ const cx = classNames.bind(styles);
 interface CommentCard {
   data?: any;
   likeCheck: boolean;
+  deleteCommentCount?: any;
+  index?: any;
 }
-const CommentCard: FC<CommentCard> = ({ data, likeCheck = false }) => {
+const CommentCard: FC<CommentCard> = ({ index, data, likeCheck = false, deleteCommentCount }) => {
   const [like, setLike] = useState<boolean>(likeCheck);
   const [modal, setModal] = useState<boolean>(false);
   const [likeNumber, setLikeNumber] = useState(data.likeNumber);
@@ -37,7 +39,7 @@ const CommentCard: FC<CommentCard> = ({ data, likeCheck = false }) => {
       comId: data.id,
       like: !like,
     }
-    const result = await commentServices.toggleLikeComment(payload);
+    await commentServices.toggleLikeComment(payload);
 
     if (like === false) {
       setLikeNumber(likeNumber + 1)
@@ -57,10 +59,13 @@ const CommentCard: FC<CommentCard> = ({ data, likeCheck = false }) => {
     setConfirmType(true);
   }
   const handleConfirmDelete = async () => {
-    console.log("Call API");
+    await commentServices.deleteComment(data.id);
     setConfirm(!confirm);
-
+    if (typeof deleteCommentCount === "function") {
+      deleteCommentCount();
+    }
   }
+  console.log(index)
   return (
     <>
       <div className={cx("wrapper")}>
@@ -125,14 +130,29 @@ const CommentCard: FC<CommentCard> = ({ data, likeCheck = false }) => {
             <ThreeDotsIcon width="16px" height="16px" />
             {
               modal &&
-              <div className={cx("modal")} onMouseLeave={handleOpenCommentAction}>
+              <div className={cx("modal", index === 0 && "first")} onMouseLeave={handleOpenCommentAction}>
                 <div className={cx("modal_main")}>
-                  <div className={cx("modal_main-button")} onClick={handleDeleteComment}>
-                    <FormattedMessage id="Common.Delete" />
-                  </div>
+
                   <div className={cx("modal_main-button")} onClick={handleReportComment}>
-                    <FormattedMessage id="Common.Report" />
+                    <FormattedMessage id="Common.Reply" />
                   </div>
+
+                  {
+                    data.userId !== idUser &&
+                    <div className={cx("modal_main-button")} onClick={handleReportComment}>
+                      <FormattedMessage id="Common.Report" />
+                    </div>
+                  }
+
+                  {
+                    data.userId === idUser &&
+                    <div className={cx("modal_main-button")} onClick={handleDeleteComment}>
+                      <FormattedMessage id="Common.Delete" />
+                    </div>
+                  }
+
+
+
                 </div>
               </div>
             }

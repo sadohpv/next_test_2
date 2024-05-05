@@ -6,7 +6,8 @@ import { BackIcon, CameraIcon, CreateIcon } from "~/assets/icon";
 import { usePathname } from "next/navigation";
 import { FC, useState, useEffect, useRef, ChangeEvent } from "react";
 import TippyCustom from "~/utility/Tippy/TooltipCustom";
-
+import { toast } from 'react-toastify';
+import { InfinitySpin } from 'react-loader-spinner'
 import { FormattedMessage } from "react-intl";
 import { STEP } from "~/utility/constants/constants";
 import CropImage from "./CropImage";
@@ -15,6 +16,7 @@ import Avatar from "~/components/Avatar/Avatar";
 import MentionCustom from "~/components/Mentions/Mention";
 import { useSelector } from "react-redux";
 import postServices from "~/services/postServices";
+import { RootState } from "~/redux/store";
 const cx = classNames.bind(styles);
 interface CreateCompProps {
     setModal: (modal: boolean) => void;
@@ -26,10 +28,12 @@ interface CreateCompProps {
 }
 
 const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy }) => {
-    // console.log(router);
-    // const [create, setCreate] = useState<boolean>(false);
+
     const router = usePathname();
+    const [play, setPlay] = useState<boolean>(false);
+    const videoRef = useRef<HTMLVideoElement | null>(null);
     const [step, setStep] = useState<STEP>(STEP.STEP_ONE);
+    const [typeFile, setTypeFile] = useState<boolean>(false);
     const [imgPreview, setimgPreview] = useState<string>("");
     const [file, setFile] = useState<any>("");
     const [imageAfterCrop, setImgAfterCrop] = useState("");
@@ -37,7 +41,10 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
     const [cropArea, setCropArea] = useState<any>(null);
     const [aspectRadio, setAspectRadio] = useState<any>(1 / 1);
     const [content, setContent] = useState<any>("");
-    const idUser = useSelector<any>(state => state.auth.data.id);
+    const userData = useSelector<RootState, any>((state: any) => state.auth.data);
+
+    const [loading, setLoading] = useState(false);
+
     const handleToggle = () => {
         if (page === 3) {
             setPage(0);
@@ -47,6 +54,8 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
             setModal(true);
         }
     };
+
+
     const handleNextStep = async () => {
         switch (step) {
 
@@ -59,6 +68,10 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
                 // setStep(STEP.STEP_THREE)
                 console.log("CALL CREATE POST");
 
+                break;
+            case STEP.STEP_FOUR:
+                // setStep(STEP.STEP_THREE)
+                setStep(STEP.STEP_FIVE)
                 break;
             default:
                 setStep(STEP.STEP_ONE);
@@ -79,6 +92,11 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
             case STEP.STEP_THREE:
                 setStep(STEP.STEP_TWO);
                 break;
+            case STEP.STEP_FOUR:
+                setStep(STEP.STEP_ONE);
+                setimgPreview("");
+                setFile("");
+                break;
             default:
                 setStep(STEP.STEP_ONE);
 
@@ -89,13 +107,21 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
         if (e.target.files && e.target.files[0]) {
             const reader = new FileReader();
             reader.readAsDataURL(e.target.files[0]);
-            setimgPreview(URL.createObjectURL(e.target.files[0]));
-            setFile(e.target.files[0]);
-            setStep(STEP.STEP_TWO)
 
-            // reader.onload = () => {
-            //     setFile(reader.result);
-            // };
+            if (e.target.files[0].type === 'video/mp4') {
+                setimgPreview(URL.createObjectURL(e.target.files[0]));
+                reader.onloadend = () => {
+                    setFile(reader.result);
+                };
+                setStep(STEP.STEP_FOUR)
+                setTypeFile(true);
+            } else {
+                setimgPreview(URL.createObjectURL(e.target.files[0]));
+                setFile(e.target.files[0]);
+                setStep(STEP.STEP_TWO)
+            }
+
+
         }
 
     }
@@ -125,18 +151,38 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
     function handleOnEnter(text: any) {
         console.log("enter", text);
     }
-
+    const handlePlayVideo = () => {
+        if (videoRef.current !== null) {
+            if (play === false) {
+                videoRef.current.play();
+            } else {
+                videoRef.current.pause();
+            }
+            setPlay(!play);
+        }
+    };
+    const handleSetPlay = () => {
+        setPlay(false);
+    };
     const handleCreatePost = async () => {
 
-
         let payload = {
-            userId: idUser,
+            userId: userData.id,
             img: file,
-            content: content
+            content: content,
+            typeFile: typeFile
         }
-
+        setLoading(true);
         const result = await postServices.handleCreatePost(payload)
-        console.log(result);
+        if (result) {
+            toast.success("Posting success !", {
+                autoClose: 3000
+            })
+            setPage(0);
+            setModal(false);
+            setLoading(false);
+
+        }
 
     }
 
@@ -203,7 +249,18 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
                                     <FormattedMessage id="Post.Share" />
                                 </div>
                             }
-
+                            {
+                                step === STEP.STEP_FOUR &&
+                                <div className={cx("next")} onClick={handleNextStep}>
+                                    <FormattedMessage id="Post.Next" />
+                                </div>
+                            }
+                            {
+                                step === STEP.STEP_FIVE &&
+                                <div className={cx("next")} onClick={handleCreatePost}>
+                                    <FormattedMessage id="Post.Share" />
+                                </div>
+                            }
                         </div>
                         <div className={cx("body")}>
                             {
@@ -221,7 +278,7 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
                                         <input title=" "
 
 
-                                            onChange={(event) => handleSelectFile(event)} type="file" accept="video/*, image/*" />
+                                            onChange={(event) => handleSelectFile(event)} type="file" accept="video/mp4, image/*" />
                                     </div>
                                     {
                                         imgPreview && <img ref={imgRef} id={cx("preview")} src={imgPreview} />
@@ -257,9 +314,75 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
                                     </div>
                                 </div>
                             }
-                        </div>
+                            {
+                                step === STEP.STEP_FOUR &&
+                                <div className={cx(`step_${STEP.STEP_FOUR}`)}
+                                    onClick={handlePlayVideo}
+                                >
+                                    <video
+                                        playsInline
+                                        disablePictureInPicture
+                                        disableRemotePlayback
+                                        preload="metadata"
+                                        onEnded={handleSetPlay}
+                                        ref={videoRef}
+                                        muted
+                                        controls
+                                        controlsList="nofullscreen nodownload noremoteplayback noplaybackrate"
+                                    >
+                                        <source src={imgPreview} />
+                                    </video>
+                                </div>
+                            }
+                            {
+                                step === STEP.STEP_FIVE &&
+                                <div className={cx(`step_${STEP.STEP_FIVE}`)}>
+                                    <div className={cx("pic")} onClick={handlePlayVideo}>
+                                        <video
+                                            playsInline
+                                            disablePictureInPicture
+                                            disableRemotePlayback
+                                            preload="metadata"
+                                            onEnded={handleSetPlay}
+                                            ref={videoRef}
+                                            muted
+                                            controls
+                                            controlsList="nofullscreen nodownload noremoteplayback noplaybackrate"
+                                        >
+                                            <source src={imgPreview} />
+                                        </video>
+                                    </div>
+                                    <div className={cx("content_post")}>
+                                        <div className={cx("content_header")}>
+                                            <Avatar size={28} />
+                                            <div className={cx("name")}>
+                                                <p>
+                                                    {userData.userName}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className={cx("content_input")}>
+                                            <MentionCustom setContent={setContent} currentHeight="392px" />
+                                        </div>
 
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        {
+                            loading &&
+                            <div className={cx("modal_loading")}>
+                                <InfinitySpin
+
+                                    // width="83px"
+
+                                    color="var(--primary-color)"
+
+                                />
+                            </div>
+                        }
                     </div>
+
                 </div>
             )}
         </>

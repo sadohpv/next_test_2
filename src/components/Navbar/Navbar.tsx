@@ -29,6 +29,7 @@ function Navbar() {
   const [navLast, setNavLast] = useState<boolean | null>(true);
   const { width = 0, height = 0 } = useWindowSize();
   const router = usePathname();
+
   const handleNavigate = () => {
     if (page !== 0) {
       setPage(0);
@@ -50,6 +51,8 @@ function Navbar() {
     if (width >= 768) {
       setNavLast(true);
     }
+
+
   }, []);
   useEffect(() => {
     if (width < 768) {
@@ -84,7 +87,7 @@ function Navbar() {
         </Link>
         <div className={cx("nav_box")}>
           <Link
-            className={cx("nav_item", page === 0 && "disable")}
+            className={cx("nav_item", page === 0 && router === "/" && "disable")}
             href={"/"}
             onClick={handleNavigate}
           >

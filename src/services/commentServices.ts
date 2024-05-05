@@ -9,8 +9,13 @@ function createComment(createCommentDto: any) {
 function toggleLikeComment(createLikeCommentDto: any) {
     return axios.post<any, any>(`/like-comment`, createLikeCommentDto);
 }
+
+function deleteComment(id: any) {
+    return axios.delete(`/comment/${id}`);
+}
 export default {
     getAllComment,
     createComment,
     toggleLikeComment,
+    deleteComment
 };

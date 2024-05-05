@@ -10,8 +10,12 @@ function getAllPost(id: any) {
 function handleToggleLikePost(likePostDto: any) {
     return axios.post(`/like-post`, likePostDto);
 }
+function handleGetGuestPost(slug: string, id: number) {
+    return axios.get(`/post/guest/${slug}/${id}`);
+}
 export default {
     handleCreatePost,
     getAllPost,
     handleToggleLikePost,
+    handleGetGuestPost,
 };

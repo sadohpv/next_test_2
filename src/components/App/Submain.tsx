@@ -13,6 +13,10 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import UserCardSubmain from "../UserCard/UserCardSubmain";
+import { useSelector } from "react-redux";
+import { RootState } from "~/redux/store";
+import { useEffect, useState } from "react";
+import userServices from "~/services/userServices";
 // import "swiper/css/autoplay";
 const cx = classNames.bind(styles);
 
@@ -32,6 +36,19 @@ const listQuote = [
 ];
 
 export default function Submain() {
+  const userData = useSelector<RootState, any>(state => state.auth.data);
+  const [suggestedList, setSuggestedList] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      const result = await userServices.getSuggestedFriend(userData.id);
+      setSuggestedList(result);
+    }
+    if (userData.id) {
+
+      fetchData();
+    }
+  }, [userData])
+  console.log(suggestedList);
   return (
     <div className={cx("sub_main")}>
       <div className={cx("sub_header")}>
@@ -41,10 +58,11 @@ export default function Submain() {
         />
         <div className={cx("header_infor")}>
           <div className={cx("text")}>
-            <span>KUSAKARI</span>
+
+            <span>{userData.userName}</span>
           </div>
           <div className={cx("text")}>
-            <span>kusakari2110@gmail.com</span>
+            <span>{userData.email}</span>
           </div>
         </div>
       </div>
@@ -61,7 +79,12 @@ export default function Submain() {
             </span>
           </div>
         </div>
-        <UserCardSubmain />
+        {
+          suggestedList.map((item: any) => (
+
+            <UserCardSubmain key={item.id} data={item} />
+          ))
+        }
       </div>
       <div className={cx("sub_footer")}>
         <div className={cx("sologan")}>

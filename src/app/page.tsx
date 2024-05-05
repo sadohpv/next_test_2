@@ -13,7 +13,8 @@ import Navbar from "~/components/Navbar/Navbar";
 import { useRouter } from "next/navigation";
 import PostComp from "~/components/Post/Post";
 import postServices from "~/services/postServices";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const cx = classNames.bind(styles);
 
 export default function Home() {
@@ -50,17 +51,13 @@ export default function Home() {
       setLikePostList(result.checkLike);
     }
     if (idUser) {
-
+      
       fetchData();
     }
   }, [idUser])
   return (
     <>
-      <nav>
-        <NavbarSearch />
-
-        <Navbar />
-      </nav>
+      
       <div className={cx("wrapper")}>
         <div className={cx("main")}>
           {
@@ -72,6 +69,7 @@ export default function Home() {
         </div>
         {submain && <Submain />}
       </div>
+      <ToastContainer />
 
     </>
   );

@@ -33,6 +33,9 @@
     },
     "Common": {
         "posts": "bài viết",
+        "Posts": "Bài viết",
+        "Videos": "Videos",
+        "Photos": "Ảnh",
         "followers": "người theo dõi",
         "following": "đang theo dõi",
         "Follow": "Theo dõi",
@@ -41,7 +44,8 @@
         "ShowLess": "Ẩn",
         "Delete": "Xoá",
         "Report": "Báo cáo",
-        "Cancel": "Huỷ"
+        "Cancel": "Huỷ",
+        "Reply": "Trả lời"
     },
     "Post": {
         "Share": "Chia sẻ",

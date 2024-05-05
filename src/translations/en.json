@@ -33,6 +33,9 @@
     },
     "Common": {
         "posts": "posts",
+        "Posts": "Posts",
+        "Videos": "Videos",
+        "Photos": "Photos",
         "followers": "followers",
         "following": "following",
         "Follow": "Follow",
@@ -41,7 +44,8 @@
         "ShowLess": "Hide",
         "Delete": "Delete",
         "Report": "Report",
-        "Cancel": "Cancel"
+        "Cancel": "Cancel",
+        "Reply": "Reply"
     },
     "Post": {
         "Share": "Share",
@@ -59,6 +63,5 @@
     "Comment": {
         "Delete_comment_message": "Are you sure that you wanna delete this comment ?",
         "Report_comment_message": "Tell us what is wrong with this comment ?"
-
     }
 }

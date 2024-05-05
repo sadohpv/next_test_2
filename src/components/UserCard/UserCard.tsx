@@ -7,26 +7,32 @@ import Link from "next/link";
 import TippyCustom from "~/utility/Tippy/TooltipCustom";
 import UserCardHover from "./UserCardHover";
 import { FormattedMessage } from "react-intl";
+import { FC } from "react";
 const cx = classNames.bind(styles);
+interface UserCardProps {
+  data: any;
 
-export default function UserCard() {
+}
+
+const UserCard: FC<UserCardProps> = ({data}) => {
+ 
   return (
     <div className={cx("wrapper")}>
       <span>
         <TippyCustom
-          content={<UserCardHover />}
+          content={<UserCardHover data={data}/>}
           haveClick
           theme="element"
           place="bottom-start"
         >
           <div className={cx("avatar")}>
-            <Avatar size={44} />
+            <Avatar link={data.slug} src={data.avatar} size={44} />
           </div>
         </TippyCustom>
       </span>
       <div className={cx("infor")}>
-        <Link href={`/#`} className={cx("username")}>
-          <span>kusa.kari.2110</span>
+        <Link href={`/${data.slug}`} className={cx("username")}>
+          <span>{data.userName}</span>
         </Link>
 
         <div className={cx("fullname")}>
@@ -38,3 +44,4 @@ export default function UserCard() {
     </div>
   );
 }
+export default UserCard;

@@ -8,19 +8,25 @@ import TippyCustom from "~/utility/Tippy/TooltipCustom";
 import UserCardHover from "./UserCardHover";
 import { FormattedMessage } from "react-intl";
 import UserCard from "./UserCard";
+import { FC } from "react";
 const cx = classNames.bind(styles);
+interface UserCardSubmainProps {
+  data: any;
 
-export default function UserCardSubmain() {
-  return (
-    <div className={cx("wrapper")}>
-      <div className={cx("main")}>
-        <UserCard />
-      </div>
-      <div className={cx("button_follow")}>
-        <span>
-          <FormattedMessage id="Common.Follow" />
-        </span>
-      </div>
-    </div>
-  );
 }
+
+const UserCardSubmain: FC<UserCardSubmainProps> = ({data}) => {
+    return (
+      <div className={cx("wrapper")}>
+        <div className={cx("main")}>
+          <UserCard data={data}/>
+        </div>
+        <div className={cx("button_follow")}>
+          <span>
+            <FormattedMessage id="Common.Follow" />
+          </span>
+        </div>
+      </div>
+    );
+  }
+export default UserCardSubmain;

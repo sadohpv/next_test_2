@@ -6,12 +6,16 @@ import Avatar from "~/components/Avatar/Avatar";
 import Link from "next/link";
 import TippyCustom from "~/utility/Tippy/TooltipCustom";
 import { FormattedMessage } from "react-intl";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 const cx = classNames.bind(styles);
+interface UserCardHoverProps {
+  data: any;
 
-export default function UserCardHover() {
+}
+
+const UserCardHover: FC<UserCardHoverProps> = ({ data }) => {
   const [follow, setFollow] = useState<boolean | null>(null);
-
+  console.log(data);
   const toggleFollow = (value: boolean) => {
     setFollow(value);
     if (value === true) {
@@ -27,22 +31,22 @@ export default function UserCardHover() {
     <div className={cx("wrapper")}>
       <div className={cx("header")}>
         <div className={cx("avatar")}>
-          <Avatar size={44} />
+          <Avatar link={data.slug} size={44} />
         </div>
         <div className={cx("infor")}>
-          <Link href={`/#`} className={cx("username")}>
-            <span>kusa.kari.2110</span>
+          <Link href={`/${data.slug}`} className={cx("username")}>
+            <span>{data.slug}</span>
           </Link>
 
           <div className={cx("fullname")}>
-            <span>Trần Nhật Hoàng</span>
+            <span>{data.userName}</span>
           </div>
         </div>
       </div>
       <div className={cx("middle")}>
         <div className={cx("middle_item")}>
           <div className={cx("number")}>
-            <span>0</span>
+            <span>{data.countPost}</span>
           </div>
           <div className={cx("text")}>
             <span>
@@ -52,7 +56,7 @@ export default function UserCardHover() {
         </div>
         <div className={cx("middle_item")}>
           <div className={cx("number")}>
-            <span>0</span>
+            <span>{data.countFollower}</span>
           </div>
           <div className={cx("text")}>
             <span>
@@ -62,7 +66,7 @@ export default function UserCardHover() {
         </div>
         <div className={cx("middle_item")}>
           <div className={cx("number")}>
-            <span>0</span>
+            <span>{data.countFollowing}</span>
           </div>
           <div className={cx("text")}>
             <span>
@@ -116,3 +120,4 @@ export default function UserCardHover() {
     </div>
   );
 }
+export default UserCardHover;

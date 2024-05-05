@@ -25,14 +25,14 @@ import postServices from "~/services/postServices";
 const cx = classNames.bind(styles);
 interface PostCompProps {
     data: any;
-    likeList: number[];
+    likeList?: number[];
 }
 
 const PostComp: FC<PostCompProps> = ({ data, likeList }) => {
     const [play, setPlay] = useState<boolean>(false);
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const [modal, setModal] = useState<boolean>(false);
-    const [like, setLike] = useState<boolean>(likeList.includes(data.id));
+    const [like, setLike] = useState<boolean>(likeList ? likeList.includes(data.id) : false);
     const [likeNumber, setLikeNumber] = useState<number>(data.likeNumber);
     const [commentNumber, setCommentNumber] = useState<number>(data.commentNumber);
     const language = useSelector<any>(state => state.app.language);
@@ -90,7 +90,7 @@ const PostComp: FC<PostCompProps> = ({ data, likeList }) => {
                 <div className={cx("header")}>
                     <div className={cx("infor")}>
                         <div className={cx("avatar")}>
-                            <Avatar src={data.author.avatar} size={42} />
+                            <Avatar link={data.author.slug} src={data.author.avatar} size={42} />
                         </div>
                         <div className={cx("title")}>
                             <div className={cx("name")}>
@@ -115,19 +115,24 @@ const PostComp: FC<PostCompProps> = ({ data, likeList }) => {
                 </div>
 
                 <div className={cx("body")} onClick={handlePlayVideo}>
-                    {/* <video
-                        ref={videoRef}
-                        onEnded={handleSetPlay}
-                        playsInline
-                        disablePictureInPicture
-                        disableRemotePlayback
-                        preload="metadata"
-                        muted
-                        controls
-                        controlsList="nofullscreen nodownload noremoteplayback noplaybackrate">
-                        <source src="https://res.cloudinary.com/dxtuoottl/video/upload/v1711876624/Video/3333456313215914361_h8kjlz.mp4" />
-                    </video> */}
-                    <img src={data.img} />
+                    {
+                        data.typeFile === false ?
+                            <img src={data.img} /> :
+                            <video
+                                ref={videoRef}
+                                onEnded={handleSetPlay}
+                                playsInline
+                                disablePictureInPicture
+                                disableRemotePlayback
+                                preload="metadata"
+                                muted
+                                controls
+                                controlsList="nofullscreen nodownload noremoteplayback noplaybackrate">
+                                <source src={data.img} />
+                            </video>
+                    }
+
+
                 </div>
                 <div className={cx("footer")}>
                     <div className={cx("action")}>
@@ -197,7 +202,7 @@ const PostComp: FC<PostCompProps> = ({ data, likeList }) => {
             </div>
             {modal && (
                 <div className={cx("full_post_box")}>
-                    <FullPostComp fatherCount={setCommentNumber} fatherLike={handleFatherLike} likeList={likeList} data={data} />
+                    <FullPostComp fatherCount={setCommentNumber} fatherLike={handleFatherLike} commentFatherNumber={commentNumber} likeList={likeList} data={data} />
                     <div className={cx("close")} onClick={handleCloseModal}>
                         <CloseIcon width="42px" height="42px" />
                     </div>

@@ -8,6 +8,8 @@ import IntlProviderWrapper from "~/utility/Language/IntlProviderWrapper";
 import ReduxProvider from "~/redux/ReduxProvider";
 import ThemeProviderWrapper from "~/utility/Themes/ThemeProvider";
 import AuthWrapper from "~/components/Auth/AuthWrapper";
+import NavbarSearch from "~/components/Navbar/NavbarSearch";
+import Navbar from "~/components/Navbar/Navbar";
 const cx = classNames.bind(styles);
 export const metadata: Metadata = {
   title: "ABC",
@@ -27,7 +29,16 @@ export default function RootLayout({
             <ThemeProviderWrapper>
               <div className={cx("body")}>
                 <IntlProviderWrapper>
-                  <AuthWrapper>{children}</AuthWrapper>
+                  <AuthWrapper>
+                    <>
+                      <nav>
+                        <NavbarSearch />
+
+                        <Navbar />
+                      </nav>
+                      {children}
+                    </>
+                  </AuthWrapper>
                 </IntlProviderWrapper>
               </div>
             </ThemeProviderWrapper>
