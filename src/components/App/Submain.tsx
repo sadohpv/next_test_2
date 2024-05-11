@@ -42,18 +42,20 @@ export default function Submain() {
     async function fetchData() {
       const result = await userServices.getSuggestedFriend(userData.id);
       setSuggestedList(result);
+      console.log(result);
     }
     if (userData.id) {
 
       fetchData();
     }
   }, [userData])
-  console.log(suggestedList);
+//  console.log(suggestedList);
   return (
     <div className={cx("sub_main")}>
       <div className={cx("sub_header")}>
         <Avatar
           size={44}
+          link={userData.slug}
           src={"https://wallpaperset.com/w/full/e/a/7/444549.jpg"}
         />
         <div className={cx("header_infor")}>

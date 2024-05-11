@@ -25,7 +25,7 @@ const TippyCustom: React.FC<TippyCustomProps> = ({
       placement={place}
       animation={"scale"}
       // trigger={haveClick === true ? "click" : "mouseenter"}
-      zIndex={9999}
+      zIndex={9}
       interactive={haveClick}
       // popperOptions={['bottom', 'right']}
       theme={theme}

@@ -2,58 +2,81 @@
 import Link from "next/link";
 import classNames from "classnames/bind";
 import styles from "./UserPagePost.module.scss";
-import {
-    CommentIcon,
-    CommentIconFill,
-    HeartIcon,
-    HeartIconFill,
-    SaveIcon,
-    ShareIcon,
-    ThreeDotsIcon,
-} from "~/assets/icon";
+import { CloseIcon, CommentIconFill, HeartIconFill } from "~/assets/icon";
 
 import { FC, useState, useRef, useEffect } from "react";
-import ShowMoreText from "react-show-more-text";
 import { FormattedMessage, FormattedNumber } from "react-intl";
-import Avatar from "../Avatar/Avatar";
-import TippyCustom from "~/utility/Tippy/TooltipCustom";
-import MentionCustom from "../Mentions/Mention";
-import CommentCard from "../Comment/Comment";
 import { useSelector } from "react-redux";
-import Moment from "react-moment";
 import postServices from "~/services/postServices";
-import commentServices from "~/services/commentServices";
+import FullPostComp from "./FullPost";
 // import vi from "moment/locale/vi"
 
 const cx = classNames.bind(styles);
 interface UserPagePostCompProps {
-    data?: any;
-
-    fatherCount?: any;
-    fatherLike?: any;
-    commentFatherNumber?: any;
+    data: any;
+    likeList: any;
+    dataUserPage: any;
 }
 
-const UserPagePostComp: FC<UserPagePostCompProps> = ({ data }) => {
-    // console.log(data)
-
+const UserPagePostComp: FC<UserPagePostCompProps> = ({ data, dataUserPage, likeList }) => {
+    data.author = dataUserPage;
     const [hover, setHover] = useState<boolean | null>(null);
+    const [modalFullPost, setModalFullPost] = useState<boolean>(false);
+    const [like, setLike] = useState<boolean>(likeList ? likeList.includes(data.id) : false);
+    const [likeNumber, setLikeNumber] = useState(data.likeNumber);
+    const [commentNumber, setCommentNumber] = useState(data.commentNumber);
+    const [listLike, setListLike] = useState(likeList ? likeList : []);
+    const idUser = useSelector<any>(state => state.auth.data.id);
+
     const handleOnHoverPicPost = () => {
         // console.log("Here");
         setHover(true);
-    }
+    };
     const handleUnHover = () => {
         setHover(false);
+    };
+    const handleOpenFullPost = () => {
+        setModalFullPost(true);
+        const body = window.document.getElementsByTagName("body")[0];
+        body.style.overflow = "hidden";
+    };
 
-    }
+    const handleCloseFullPost = () => {
+        setModalFullPost(false);
+        const body = window.document.getElementsByTagName("body")[0];
+        body.style.overflow = "auto";
+    };
+
+    const handleLike = async () => {
+        setLike(!like);
+        const payload = {
+            userId: idUser,
+            postId: data.id,
+            like: !like,
+        };
+        const result = await postServices.handleToggleLikePost(payload);
+        if (like === true) {
+            setListLike(listLike.filter((item: any) => item !== data.id));
+            setLikeNumber(likeNumber - 1);
+        } else {
+            const listAdd = [...listLike, data.id];
+            setListLike(listAdd);
+            setLikeNumber(likeNumber + 1);
+        }
+    };
+
     return (
-        <div className={cx("wrapper")} onMouseOut={handleUnHover} onMouseOver={handleOnHoverPicPost}>
-            <div className={cx("post_pic")} >
-                {
-                    data.typeFile === false ?
-                        <img src={data.img} /> :
+        <>
+            <div
+                className={cx("wrapper")}
+                onClick={handleOpenFullPost}
+                onMouseOut={handleUnHover}
+                onMouseOver={handleOnHoverPicPost}>
+                <div className={cx("post_pic")}>
+                    {data.typeFile === false ? (
+                        <img src={data.img} />
+                    ) : (
                         <video
-
                             playsInline
                             disablePictureInPicture
                             disableRemotePlayback
@@ -63,39 +86,49 @@ const UserPagePostComp: FC<UserPagePostCompProps> = ({ data }) => {
                             controlsList="nofullscreen nodownload noremoteplayback noplaybackrate">
                             <source src={data.img} />
                         </video>
-                }
-            </div>
-            {
-                hover &&
-                <div className={cx("infor_hover", "move_in")}>
-                    <div className={cx("infor")}>
-                        <div className={cx("infor_item")}>
-                            <HeartIconFill  fill="white" />
-                            <span className={cx("text")}>
-
-                                <FormattedNumber
-                                    notation="compact"
-                                    maximumFractionDigits={2}
-                                    value={data.likeNumber}
-                                />
-                            </span>
-                        </div>
-                        <div className={cx("infor_item")}>
-                            <CommentIconFill  width="20px" height="20px"/>
-                            <span className={cx("text")}>
-                                <FormattedNumber
-                                    notation="compact"
-                                    maximumFractionDigits={2}
-                                    value={data.commentNumber}
-                                />
-                            </span>
+                    )}
+                </div>
+                {hover && (
+                    <div className={cx("infor_hover", "move_in")}>
+                        <div className={cx("infor")}>
+                            <div className={cx("infor_item")}>
+                                <HeartIconFill fill="white" />
+                                <span className={cx("text")}>
+                                    <FormattedNumber notation="compact" maximumFractionDigits={2} value={likeNumber} />
+                                </span>
+                            </div>
+                            <div className={cx("infor_item")}>
+                                <CommentIconFill width="20px" height="20px" />
+                                <span className={cx("text")}>
+                                    <FormattedNumber
+                                        notation="compact"
+                                        maximumFractionDigits={2}
+                                        value={commentNumber}
+                                    />
+                                </span>
+                            </div>
                         </div>
                     </div>
+                )}
+            </div>
+            {modalFullPost && (
+                <div className={cx("modalFullPost")}>
+                    <FullPostComp
+                        like={like}
+                        handleLike={handleLike}
+                        commentFatherNumber={commentNumber}
+                        setCommentFatherNumber={setCommentNumber}
+                        likeFatherNumber={likeNumber}
+                        likeList={listLike}
+                        data={data}
+                    />
+                    <div className={cx("close")} onClick={handleCloseFullPost}>
+                        <CloseIcon width="42px" height="42px" />
+                    </div>
                 </div>
-            }
+            )}
+        </>
+    );
+};
 
-        </div>
-    )
-}
-
-export default UserPagePostComp
+export default UserPagePostComp;

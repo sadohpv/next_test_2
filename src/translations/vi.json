@@ -20,11 +20,14 @@
         "language": "Ngôn ngữ",
         "Theme": "Giao Diện",
         "Light": "Sáng",
-        "Dark": "Tối"
+        "Dark": "Tối",
+        "logout": "Đăng xuất"
     },
     "Submain": {
         "suggested": "Gợi ý cho bạn",
-        "see_all": "Xem thêm"
+        "see_all": "Xem thêm",
+        "Confirm_unfollow": "Bạn có chắc chắn muốn bỏ theo dõi",
+        "Confirm_unfollow_message": "Bạn sẽ không thường xuyên thấy bài viết của người này."
     },
     "Quotes": {
         "quote_1": "Sự khác biệt giữa người mới và bậc thầy là bậc thầy đã thất bại nhiều lần hơn so với người mới đã từng thử",
@@ -45,7 +48,9 @@
         "Delete": "Xoá",
         "Report": "Báo cáo",
         "Cancel": "Huỷ",
-        "Reply": "Trả lời"
+        "Reply": "Trả lời",
+        "Edit": "Chỉnh sửa",
+        "Followed" : "Đã theo dõi"
     },
     "Post": {
         "Share": "Chia sẻ",
@@ -58,10 +63,27 @@
         "Next": "Tiếp theo",
         "Crop": "Chỉnh tỉ lệ",
         "New_post": "Bài viết mới",
-        "Upload_image": "Tải ảnh lên"
+        "Upload_image": "Tải ảnh lên",
+        "Copy_link_post": "Sao chép đường liên kết",
+        "Private_post": "Ẩn bài viết",
+        "Publish_post": "Công khai bài viết"
     },
     "Comment": {
         "Delete_comment_message": "Bạn chắc chắn muốn xoá bình luận này ?",
         "Report_comment_message": "Báo cáo với chúng tôi nếu bình luận này vi phạm ?"
+    },
+    "UserPage": {
+        "No_videos": "Chưa có video nào !",
+        "No_photos": "Chưa có ảnh nào !",
+        "No_posts": "Chưa có bài viết nào !",
+        "Add_Friend": "Gửi lời mời kết bạn",
+        "Unfriend": "Huỷ kết bạn",
+        "Cancel_add_friend": "Huỷ lời mời",
+        "Confirm_unfriend" : "Bạn có chắc không muốn làm bạn với ",
+        "Accept_add_friend" : "Đồng ý"
+    },
+    "Search":{
+        "Not_found" : "Không có kết quả phù hợp với từ khoá ?",
+        "No_keyword" : "Hình như bạn quên từ khoá tìm kiếm thì phải ?"
     }
 }

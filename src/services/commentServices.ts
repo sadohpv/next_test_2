@@ -13,9 +13,13 @@ function toggleLikeComment(createLikeCommentDto: any) {
 function deleteComment(id: any) {
     return axios.delete(`/comment/${id}`);
 }
+function editComment(editCommentDto: any) {
+    return axios.patch(`/comment/edit`, editCommentDto);
+}
 export default {
     getAllComment,
     createComment,
     toggleLikeComment,
-    deleteComment
+    deleteComment,
+    editComment
 };

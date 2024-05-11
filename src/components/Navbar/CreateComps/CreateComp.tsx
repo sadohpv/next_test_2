@@ -128,17 +128,17 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
 
     const handleCropImage = async () => {
         try {
-            if (aspectRadio) {
-                const result = await getCroppedImg(imgPreview, cropArea,);
-                setImgAfterCrop(result.url);
-                setFile(result.file);
-                const reader = new FileReader();
-                reader.readAsDataURL(result.file);
-                console.log("Here");
-                reader.onload = () => {
-                    setFile(reader.result);
-                };
-            }
+
+            const result = await getCroppedImg(imgPreview, cropArea);
+            setImgAfterCrop(result.url);
+            setFile(result.file);
+            const reader = new FileReader();
+            reader.readAsDataURL(result.file);
+            console.log("Here");
+            reader.onload = () => {
+                setFile(reader.result);
+            };
+
         } catch (error) {
             console.log(error);
         }

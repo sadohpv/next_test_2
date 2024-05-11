@@ -36,6 +36,7 @@ const CropImage: FC<CropImageProps> = ({ image, setCropArea, aspectRadio, setAsp
             const { width, height } = await getImageSize(image);
             console.log(width, height);
             setOrigin(width / height);
+            
             setAspectRadio(undefined);
        
         }

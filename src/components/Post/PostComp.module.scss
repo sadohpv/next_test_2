@@ -35,10 +35,9 @@
                     display: flex;
                     gap: 4px;
                     align-items: center;
-                    span{
+                    span {
                         display: flex;
                         align-items: center;
-                      
                     }
                 }
             }
@@ -46,6 +45,39 @@
     }
 }
 .header_action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    .action_modal {
+        position: absolute;
+        // height: 200px;
+        top: 0;
+        right: 0;
+        background-color: var(--background-color-modal);
+        border-radius: 8px;
+        animation: slide_in 0.25s ease-in-out forwards;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 8px;
+        z-index: 1;
+        .action_item {
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            min-width: 130px;
+            user-select: none;
+            height: 40px;
+            cursor: pointer;
+            border-radius: 8px;
+            &:hover {
+                background-color: var(--hover-color);
+            }
+        }
+    }
+}
+.three_dot_button {
     height: 32px;
     width: 32px;
     display: flex;
@@ -73,6 +105,9 @@
     overflow: hidden;
     video,
     img {
+        user-select: none;
+
+        -webkit-user-drag: none;
         width: 100%;
         height: 100%;
         object-fit: contain;
@@ -173,7 +208,24 @@
         }
     }
 }
-
+.likeModal_title {
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+.like_modal {
+    display: flex;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(177, 177, 177, 0.193);
+    top: 0;
+    left: 0;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+}
 .heartAnimation {
     animation: heartBeat 0.5s ease-in-out forwards;
 }
@@ -192,5 +244,16 @@
     }
     100% {
         opacity: 1;
+    }
+}
+
+@keyframes slide_in {
+    from {
+        opacity: 0.5;
+        right: 20px;
+    }
+    to {
+        opacity: 1;
+        right: 0px;
     }
 }

@@ -49,6 +49,7 @@ export default function Home() {
       const result = await postServices.getAllPost(idUser);
       setPostList(result.dataPost);
       setLikePostList(result.checkLike);
+      console.log(result.dataPost)
     }
     if (idUser) {
       

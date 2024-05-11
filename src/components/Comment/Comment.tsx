@@ -14,6 +14,7 @@ import Moment from "react-moment";
 import { useSelector } from "react-redux";
 import commentServices from "~/services/commentServices";
 import Tippy from "@tippyjs/react";
+import MentionCustom from "../Mentions/Mention";
 
 const cx = classNames.bind(styles);
 
@@ -28,7 +29,10 @@ const CommentCard: FC<CommentCard> = ({ index, data, likeCheck = false, deleteCo
   const [modal, setModal] = useState<boolean>(false);
   const [likeNumber, setLikeNumber] = useState(data.likeNumber);
   const [confirm, setConfirm] = useState(false);
-  const [confirmType, setConfirmType] = useState(false);
+  const [confirmType, setConfirmType] = useState<boolean | null>(false);
+  const [content, setContent] = useState<any>(data.content);
+  const [comment, setComment] = useState<any>(data.content);
+  const [focus, setFocus] = useState(false);
   const language = useSelector<any>(state => state.app.language);
   const idUser = useSelector<any>(state => state.auth.data.id);
 
@@ -54,6 +58,11 @@ const CommentCard: FC<CommentCard> = ({ index, data, likeCheck = false, deleteCo
     setConfirm(!confirm);
     setConfirmType(false);
   }
+  const handleEditComment = () => {
+    setConfirm(!confirm);
+    setConfirmType(null)
+    setFocus(true);
+  }
   const handleReportComment = () => {
     setConfirm(!confirm);
     setConfirmType(true);
@@ -65,7 +74,71 @@ const CommentCard: FC<CommentCard> = ({ index, data, likeCheck = false, deleteCo
       deleteCommentCount();
     }
   }
-  console.log(index)
+
+  const handleEditApiComment = async () => {
+    if (comment !== "") {
+      const payload = {
+        id: data.id,
+        content: comment,
+      }
+      // console.log(comment);
+      await commentServices.editComment(payload);
+      setConfirm(!confirm);
+      setContent(comment);
+    }
+  }
+  const handleCancelComment = () => {
+    setConfirm(false);
+    if (confirmType === null) {
+      setComment(data.content);
+    }
+  }
+  const handleComTag = (comment: any) => {
+    const breakLine = comment.split("\n");
+
+    if (breakLine.length > 1) {
+      // console.log(breakLine);
+
+      return (
+        <div className={cx("tag")}>
+          {breakLine.map((line: any) => {
+            const lineTag = line.split("@t@g");
+            return (
+              <span>
+                {lineTag.map((item: any, index: any) => handleNextTag(lineTag, item, index))}
+                <br></br>
+              </span>
+            );
+          })}
+        </div>
+      );
+    } else {
+      const result = comment.split("@t@g");
+      // console.log(result);
+
+      return (
+        <div className={cx("tag")}>
+          {result.map((item: any, index: any) => handleNextTag(result, item, index))}
+        </div>
+      );
+    }
+  };
+  const handleNextTag = (result: any, item: any, index: any) => {
+    // console.log(result[index]);
+
+    if (item.includes("@")) {
+      return (
+        <a className={cx("tag_link")} href={`/${item.slice(1)}`}>
+          {result[++index].slice(2)}
+        </a>
+      );
+    }
+    if (item.includes("$*")) {
+      return <></>;
+    } else {
+      return <>{result[index]}</>;
+    }
+  };
   return (
     <>
       <div className={cx("wrapper")}>
@@ -82,13 +155,16 @@ const CommentCard: FC<CommentCard> = ({ index, data, likeCheck = false, deleteCo
                 expanded={false}
                 truncatedEndingComponent={"..."}
                 anchorClass={cx("more_less-button")}
+                className={cx("text_more")}
               >
-                <p>
-                  <Link className={cx("name-in-content")} href={`/${data.author.id}`}>
+                <div>
+                  <Link className={cx("name-in-content")} href={`/${data.author.slug}`}>
                     {data.author.userName}
                   </Link>
-                  {data.content}
-                </p>
+
+                  {handleComTag(content)}
+
+                </div>
               </ShowMoreText>
             </div>
 
@@ -146,9 +222,14 @@ const CommentCard: FC<CommentCard> = ({ index, data, likeCheck = false, deleteCo
 
                   {
                     data.userId === idUser &&
-                    <div className={cx("modal_main-button")} onClick={handleDeleteComment}>
-                      <FormattedMessage id="Common.Delete" />
-                    </div>
+                    <>
+                      <div className={cx("modal_main-button")} onClick={handleDeleteComment}>
+                        <FormattedMessage id="Common.Delete" />
+                      </div>
+                      <div className={cx("modal_main-button")} onClick={handleEditComment}>
+                        <FormattedMessage id="Common.Edit" />
+                      </div>
+                    </>
                   }
 
 
@@ -165,19 +246,35 @@ const CommentCard: FC<CommentCard> = ({ index, data, likeCheck = false, deleteCo
           <div className={cx("confirm_main")}>
             <div className={cx("message")}>
               {
-                confirmType ?
-                  <FormattedMessage id="Comment.Report_comment_message" />
-
-                  :
-                  <FormattedMessage id="Comment.Delete_comment_message" />
+                confirmType === true && <FormattedMessage id="Comment.Report_comment_message" />
+              }
+              {
+                confirmType === false && <FormattedMessage id="Comment.Delete_comment_message" />
+              }
+              {
+                confirmType === null &&
+                <div className={cx("edit_comment")}>
+                  <MentionCustom content={comment} handlePushComment={handleEditApiComment} setContent={setComment} focus={focus} />
+                </div>
               }
             </div>
             <div className={cx("confirm_action")}>
-              <div className={cx("confirm_action-button")} onClick={handleConfirmDelete}>
-
-                <FormattedMessage id="Common.Delete" />
-              </div>
-              <div className={cx("confirm_action-button")} onClick={handleDeleteComment}>
+              {
+                confirmType === null &&
+                <div className={cx("confirm_action-button")} onClick={handleEditApiComment}>
+                  <FormattedMessage id="Common.Edit" />
+                </div>
+              }
+              {
+                confirmType === false &&
+                <div className={cx("confirm_action-button")} onClick={handleConfirmDelete}>
+                  <FormattedMessage id="Common.Delete" />
+                </div>
+              }
+              {
+                confirmType === true && <FormattedMessage id="Common.Report" />
+              }
+              <div className={cx("confirm_action-button")} onClick={handleCancelComment}>
 
                 <FormattedMessage id="Common.Cancel" />
               </div>

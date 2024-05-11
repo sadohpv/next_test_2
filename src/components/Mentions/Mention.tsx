@@ -2,15 +2,20 @@ import { Mention, MentionsInput } from "react-mentions";
 import "./MentionStyle.css";
 import { useRef, useState, FC, useEffect } from "react";
 import Avatar from "../Avatar/Avatar";
+import friendServices from "~/services/friendServices";
+import { useSelector } from "react-redux";
+import { IRootState } from "~/redux/reducers/rootReducer";
 interface MentionCustomProps {
   focus?: boolean;
   currentHeight?: string;
   maxHeight?: string | number;
   setContent: any;
   handlePushComment?: any;
+  content?: any;
+
 }
 
-const MentionCustom: FC<MentionCustomProps> = ({ handlePushComment, setContent, focus, currentHeight = "16px", maxHeight = 168 }) => {
+const MentionCustom: FC<MentionCustomProps> = ({ handlePushComment, content = '', setContent, focus, currentHeight = "16px", maxHeight = 168 }) => {
   const renderSuggestContainer = (children: any) => {
     return <div className="item">{children}</div>;
   };
@@ -35,43 +40,12 @@ const MentionCustom: FC<MentionCustomProps> = ({ handlePushComment, setContent, 
       </div>
     );
   };
-  const users = [
-    {
-      id: 1,
-      fullName: "John",
-      display: "Jay Back",
-    },
-    {
-      id: 2,
-      fullName: "John",
-      display: "John Wick",
-    },
-    {
-      id: 3,
-      fullName: "John",
-      display: "Jay Back",
-    },
-    {
-      id: 4,
-      fullName: "John",
-      display: "John Wick",
-    },
-    {
-      id: 5,
-      fullName: "John",
-      display: "John Wick",
-    },
-    {
-      id: 6,
-      fullName: "John",
-      display: "John Wick",
-    },
-  ];
   const ref = useRef<any>();
-  const [userComment, setUserComment] = useState("");
+  const [userComment, setUserComment] = useState(content);
   const [commentLast, setCommentLast] = useState("");
-  // const [currentHeight, setCurrentHeight] = useState(height ? height : "16px");
-  // const [maxHeight]
+  const [userList, setUserList] = useState<any[]>([]);
+  const idUser = useSelector<IRootState, any>(state => state.auth.data.id);
+
   const handleContentPost = (e: { target: any; shiftKey?: any }) => {
     ref.current.style.height = currentHeight;
 
@@ -126,9 +100,32 @@ const MentionCustom: FC<MentionCustomProps> = ({ handlePushComment, setContent, 
   };
   useEffect(() => {
     if (ref.current) {
+      ref.current.selectionEnd = ref.current.selectionStart = content.length;
       ref.current.focus();
     }
   }, [focus]);
+
+  useEffect(() => {
+    async function getMentionComment() {
+      const result = await friendServices.handleGetFriendForMention(idUser);
+      console.log(result);
+      if (result.result) {
+
+        let tempArray: any[] = [];
+        result.result.map((item: any, index: any) => {
+          tempArray.push({
+            id: item.slug,
+            display: item.userName,
+            fullName: `${item.userName} - ${item.address}`,
+            email: item.email,
+            img: item.avatar,
+          });
+        });
+        setUserList(tempArray);
+      }
+    }
+    getMentionComment();
+  }, [])
   return (
     <>
       <MentionsInput
@@ -145,7 +142,8 @@ const MentionCustom: FC<MentionCustomProps> = ({ handlePushComment, setContent, 
         <Mention
           trigger={"@"}
           className="recommend"
-          data={users}
+          data={userList}
+
           renderSuggestion={renderSuggestion}
           markup={"@t@g@__id__@t@g$*__display__@t@g"}
         />

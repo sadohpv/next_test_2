@@ -7,26 +7,19 @@ import Link from "next/link";
 import TippyCustom from "~/utility/Tippy/TooltipCustom";
 import { FormattedMessage } from "react-intl";
 import { FC, useEffect, useState } from "react";
+import { EmptyIcon } from "~/assets/icon";
 const cx = classNames.bind(styles);
 interface UserCardHoverProps {
   data: any;
-
+  follow: boolean;
+  setFollow: any;
 }
 
-const UserCardHover: FC<UserCardHoverProps> = ({ data }) => {
-  const [follow, setFollow] = useState<boolean | null>(null);
-  console.log(data);
-  const toggleFollow = (value: boolean) => {
-    setFollow(value);
-    if (value === true) {
-      alert("Call Api Follow");
-    } else {
-      alert("Call Api Unfollow");
-    }
-  };
-  useEffect(() => {
-    setFollow(false);
-  }, []);
+const UserCardHover: FC<UserCardHoverProps> = ({ data, follow, setFollow }) => {
+
+
+
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("header")}>
@@ -46,7 +39,7 @@ const UserCardHover: FC<UserCardHoverProps> = ({ data }) => {
       <div className={cx("middle")}>
         <div className={cx("middle_item")}>
           <div className={cx("number")}>
-            <span>{data.countPost}</span>
+            <span>{data._count.Posts}</span>
           </div>
           <div className={cx("text")}>
             <span>
@@ -56,7 +49,7 @@ const UserCardHover: FC<UserCardHoverProps> = ({ data }) => {
         </div>
         <div className={cx("middle_item")}>
           <div className={cx("number")}>
-            <span>{data.countFollower}</span>
+            <span>{data._count.FollowTo}</span>
           </div>
           <div className={cx("text")}>
             <span>
@@ -66,7 +59,7 @@ const UserCardHover: FC<UserCardHoverProps> = ({ data }) => {
         </div>
         <div className={cx("middle_item")}>
           <div className={cx("number")}>
-            <span>{data.countFollowing}</span>
+            <span>{data._count.FollowFrom}</span>
           </div>
           <div className={cx("text")}>
             <span>
@@ -75,47 +68,57 @@ const UserCardHover: FC<UserCardHoverProps> = ({ data }) => {
           </div>
         </div>
       </div>
-      <div className={cx("last")}>
-        <div className={cx("last_item")}>
-          <img
-            src={
-              "https://wallpapercosmos.com/w/full/1/f/8/1198865-2230x1080-desktop-dual-screen-studio-ghibli-background.jpg"
-            }
-            alt="last_1"
-          />
-        </div>
-        <div className={cx("last_item")}>
-          <img
-            src={
-              "https://wallpapercosmos.com/w/full/e/d/3/1198701-1920x1080-desktop-full-hd-studio-ghibli-background-photo.jpg"
-            }
-            alt="last_2"
-          />
-        </div>
-        <div className={cx("last_item")}>
-          <img
-            src={
-              "https://wallpapercosmos.com/w/full/b/2/2/33006-1920x1080-desktop-1080p-the-garden-of-words-background.jpg"
-            }
-            alt="last_3"
-          />
-        </div>
+      <div className={cx("last",`last_${data.Posts.length}`)}>
+        {
+          data.Posts.map((item: any, index: number) =>
+          (
+            <div key={`item.${index}}`} className={cx("last_item")}>
+              {
+                item.typeFile === false ?
+                  <img src={item.img} /> :
+                  <video
+
+                    playsInline
+                    disablePictureInPicture
+                    disableRemotePlayback
+                    preload="metadata"
+                    muted
+                    controls={false}
+                    controlsList="nofullscreen nodownload noremoteplayback noplaybackrate">
+                    <source src={item.img} />
+                  </video>
+              }
+            </div>
+          ))}
+        {
+          data.Posts.length === 0 && (
+            <div className={cx("empty_post")}>
+              {/* <div className={cx("empty_box")}> */}
+
+              {/* </div> */}
+              <EmptyIcon height="62px" width="62px" />
+              <span>
+                <FormattedMessage id="UserPage.No_posts" />
+              </span>
+            </div>
+          )
+        }
       </div>
       <div className={cx("action")}>
-        {follow !== null && follow === false && (
-          <div className={cx("button")} onClick={() => toggleFollow(true)}>
-            <span>
-              <FormattedMessage id="Common.Follow" />
-            </span>
-          </div>
-        )}
-        {follow !== null && follow === true && (
-          <div className={cx("button")} onClick={() => toggleFollow(false)}>
+
+        <div className={cx("button")} onClick={setFollow}>
+          {follow ? (
+
             <span>
               <FormattedMessage id="Common.Unfollow" />
             </span>
-          </div>
-        )}
+          ) : (
+            <span>
+              <FormattedMessage id="Common.Follow" />
+            </span>
+          )
+          }
+        </div>
       </div>
     </div>
   );

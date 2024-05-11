@@ -10,21 +10,39 @@ interface AvatarProps {
   src?: string;
   link?: string;
   size: number;
+  disableLink?: boolean;
 }
 
-const Avatar: FC<AvatarProps> = ({ src, link = "#", size = 36 }) => {
+const Avatar: FC<AvatarProps> = ({ disableLink = false, src, link = "#", size = 36 }) => {
   return (
-    <Link
-      href={`/${link}`}
-      style={{ width: `${size}px`, height: `${size}px` }}
-      className={cx("wrapper")}
-    >
-      {src && src != "" ? (
-        <img src={src} alt="Avatar" />
-      ) : (
-        <AvatarDefault width={`${size}`} height={`${size}`} />
-      )}
-    </Link>
+    <>
+      {
+        disableLink ?
+          <div
+            style={{ width: `${size}px`, height: `${size}px` }}
+            className={cx("wrapper")}
+          >
+            {src && src != "" ? (
+              <img src={src} alt="Avatar" />
+            ) : (
+              <AvatarDefault width={`${size}`} height={`${size}`} />
+            )}
+          </div>
+          :
+          <Link
+            href={`/${link}`}
+            style={{ width: `${size}px`, height: `${size}px` }}
+            className={cx("wrapper")}
+          >
+            {src && src != "" ? (
+              <img src={src} alt="Avatar" />
+            ) : (
+              <AvatarDefault width={`${size}`} height={`${size}`} />
+            )}
+          </Link>
+      }
+
+    </>
   );
 };
 

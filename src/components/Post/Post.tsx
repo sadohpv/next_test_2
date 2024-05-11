@@ -22,6 +22,8 @@ import Moment from "react-moment";
 import { useSelector } from "react-redux";
 import { LANGUAGE } from "~/utility/constants/constants";
 import postServices from "~/services/postServices";
+import LikeModalList from "./LikeModalList";
+import { RootState } from "~/redux/store";
 const cx = classNames.bind(styles);
 interface PostCompProps {
     data: any;
@@ -32,11 +34,18 @@ const PostComp: FC<PostCompProps> = ({ data, likeList }) => {
     const [play, setPlay] = useState<boolean>(false);
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const [modal, setModal] = useState<boolean>(false);
+    const [listLike, setListLike] = useState(likeList ? likeList : []);
     const [like, setLike] = useState<boolean>(likeList ? likeList.includes(data.id) : false);
     const [likeNumber, setLikeNumber] = useState<number>(data.likeNumber);
     const [commentNumber, setCommentNumber] = useState<number>(data.commentNumber);
+    const [actionModal, setActionModal] = useState(false);
+    const [likeModal, setLikeModal] = useState(false);
     const language = useSelector<any>(state => state.app.language);
-    const idUser = useSelector<any>(state => state.auth.data.id);
+    const idUser = useSelector<RootState, any>(state => state.auth.data.id);
+
+    const handleLikeModal = () => {
+        setLikeModal(true);
+    }
     const handlePlayVideo = () => {
         if (videoRef.current !== null) {
             if (play === false) {
@@ -70,20 +79,29 @@ const PostComp: FC<PostCompProps> = ({ data, likeList }) => {
         }
         const result = await postServices.handleToggleLikePost(payload);
         if (like === true) {
+            setListLike(listLike.filter(item => item !== data.id));
             setLikeNumber(likeNumber - 1);
         } else {
+            const listAdd = [...listLike, data.id];
+            setListLike(listAdd);
             setLikeNumber(likeNumber + 1);
         }
 
     };
-    const handleFatherLike = async () => {
-        setLike(!like);
-        if (like === true) {
-            setLikeNumber(likeNumber - 1);
-        } else {
-            setLikeNumber(likeNumber + 1);
-        }
+    const handleOpenPostModal = () => {
+        setActionModal(!actionModal);
     }
+    const handleClosePostModal = () => {
+        setActionModal(false);
+
+    }
+
+    const handleCopy = () => {
+        const linkCopy = process.env.domain + 'post/' + data.id;
+        navigator.clipboard.writeText(linkCopy);
+        handleClosePostModal();
+    }
+    // console.log(data);
     return (
         <>
             <div className={cx("wrapper")}>
@@ -109,8 +127,44 @@ const PostComp: FC<PostCompProps> = ({ data, likeList }) => {
                             </div>
                         </div>
                     </div>
-                    <div className={cx("header_action")}>
-                        <ThreeDotsIcon />
+                    <div className={cx("header_action")} >
+                        <div className={cx("three_dot_button")} onClick={handleOpenPostModal}>
+
+                            <ThreeDotsIcon />
+                        </div>
+                        {
+                            actionModal &&
+                            <div className={cx("action_modal")} onMouseLeave={handleClosePostModal}>
+                                <div className={cx("action_item")} onClick={handleCopy}>
+
+
+                                    <FormattedMessage id="Post.Copy_link_post" />
+
+                                </div>
+                                <div className={cx("action_item")}>
+                                    <FormattedMessage id="Common.Report" />
+                                </div>
+                                {
+                                    idUser === data.author.id &&
+                                    <>
+                                        <div className={cx("action_item")}>
+                                            <FormattedMessage id="Common.Delete" />
+                                        </div>
+                                        {
+                                            data.published ?
+                                                <div className={cx("action_item")}>
+                                                    <FormattedMessage id="Post.Publish_post" />
+                                                </div>
+                                                :
+                                                <div className={cx("action_item")}>
+                                                    <FormattedMessage id="Post.Private_post" />
+                                                </div>
+                                        }
+                                    </>
+
+                                }
+                            </div>
+                        }
                     </div>
                 </div>
 
@@ -167,12 +221,12 @@ const PostComp: FC<PostCompProps> = ({ data, likeList }) => {
                     </div>
                     <div className={cx("content")}>
                         <div className={cx("like_number")}>
-                            <p>
+                            <p className={cx("likeModal_title")} onClick={handleLikeModal}>
                                 <FormattedNumber notation="compact" maximumFractionDigits={2} value={likeNumber} />
                                 <FormattedMessage id="Post.Likes" />
                             </p>
 
-                            <p>
+                            <p className={cx("likeModal_title")} onClick={handleShowPostModal}>
                                 <FormattedNumber notation="compact" maximumFractionDigits={2} value={commentNumber} />
                                 <FormattedMessage id="Post.Comments" />
                             </p>
@@ -185,8 +239,8 @@ const PostComp: FC<PostCompProps> = ({ data, likeList }) => {
                                     more={<FormattedMessage id="Common.ShowMore" />}
                                     less={<FormattedMessage id="Common.ShowLess" />}
                                     anchorClass={cx("more_less-button")}>
-                                    <p>
-                                        <Link className={cx("name-in-content")} href="#">
+                                    <p >
+                                        <Link className={cx("name-in-content")} href={`/${data.author.slug}`}>
                                             {data.author.userName}
                                         </Link>
                                         {data.content}
@@ -202,12 +256,19 @@ const PostComp: FC<PostCompProps> = ({ data, likeList }) => {
             </div>
             {modal && (
                 <div className={cx("full_post_box")}>
-                    <FullPostComp fatherCount={setCommentNumber} fatherLike={handleFatherLike} commentFatherNumber={commentNumber} likeList={likeList} data={data} />
+                    <FullPostComp like={like} setCommentFatherNumber={setCommentNumber} commentFatherNumber={commentNumber} handleLike={handleLike} likeFatherNumber={likeNumber} data={data} likeList={listLike} />
                     <div className={cx("close")} onClick={handleCloseModal}>
                         <CloseIcon width="42px" height="42px" />
                     </div>
                 </div>
             )}
+            {
+                likeModal && (
+                    <div className={cx("like_modal")}>
+                        <LikeModalList setLikeModal={setLikeModal} idUser={idUser} data={data} />
+                    </div>
+                )
+            }
         </>
     );
 };

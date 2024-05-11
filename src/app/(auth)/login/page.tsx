@@ -14,12 +14,13 @@ import {
   handleRefreshRedux,
 } from "~/redux/actions/authAction";
 import { useRouter } from "next/navigation";
-
+import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
-interface LoginPageProps {}
+interface LoginPageProps { }
 
 const LoginPage: FC<LoginPageProps> = () => {
+
   const [loginType, SetLoginType] = useState<boolean>(false);
   const [account, setAccount] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -58,7 +59,7 @@ const LoginPage: FC<LoginPageProps> = () => {
               setColor("green");
               setNotify("OK ! Let go");
               dispatch(handleRefreshRedux(true));
-              router.push("/");
+              window.location.replace('/');
             } else {
               if (res.data !== undefined) {
                 setColor("red");
@@ -113,29 +114,31 @@ const LoginPage: FC<LoginPageProps> = () => {
 
   useEffect(() => {
     async function fetchData() {
-      if (auth === true || sessionStorage.getItem("auth") == "true") {
-        router.push("/");
+
+
+      const res = await authServices.handleCheckToken();
+      console.log(res);
+      if (typeof res == "number") {
+
       } else {
-        const res = await authServices.handleCheckToken();
-        if (typeof res == "number") {
+        if (res.EC === 0) {
+          sessionStorage.setItem("auth", "true");
+          dispatch(handleRefreshRedux(true));
+          dispatch(handleHoldDataUserRedux(res.data));
+          console.log("Here");
+          window.location.replace('/');
         } else {
-          if (res.EC === 0) {
-            sessionStorage.setItem("auth", "true");
-            dispatch(handleRefreshRedux(true));
-            dispatch(handleHoldDataUserRedux(res.data));
-            router.push("/");
-          } else {
-            setLoading(true);
-          }
+          setLoading(true);
         }
       }
+
     }
     fetchData();
   }, []);
 
   return (
     <>
-      {loading && (
+      {loading ? (
         <div className={cx("wrapper")}>
           <div className={cx("falling_star")}>
             <FallingStars />
@@ -203,6 +206,8 @@ const LoginPage: FC<LoginPageProps> = () => {
             </div>
           </TippyCustom>
         </div>
+      ) : (
+        <div className={cx("wrapper")}></div>
       )}
     </>
   );

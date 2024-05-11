@@ -20,11 +20,14 @@
         "language": "Language",
         "Theme": "Theme",
         "Light": "Light",
-        "Dark": "Dark"
+        "Dark": "Dark",
+        "logout": "Logout"
     },
     "Submain": {
         "suggested": "Suggested for you",
-        "see_all": "See all"
+        "see_all": "See all",
+        "Confirm_unfollow": "Are you sure that you want unfollow",
+        "Confirm_unfollow_message": "You won't often see this person's posts."
     },
     "Quotes": {
         "quote_1": "The difference between the novice and the master is that the master has failed more times than the novice has tried",
@@ -45,7 +48,9 @@
         "Delete": "Delete",
         "Report": "Report",
         "Cancel": "Cancel",
-        "Reply": "Reply"
+        "Reply": "Reply",
+        "Edit": "Edit",
+        "Followed": "Followed"
     },
     "Post": {
         "Share": "Share",
@@ -58,10 +63,28 @@
         "Next": "Next",
         "Crop": "Crop",
         "New_post": "New post",
-        "Upload_image": "Upload image"
+        "Upload_image": "Upload image",
+        "Copy_link_post": "Copy post's link",
+        "Private_post": "Set to private",
+        "Publish_post": "Set to public"
     },
     "Comment": {
         "Delete_comment_message": "Are you sure that you wanna delete this comment ?",
         "Report_comment_message": "Tell us what is wrong with this comment ?"
+    },
+    "UserPage": {
+        "No_videos": "No videos !",
+        "No_photos": "No photos !",
+        "No_posts": "No posts !",
+        "Add_Friend": "Add Friend",
+        "Unfriend": "Unfriend",
+
+        "Cancel_add_friend": "Cancel request",
+        "Confirm_unfriend": "Are you sure don't wanna make friend with ",
+        "Accept_add_friend": "Accept friend"
+    },
+    "Search":{
+        "Not_found" : "Are you sure you know their name ?",
+        "No_keyword" : "Knock Knock ! Are you missing something ?"
     }
 }

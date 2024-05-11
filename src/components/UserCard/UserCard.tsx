@@ -11,16 +11,17 @@ import { FC } from "react";
 const cx = classNames.bind(styles);
 interface UserCardProps {
   data: any;
-
+  follow: boolean;
+  setFollow: Function;
 }
 
-const UserCard: FC<UserCardProps> = ({data}) => {
- 
+const UserCard: FC<UserCardProps> = ({ data, follow, setFollow }) => {
+
   return (
     <div className={cx("wrapper")}>
       <span>
         <TippyCustom
-          content={<UserCardHover data={data}/>}
+          content={<UserCardHover key={data.id} setFollow={setFollow} follow={follow} data={data} />}
           haveClick
           theme="element"
           place="bottom-start"

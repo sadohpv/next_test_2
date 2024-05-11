@@ -77,6 +77,40 @@
         opacity: 1;
     }
 }
+@keyframes search_wrapper {
+    from {
+        left: 32;
+        opacity: 0;
+    }
+    to {
+        left: 80px;
+        opacity: 1;
+    }
+}
+@keyframes search_wrapper_2 {
+    from {
+        left: -20px;
+        opacity: 0;
+    }
+    to {
+        left: 0px;
+        opacity: 1;
+    }
+}
+//SEARCH
+.search_wrapper {
+    width: 360px;
+    height: 100vh;
+    background-color: var(--background-color-modal);
+    position: fixed;
+    top: 0;
+    animation: search_wrapper 0.8s ease-in-out forwards;
+    z-index: -1;
+    left: 32px;
+    display: flex;
+    // align-items: center;
+    align-items: flex-start;
+}
 
 // Media Query
 @media (max-width: 1260px) {
@@ -96,5 +130,11 @@
     }
     .border {
         padding: 8px !important;
+    }
+    .search_wrapper {
+        top: 48px;
+        left: 0px;
+        height: calc(100vh - 96px);
+        animation: search_wrapper_2 0.8s ease-in-out forwards;
     }
 }

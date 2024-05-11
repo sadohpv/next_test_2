@@ -27,7 +27,6 @@ function AuthWrapper({ children }: { children: React.ReactNode }) {
           } else {
             sessionStorage.removeItem("auth");
             router.push("/login");
-
           }
         }
       }
