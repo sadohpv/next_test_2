@@ -117,8 +117,9 @@ const LoginPage: FC<LoginPageProps> = () => {
 
 
       const res = await authServices.handleCheckToken();
-      console.log(res);
+      
       if (typeof res == "number") {
+        setLoading(true);
 
       } else {
         if (res.EC === 0) {

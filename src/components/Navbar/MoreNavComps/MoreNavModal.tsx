@@ -111,11 +111,11 @@ const MoreNavModal: FC<MoreNavModalProps> = ({ }) => {
       </div>
 
 
-      <div className={cx("more_item")}>
+      <div className={cx("more_item")} onClick={handleLogout}>
         <div className={cx("more_icon")}>
           <LogoutIcon />
         </div>
-        <div className={cx("more_title")} onClick={handleLogout}>
+        <div className={cx("more_title")}>
           <FormattedMessage id="Navbar.logout" />
         </div>
       </div>

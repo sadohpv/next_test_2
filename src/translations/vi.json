@@ -50,7 +50,7 @@
         "Cancel": "Huỷ",
         "Reply": "Trả lời",
         "Edit": "Chỉnh sửa",
-        "Followed" : "Đã theo dõi"
+        "Followed": "Đã theo dõi"
     },
     "Post": {
         "Share": "Chia sẻ",
@@ -66,7 +66,13 @@
         "Upload_image": "Tải ảnh lên",
         "Copy_link_post": "Sao chép đường liên kết",
         "Private_post": "Ẩn bài viết",
-        "Publish_post": "Công khai bài viết"
+        "Publish_post": "Công khai bài viết",
+        "Public": "Công khai",
+        "Private": "Riêng tư",
+        "Drag_something": "Kéo ảnh hoặc video",
+        "Select_from_com": "Chọn từ máy tính",
+        "Public_message": "Bài viết của bạn mặc định sẽ ở chế độ công khai. Ấn vào đây nếu muốn chuyển trạng thái thành riêng tư. Hãy nhớ chỉ bạn bè mới có thể thấy bài viết riêng tư trên trang cá nhân của bạn.",
+        "Private_message": "Bài viết của bạn đang được cài đặt ở chế độ riêng tư. Chỉ có bạn bè mới có thể thấy bài viết này trên trang cá nhân của bạn. Ấn vào đây nếu muốn chuyển trạng thái thành công khai để mọi người đều có thể thấy."
     },
     "Comment": {
         "Delete_comment_message": "Bạn chắc chắn muốn xoá bình luận này ?",
@@ -79,11 +85,17 @@
         "Add_Friend": "Gửi lời mời kết bạn",
         "Unfriend": "Huỷ kết bạn",
         "Cancel_add_friend": "Huỷ lời mời",
-        "Confirm_unfriend" : "Bạn có chắc không muốn làm bạn với ",
-        "Accept_add_friend" : "Đồng ý"
+        "Confirm_unfriend": "Bạn có chắc không muốn làm bạn với ",
+        "Accept_add_friend": "Đồng ý",
+        "Null_post": "Chỉ bạn bè của tác giả có thể xem bài viết này, hãy kết bạn với họ !"
     },
-    "Search":{
-        "Not_found" : "Không có kết quả phù hợp với từ khoá ?",
-        "No_keyword" : "Hình như bạn quên từ khoá tìm kiếm thì phải ?"
+    "Search": {
+        "Not_found": "Không có kết quả phù hợp với từ khoá ?",
+        "No_keyword": "Hình như bạn quên từ khoá tìm kiếm thì phải ?"
+    },
+    "Notify": {
+        "friend_request_1": "Bạn nhận được một lời mời kết bạn từ ",
+        "friend_request_2": ", đừng để họ chờ nhé !!",
+        "comment_tag_1": " đã nhắc đến bạn trong một bình luận."
     }
 }

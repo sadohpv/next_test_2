@@ -232,26 +232,26 @@
     .step_3 {
         display: flex;
     }
-    .step_4{
+    .step_4 {
         object-fit: contain;
         display: flex;
         align-items: center;
         justify-content: center;
         overflow: hidden;
-        video{
+        video {
             width: 100%;
             height: 100%;
             object-fit: contain;
             // pointer-events: none;
         }
     }
-    .step_5{
+    .step_5 {
         display: flex;
-        .pic{
+        .pic {
             display: flex;
             align-items: center;
             justify-content: center;
-            video{
+            video {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
@@ -260,7 +260,7 @@
     }
 }
 // MODAL
-.modal_loading{
+.modal_loading {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -362,14 +362,15 @@
     .content_input {
         display: flex;
         flex: 1;
-        height: 200px;
+        height: 176px;
         // background-color: antiquewhite;
+        // box-shadow: 1px 1px 5px 2px var(--grey-fade);
         :nth-child(1) {
             width: 100%;
             :nth-child(1),
             :nth-child(2) {
                 max-height: 246px;
-                height: 246px;
+                // height: 246px;
             }
             :nth-child(1) {
                 position: relative;
@@ -387,6 +388,58 @@
             }
         }
     }
-    .content_emoji {
+    .content_footer {
+        width: 100%;
+        // height: 48px;
+        display: flex;
+
+        flex-direction: column;
+        gap: 8px;
+        .content_footer-action {
+            display: flex;
+            width: 100%;
+            height: 40px;
+            // background-color: red;
+            align-items: center;
+            .button_action {
+                height: 32px;
+                width: 100%;
+                padding: 8px 12px;
+                border-radius: 8px;
+                // background-color: var(--primary-color);
+                display: flex;
+                align-items: center;
+                font-size: 12px;
+                gap: 4px;
+                color: var(--text-color);
+                justify-content: center;
+                &:hover {
+                    cursor: pointer;
+                    background-color: var(--primary-color-hover);
+                    color: var(--background-color);
+                    svg {
+                        fill: var(--background-color) !important;
+                    }
+                }
+            }
+        }
+        .content_footer-message {
+            width: 100%;
+            text-align: center;
+            padding: 8px 0;
+            // background-color: red;
+            color: var(--text-color);
+            position: relative;
+            &::before {
+                position: absolute;
+                content: "";
+                top: 0;
+                width: 100%;
+                left: 0;
+                height: 1px;
+                background-color: var(--grey-fade);
+            }
+            padding-bottom: 8px;
+        }
     }
 }

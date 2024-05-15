@@ -16,10 +16,19 @@ function deleteComment(id: any) {
 function editComment(editCommentDto: any) {
     return axios.patch(`/comment/edit`, editCommentDto);
 }
+function createComInCom(createComInComDto: any) {
+    return axios.post<any, any>(`/comincom`, createComInComDto);
+}
+function deleteComInCom(id: any) {
+    console.log(id);
+    return axios.delete<any, any>(`/comincom/${id}`);
+}
 export default {
     getAllComment,
     createComment,
     toggleLikeComment,
     deleteComment,
-    editComment
+    editComment,
+    createComInCom,
+    deleteComInCom,
 };

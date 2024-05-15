@@ -19,6 +19,7 @@
   display            : flex;
   justify-content    : center;
   overflow           : hidden;
+  /*  */
 }
 
 .mention__input {
@@ -42,11 +43,11 @@
 
 .item {
   width        : 100%;
-  height       : 100%;
-  overflow     : hidden;
+  max-height       : 200px;
+  overflow     : hidden auto;
   border-radius: 8px;
   display      : flex;
-
+  align-items: flex-start;
 }
 
 .item::before {
@@ -60,11 +61,12 @@
   display        : flex;
   flex-direction : column;
   gap            : 6px;
-  overflow       : hidden;
-  overflow-y     : scroll;
+  /* overflow       : hidden; */
+  overflow-y     : scroll !important;
   justify-content: center;
   align-items    : center;
   background-color: var(--background-color-modal);
+  /* background-color: blueviolet; */
 }
 
 .mention__suggestions__list::-webkit-scrollbar-track {
@@ -204,3 +206,6 @@
 .mention__highlighter::before {
   display: none;
 } */
+.tag_infor-fullname{
+  overflow: hidden;
+}

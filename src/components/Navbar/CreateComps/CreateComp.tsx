@@ -2,7 +2,7 @@
 import Link from "next/link";
 import classNames from "classnames/bind";
 import styles from "./CreateComp.module.scss";
-import { BackIcon, CameraIcon, CreateIcon } from "~/assets/icon";
+import { BackIcon, CameraIcon, CreateIcon, EarthIcon, LockIcon } from "~/assets/icon";
 import { usePathname } from "next/navigation";
 import { FC, useState, useEffect, useRef, ChangeEvent } from "react";
 import TippyCustom from "~/utility/Tippy/TooltipCustom";
@@ -34,6 +34,8 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const [step, setStep] = useState<STEP>(STEP.STEP_ONE);
     const [typeFile, setTypeFile] = useState<boolean>(false);
+    const [publicPost, setPublicPost] = useState<boolean>(false);
+
     const [imgPreview, setimgPreview] = useState<string>("");
     const [file, setFile] = useState<any>("");
     const [imageAfterCrop, setImgAfterCrop] = useState("");
@@ -96,6 +98,10 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
                 setStep(STEP.STEP_ONE);
                 setimgPreview("");
                 setFile("");
+                break;
+            case STEP.STEP_FIVE:
+                setStep(STEP.STEP_FOUR);
+            
                 break;
             default:
                 setStep(STEP.STEP_ONE);
@@ -170,7 +176,8 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
             userId: userData.id,
             img: file,
             content: content,
-            typeFile: typeFile
+            typeFile: typeFile,
+            publish : publicPost
         }
         setLoading(true);
         const result = await postServices.handleCreatePost(payload)
@@ -185,7 +192,9 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
         }
 
     }
-
+    const hanldePublicPost = () => {
+        setPublicPost(!publicPost);
+    }
 
 
     return (
@@ -268,12 +277,15 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
                                     <div className={cx("tilte_1")}>
                                         <CameraIcon width="100px" height="100px" />
                                         <p>
-                                            Drag photo and video here
+                                            <FormattedMessage id="Post.Drag_something" />
+
                                         </p>
                                     </div>
                                     <div className={cx("input")}>
                                         <span>
-                                            Select from compiter
+
+                                            <FormattedMessage id="Post.Select_from_com" />
+
                                         </span>
                                         <input title=" "
 
@@ -303,14 +315,37 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
                                             <Avatar size={28} />
                                             <div className={cx("name")}>
                                                 <p>
-                                                    _shiroll
+                                                    {userData.userName}
                                                 </p>
                                             </div>
                                         </div>
                                         <div className={cx("content_input")}>
                                             <MentionCustom setContent={setContent} currentHeight="392px" />
                                         </div>
+                                        <div className={cx("content_footer")}>
+                                            <div className={cx("content_footer-action")} >
+                                                {
+                                                    publicPost ?
+                                                        <div className={cx("button_action")} onClick={hanldePublicPost}>
+                                                            <LockIcon height="18px" width="18px" /><FormattedMessage id="Post.Private" />
+                                                        </div>
+                                                        :
 
+                                                        <div className={cx("button_action")} onClick={hanldePublicPost}>
+                                                            <EarthIcon height="18px" width="18px" /><FormattedMessage id="Post.Public" />
+                                                        </div>
+                                                }
+                                            </div>
+                                            <div className={cx("content_footer-message")}>
+                                                {
+                                                    publicPost ?
+                                                        <FormattedMessage id="Post.Public_message" />
+                                                        :
+                                                        <FormattedMessage id="Post.Private_message" />
+
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             }
@@ -364,7 +399,30 @@ const CreateComp: FC<CreateCompProps> = ({ setModal, modal, page, setPage, tippy
                                         <div className={cx("content_input")}>
                                             <MentionCustom setContent={setContent} currentHeight="392px" />
                                         </div>
+                                        <div className={cx("content_footer")}>
+                                            <div className={cx("content_footer-action")} >
+                                                {
+                                                    publicPost ?
+                                                        <div className={cx("button_action")} onClick={hanldePublicPost}>
+                                                            <LockIcon height="18px" width="18px" /><FormattedMessage id="Post.Private" />
+                                                        </div>
+                                                        :
 
+                                                        <div className={cx("button_action")} onClick={hanldePublicPost}>
+                                                            <EarthIcon height="18px" width="18px" /><FormattedMessage id="Post.Public" />
+                                                        </div>
+                                                }
+                                            </div>
+                                            <div className={cx("content_footer-message")}>
+                                                {
+                                                    publicPost ?
+                                                        <FormattedMessage id="Post.Public_message" />
+                                                        :
+                                                        <FormattedMessage id="Post.Private_message" />
+
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             }

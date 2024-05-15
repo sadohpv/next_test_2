@@ -12,10 +12,10 @@ interface MentionCustomProps {
   setContent: any;
   handlePushComment?: any;
   content?: any;
-
+  tagList?: any[];
 }
 
-const MentionCustom: FC<MentionCustomProps> = ({ handlePushComment, content = '', setContent, focus, currentHeight = "16px", maxHeight = 168 }) => {
+const MentionCustom: FC<MentionCustomProps> = ({ tagList=[], handlePushComment, content = '', setContent, focus, currentHeight = "16px", maxHeight = 168 }) => {
   const renderSuggestContainer = (children: any) => {
     return <div className="item">{children}</div>;
   };
@@ -34,7 +34,7 @@ const MentionCustom: FC<MentionCustomProps> = ({ handlePushComment, content = ''
           </div>
           <div className="tag_infor">
             <span>{entry.display}</span>
-            <span>{entry.fullName}</span>
+            <span className="tag_infor-fullname">{entry.fullName}</span>
           </div>
         </div>
       </div>
@@ -43,8 +43,7 @@ const MentionCustom: FC<MentionCustomProps> = ({ handlePushComment, content = ''
   const ref = useRef<any>();
   const [userComment, setUserComment] = useState(content);
   const [commentLast, setCommentLast] = useState("");
-  const [userList, setUserList] = useState<any[]>([]);
-  const idUser = useSelector<IRootState, any>(state => state.auth.data.id);
+  
 
   const handleContentPost = (e: { target: any; shiftKey?: any }) => {
     ref.current.style.height = currentHeight;
@@ -105,27 +104,7 @@ const MentionCustom: FC<MentionCustomProps> = ({ handlePushComment, content = ''
     }
   }, [focus]);
 
-  useEffect(() => {
-    async function getMentionComment() {
-      const result = await friendServices.handleGetFriendForMention(idUser);
-      console.log(result);
-      if (result.result) {
 
-        let tempArray: any[] = [];
-        result.result.map((item: any, index: any) => {
-          tempArray.push({
-            id: item.slug,
-            display: item.userName,
-            fullName: `${item.userName} - ${item.address}`,
-            email: item.email,
-            img: item.avatar,
-          });
-        });
-        setUserList(tempArray);
-      }
-    }
-    getMentionComment();
-  }, [])
   return (
     <>
       <MentionsInput
@@ -142,7 +121,7 @@ const MentionCustom: FC<MentionCustomProps> = ({ handlePushComment, content = ''
         <Mention
           trigger={"@"}
           className="recommend"
-          data={userList}
+          data={tagList}
 
           renderSuggestion={renderSuggestion}
           markup={"@t@g@__id__@t@g$*__display__@t@g"}

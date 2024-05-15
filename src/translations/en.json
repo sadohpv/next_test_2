@@ -66,7 +66,13 @@
         "Upload_image": "Upload image",
         "Copy_link_post": "Copy post's link",
         "Private_post": "Set to private",
-        "Publish_post": "Set to public"
+        "Public": "Public",
+        "Private": "Private",
+        "Publish_post": "Set to public",
+        "Drag_something": "Drag photo and video here",
+        "Select_from_com": "Select from computer",
+        "Public_message": "Your post will be setting default as public post. Click here if you want to change it to private. Remember only friend can see your private post on your's profile page",
+        "Private_message": "Your post is been setted as private post. It's only show on your profile page for your friends. Click here to change it to public so everyone can see"
     },
     "Comment": {
         "Delete_comment_message": "Are you sure that you wanna delete this comment ?",
@@ -81,10 +87,16 @@
 
         "Cancel_add_friend": "Cancel request",
         "Confirm_unfriend": "Are you sure don't wanna make friend with ",
-        "Accept_add_friend": "Accept friend"
+        "Accept_add_friend": "Accept friend",
+        "Null_post": "This post is private but author is not your friend. Make friend with them to see this post"
     },
-    "Search":{
-        "Not_found" : "Are you sure you know their name ?",
-        "No_keyword" : "Knock Knock ! Are you missing something ?"
+    "Search": {
+        "Not_found": "Are you sure you know their name ?",
+        "No_keyword": "Knock Knock ! Are you missing something ?"
+    },
+    "Notify": {
+        "friend_request_1": "You received a friend request from ",
+        "friend_request_2": ", don't let them wait !!",
+        "comment_tag_1": " tag you in a comment."
     }
 }

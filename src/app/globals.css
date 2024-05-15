@@ -35,11 +35,11 @@
   --primary-color-hover   : #e0f1ff;
   --background-color-modal: #e0f1ff;
   --modal-hover           : #000000;
-
-  --white-color : white;
-  --black-color : black;
-  --grey-fade   : rgb(62, 62, 62);
-  --modal-shadow: black;
+  --white-color           : white;
+  --black-color           : black;
+  --grey-fade             : rgb(62, 62, 62);
+  --modal-shadow          : black;
+  --unread-color          : black;
 }
 
 
@@ -139,7 +139,7 @@ nav {
   --grey-fade             : #eeeeee;
   --modal-shadow          : rgb(129, 129, 129);
   --modal-hover           : #9ed3ff;
-
+  --unread-color          : white;
 
 }
 

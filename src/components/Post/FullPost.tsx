@@ -24,21 +24,25 @@ import postServices from "~/services/postServices";
 import commentServices from "~/services/commentServices";
 import LikeModalList from "./LikeModalList";
 import { IRootState } from "~/redux/reducers/rootReducer";
+import friendServices from "~/services/friendServices";
+import UserCardHover from "../UserCard/UserCardHover";
 // import vi from "moment/locale/vi"
 
 const cx = classNames.bind(styles);
 interface FullPostCompProps {
   data: any;
-  likeList: any;
+  likeList?: any;
   setCommentFatherNumber: any;
   likeFatherNumber: any;
   commentFatherNumber: any;
   userPageLike?: any;
   handleLike: any;
   like: any;
+  only?: any;
 }
 
-const FullPostComp: FC<FullPostCompProps> = ({ like, data, handleLike, likeFatherNumber, userPageLike, commentFatherNumber, setCommentFatherNumber }) => {
+const FullPostComp: FC<FullPostCompProps> = ({ like, only = false, data, handleLike, likeFatherNumber, userPageLike, commentFatherNumber, setCommentFatherNumber }) => {
+
   const [play, setPlay] = useState<boolean>(false);
 
   const [focus, setFocus] = useState<boolean>(false);
@@ -47,6 +51,7 @@ const FullPostComp: FC<FullPostCompProps> = ({ like, data, handleLike, likeFathe
   const [commentLikeList, setCommentLikeList] = useState<any>([]);
   const [actionModal, setActionModal] = useState(false);
   const [likeModal, setLikeModal] = useState(false);
+  const [userTagList, setUserTagList] = useState<any[]>([]);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const language = useSelector<any>(state => state.app.language);
@@ -76,6 +81,24 @@ const FullPostComp: FC<FullPostCompProps> = ({ like, data, handleLike, likeFathe
   const handleFocusInput = () => {
     setFocus(!focus);
   };
+  const handldeCreateReply = async (commentId: any, replyComment: any, setReplyComment: any) => {
+    if (replyComment !== "") {
+      // console.log(commentId);
+      const payload = {
+        userId: idUser,
+        commentId: commentId,
+        postId: data.id,
+        content: replyComment,
+      }
+      await commentServices.createComInCom(payload);
+      setReplyComment("");
+      if (setCommentFatherNumber && typeof setCommentFatherNumber === 'function') {
+        setCommentFatherNumber(commentFatherNumber + 1);
+      }
+
+      fetchData();
+    }
+  }
   const handlePushComment = async () => {
     if (comment !== "") {
       const payload = {
@@ -83,12 +106,13 @@ const FullPostComp: FC<FullPostCompProps> = ({ like, data, handleLike, likeFathe
         postId: data.id,
         content: comment,
       }
+      console.log(payload);
       await commentServices.createComment(payload);
       setComment("");
       if (setCommentFatherNumber && typeof setCommentFatherNumber === 'function') {
         setCommentFatherNumber(commentFatherNumber + 1);
       }
-     
+
       fetchData();
     }
   }
@@ -114,13 +138,30 @@ const FullPostComp: FC<FullPostCompProps> = ({ like, data, handleLike, likeFathe
 
 
     fetchData();
+    async function getMentionComment() {
+      const result = await friendServices.handleGetFriendForMention(idUser);
+      if (result.result) {
 
+        let tempArray: any[] = [];
+        result.result.map((item: any, index: any) => {
+          tempArray.push({
+            id: item.slug,
+            display: item.userName,
+            fullName: `${item.userName} - ${item.address}`,
+            email: item.email,
+            img: item.avatar,
+          });
+        });
+        setUserTagList(tempArray);
+      }
+    }
+    getMentionComment();
 
   }, []);
 
   return (
     <>
-      <div className={cx("wrapper")}>
+      <div className={cx("wrapper", only && "only")}>
         <div className={cx("body")} onClick={handlePlayVideo}>
           {
             data.typeFile === false ?
@@ -143,9 +184,16 @@ const FullPostComp: FC<FullPostCompProps> = ({ like, data, handleLike, likeFathe
           <div className={cx("box")}>
             <div className={cx("header")}>
               <div className={cx("infor")}>
-                <div className={cx("avatar")}>
-                  <Avatar src={data.author.avatar} size={42} />
-                </div>
+                <TippyCustom
+                  content={<UserCardHover key={data.id} data={data.author} />}
+                  haveClick
+                  theme="element"
+                  place="auto" 
+                  >
+                  <div className={cx("avatar")}>
+                    <Avatar link={data.author.slug} src={data.author.avatar} size={42} />
+                  </div>
+                </TippyCustom>
                 <div className={cx("title")}>
                   <div className={cx("name")}>
                     <p>{data.author.userName}</p>
@@ -198,7 +246,7 @@ const FullPostComp: FC<FullPostCompProps> = ({ like, data, handleLike, likeFathe
               data.content != "" &&
               <div className={cx("content")}>
                 <div className={cx("avatar")}>
-                  <Avatar size={32} />
+                  <Avatar link={data.author.slug} size={32} />
                 </div>
                 <div className={cx("content_text")}>
 
@@ -210,7 +258,7 @@ const FullPostComp: FC<FullPostCompProps> = ({ like, data, handleLike, likeFathe
                     less={<FormattedMessage id="Common.ShowLess" />}
                     anchorClass={cx("more_less-button")}>
                     <p>
-                      <Link className={cx("name-in-content")} href={`${data.author.id}`}>
+                      <Link className={cx("name-in-content")} href={`${data.author.slug}`}>
                         {data.author.userName}
                       </Link>
                       {data.content}
@@ -228,7 +276,7 @@ const FullPostComp: FC<FullPostCompProps> = ({ like, data, handleLike, likeFathe
             }
             {
               commentList.map((commentItem: any, index: any) => (
-                <CommentCard index={index} deleteCommentCount={deleteCommentCount} key={commentItem.id} likeCheck={commentLikeList.includes(commentItem.id)} data={commentItem} />
+                <CommentCard handleCreateReply={handldeCreateReply} taglist={userTagList} index={index} deleteCommentCount={deleteCommentCount} key={commentItem.id} likeCheck={commentLikeList.includes(commentItem.id)} data={commentItem} />
 
               ))
             }
@@ -314,7 +362,7 @@ const FullPostComp: FC<FullPostCompProps> = ({ like, data, handleLike, likeFathe
               </div>
             </div>
             <div className={cx("add_comment")}>
-              <MentionCustom handlePushComment={handlePushComment} setContent={setComment} focus={focus} />
+              <MentionCustom tagList={userTagList} handlePushComment={handlePushComment} setContent={setComment} focus={focus} />
             </div>
           </div>
         </div>

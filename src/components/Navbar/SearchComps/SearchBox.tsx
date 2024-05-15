@@ -56,7 +56,7 @@ const SearchBox: FC<SearchBoxProps> = ({ }) => {
                     {
                         searchResult.length > 0 ?
                             searchResult.map((item: any) => (
-                                <a className={cx("item_search")} key={item.id}>
+                                <div className={cx("item_search")} key={item.id}>
                                     <div className={cx("avatar")}>
                                         <Avatar link={item.slug} src={item.src} size={40} />
                                     </div>
@@ -76,7 +76,7 @@ const SearchBox: FC<SearchBoxProps> = ({ }) => {
                                             </span>
                                         }
                                     </div>
-                                </a>
+                                </div>
                             ))
                             :
                             (

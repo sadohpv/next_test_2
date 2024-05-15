@@ -17,10 +17,22 @@ function handleGetGuestPost(slug: string, id: number) {
 function handleGetListLikePost(id: number, idUser: number) {
     return axios.get<any, any>(`/post/listLike/${id}/${idUser}`);
 }
+function getPostPage(page: number, idUser: number) {
+    return axios.get<any, any>(`/post/page/${page}/${idUser}`);
+}
+function getPostById(idPost: number, idUser: number) {
+    return axios.get<any, any>(`/post/one/${idPost}/${idUser}`);
+}
+function changePublished(changePublishedDto : any) {
+    return axios.post<any, any>(`/post/published`, changePublishedDto);
+}
 export default {
     handleCreatePost,
     getAllPost,
     handleToggleLikePost,
     handleGetGuestPost,
     handleGetListLikePost,
+    getPostPage,
+    getPostById,
+    changePublished,
 };

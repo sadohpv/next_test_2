@@ -8,6 +8,7 @@ import {
     EarthIcon,
     HeartIcon,
     HeartIconFill,
+    LockIcon,
     SaveIcon,
     ShareIcon,
     ThreeDotsIcon,
@@ -24,6 +25,8 @@ import { LANGUAGE } from "~/utility/constants/constants";
 import postServices from "~/services/postServices";
 import LikeModalList from "./LikeModalList";
 import { RootState } from "~/redux/store";
+import UserCardHover from "../UserCard/UserCardHover";
+import { toast } from "react-toastify";
 const cx = classNames.bind(styles);
 interface PostCompProps {
     data: any;
@@ -31,6 +34,7 @@ interface PostCompProps {
 }
 
 const PostComp: FC<PostCompProps> = ({ data, likeList }) => {
+    console.log(data);
     const [play, setPlay] = useState<boolean>(false);
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const [modal, setModal] = useState<boolean>(false);
@@ -40,6 +44,7 @@ const PostComp: FC<PostCompProps> = ({ data, likeList }) => {
     const [commentNumber, setCommentNumber] = useState<number>(data.commentNumber);
     const [actionModal, setActionModal] = useState(false);
     const [likeModal, setLikeModal] = useState(false);
+    const [published, setPublished] = useState(data.published);
     const language = useSelector<any>(state => state.app.language);
     const idUser = useSelector<RootState, any>(state => state.auth.data.id);
 
@@ -101,15 +106,42 @@ const PostComp: FC<PostCompProps> = ({ data, likeList }) => {
         navigator.clipboard.writeText(linkCopy);
         handleClosePostModal();
     }
-    // console.log(data);
+    const handleSetPublish = async () => {
+        // console.log()
+
+        const payload = {
+            postId: data.id,
+            published: !published,
+        }
+        const res = await postServices.changePublished(payload);
+        if (res) {
+            setPublished(!published);
+            setActionModal(false);
+            toast.success(!published ? <FormattedMessage id="Post.Private_post" /> : <FormattedMessage id="Post.Publish_post" />, {
+                autoClose: 3000
+            })
+        } else {
+            toast.error("Something wrong! Try later", {
+                autoClose: 3000
+            })
+        }
+
+    }
     return (
         <>
             <div className={cx("wrapper")}>
                 <div className={cx("header")}>
                     <div className={cx("infor")}>
-                        <div className={cx("avatar")}>
-                            <Avatar link={data.author.slug} src={data.author.avatar} size={42} />
-                        </div>
+                        <TippyCustom
+                            content={<UserCardHover key={data.id} data={data.author} />}
+                            haveClick
+                            theme="element"
+                            place="bottom-start" >
+
+                            <div className={cx("avatar")}>
+                                <Avatar link={data.author.slug} src={data.author.avatar} size={42} />
+                            </div>
+                        </TippyCustom>
                         <div className={cx("title")}>
                             <div className={cx("name")}>
                                 <p>{data.author.userName}</p>
@@ -122,7 +154,12 @@ const PostComp: FC<PostCompProps> = ({ data, likeList }) => {
                                 </span>
                                 <span>&#x2022;</span>
                                 <span>
-                                    <EarthIcon width="14" height="14" />
+                                    {
+                                        published ?
+                                            <LockIcon width="14" height="14" />
+                                            :
+                                            <EarthIcon width="14" height="14" />
+                                    }
                                 </span>
                             </div>
                         </div>
@@ -151,12 +188,12 @@ const PostComp: FC<PostCompProps> = ({ data, likeList }) => {
                                             <FormattedMessage id="Common.Delete" />
                                         </div>
                                         {
-                                            data.published ?
-                                                <div className={cx("action_item")}>
+                                            published ?
+                                                <div className={cx("action_item")} onClick={handleSetPublish}>
                                                     <FormattedMessage id="Post.Publish_post" />
                                                 </div>
                                                 :
-                                                <div className={cx("action_item")}>
+                                                <div className={cx("action_item")} onClick={handleSetPublish}>
                                                     <FormattedMessage id="Post.Private_post" />
                                                 </div>
                                         }

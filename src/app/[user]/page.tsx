@@ -166,7 +166,7 @@ export default function UserPage({ params }: { params: { user: string } }) {
       setIsFriend("ACCEPTED");
     }
   }
-  console.log(modalType);
+  console.log(idUser);
   return (
     <>
       <div className={cx("wrapper")}>
@@ -180,17 +180,23 @@ export default function UserPage({ params }: { params: { user: string } }) {
                 {dataUserPage.slug}
               </div>
               <div className={cx("action")}>
-                <div className={cx("follow_button")} onClick={handleFollow}>
-                  {
-                    follow && follow !== null ?
+                {
+                  dataUserPage.id !== idUser &&
+                  <div className={cx("follow_button")} onClick={handleFollow}>
+                    {
+                      follow === true &&
                       <FormattedMessage id="Common.Unfollow" />
-                      :
+
+                    }
+                    {
+                      follow === false &&
                       <FormattedMessage id="Common.Follow" />
-                  }
-                </div>
+                    }
+                  </div>
+                }
                 {
 
-                  isFriend === "REQUIRED" &&
+                  isFriend === "REQUIRED" && dataUserPage.id !== idUser &&
                   <TippyCustom content={<FormattedMessage id="UserPage.Cancel_add_friend" />}>
                     <div className={cx("suggest_button")} onClick={() => handleMakeFriend(false)}>
                       <UnfriendIcon />
@@ -198,7 +204,7 @@ export default function UserPage({ params }: { params: { user: string } }) {
                   </TippyCustom>
                 }
                 {
-                  isFriend === "ACCEPTED" &&
+                  isFriend === "ACCEPTED" && dataUserPage.id !== idUser &&
                   <TippyCustom content={<FormattedMessage id="UserPage.Unfriend" />}>
                     <div className={cx("suggest_button")} onClick={() => handleMakeFriend(false)}>
                       <UnfriendIcon />
@@ -206,7 +212,7 @@ export default function UserPage({ params }: { params: { user: string } }) {
                   </TippyCustom>
                 }
                 {
-                  isFriend === true &&
+                  isFriend === true && dataUserPage.id !== idUser &&
                   <TippyCustom content={<FormattedMessage id="UserPage.Add_Friend" />}>
                     <div className={cx("suggest_button")} onClick={() => handleMakeFriend(true)}>
                       <AddFriendIcon />
@@ -214,13 +220,15 @@ export default function UserPage({ params }: { params: { user: string } }) {
                   </TippyCustom>
                 }
                 {
-                  acceptType === true &&
+                  acceptType === true && dataUserPage.id !== idUser &&
                   <TippyCustom content={<FormattedMessage id="UserPage.Accept_add_friend" />}>
                     <div className={cx("suggest_button")} onClick={() => handleAcceptFriend()}>
                       <AddFriendIcon />
                     </div>
                   </TippyCustom>
                 }
+
+
                 <div className={cx("more_button")}>
                   <ThreeDotsIcon />
                 </div>
@@ -341,10 +349,16 @@ export default function UserPage({ params }: { params: { user: string } }) {
             <div className={cx("action")}>
               <div className={cx("confirm_action-button")} onClick={handleUnfriendAndUnfollow}>
                 {
-                  modalType === true &&
-                  <>
-                    <FormattedMessage id="UserPage.Unfriend" />
-                  </>
+                  modalType === true
+                    ?
+                    isFriend === "REQUIRED" &&
+                    <>
+                      <FormattedMessage id="UserPage.Cancel_add_friend" />
+                    </>
+                    :
+                    <>
+                      <FormattedMessage id="UserPage.Unfriend" />
+                    </>
                 }
                 {
                   modalType === false &&

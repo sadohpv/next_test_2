@@ -11,13 +11,13 @@ import { EmptyIcon } from "~/assets/icon";
 const cx = classNames.bind(styles);
 interface UserCardHoverProps {
   data: any;
-  follow: boolean;
-  setFollow: any;
+  follow?: boolean;
+  setFollow?: any;
 }
 
 const UserCardHover: FC<UserCardHoverProps> = ({ data, follow, setFollow }) => {
 
-
+  // console.log(data);
 
 
   return (
@@ -68,7 +68,7 @@ const UserCardHover: FC<UserCardHoverProps> = ({ data, follow, setFollow }) => {
           </div>
         </div>
       </div>
-      <div className={cx("last",`last_${data.Posts.length}`)}>
+      <div className={cx("last", `last_${data.Posts.length}`)}>
         {
           data.Posts.map((item: any, index: number) =>
           (

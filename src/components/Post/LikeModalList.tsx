@@ -21,8 +21,8 @@ interface LikeModalListProps {
 }
 
 const LikeModalList: FC<LikeModalListProps> = ({ setLikeModal, data, idUser }) => {
-
     const [listLike, setListLike] = useState([]);
+    console.log(listLike);
 
     useEffect(() => {
 
