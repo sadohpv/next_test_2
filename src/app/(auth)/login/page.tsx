@@ -15,6 +15,7 @@ import {
 } from "~/redux/actions/authAction";
 import { useRouter } from "next/navigation";
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
 const cx = classNames.bind(styles);
 
 interface LoginPageProps { }
@@ -117,7 +118,7 @@ const LoginPage: FC<LoginPageProps> = () => {
 
 
       const res = await authServices.handleCheckToken();
-      
+
       if (typeof res == "number") {
         setLoading(true);
 
@@ -201,7 +202,7 @@ const LoginPage: FC<LoginPageProps> = () => {
               </div>
             </div>
           </div>
-          <TippyCustom content={notify}>
+          <TippyCustom  content={notify}>
             <div className={cx("notify_box")}>
               <Candle color={color} />
             </div>
@@ -210,6 +211,7 @@ const LoginPage: FC<LoginPageProps> = () => {
       ) : (
         <div className={cx("wrapper")}></div>
       )}
+      {/* <ToastContainer /> */}
     </>
   );
 };

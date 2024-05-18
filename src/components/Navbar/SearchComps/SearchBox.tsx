@@ -58,7 +58,7 @@ const SearchBox: FC<SearchBoxProps> = ({ }) => {
                             searchResult.map((item: any) => (
                                 <div className={cx("item_search")} key={item.id}>
                                     <div className={cx("avatar")}>
-                                        <Avatar link={item.slug} src={item.src} size={40} />
+                                        <Avatar src={item.avatar} link={item.slug} size={40} />
                                     </div>
                                     <div className={cx("infor")}>
                                         <Link href={item.slug} className={cx("name")}>

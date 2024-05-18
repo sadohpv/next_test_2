@@ -259,15 +259,14 @@ export const ShareIcon = ({ width = "24px", height = "24px" }) => {
 };
 export const SaveIcon = ({ width = "24px", height = "24px" }) => {
     return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width={width}
-            height={height}
-            viewBox="0 0 32 32"
-            id="save"
-            fill="var(--text-color)">
-            <path d="M23 5H9C7.346 5 6 6.346 6 8v19a1 1 0 0 0 1.614.789L16 21.267l8.386 6.522a.996.996 0 0 0 1.053.109A1 1 0 0 0 26 27V8c0-1.654-1.346-3-3-3zm1 19.956-7.386-5.745a.999.999 0 0 0-1.228-.001L8 24.956V8c0-.551.449-1 1-1h14c.551 0 1 .449 1 1v16.956z"></path>
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width={width}
+            height={height} fill="var(--text-color)" viewBox="0 0 384 512"><path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z" /></svg>
+    );
+};
+export const SaveFillIcon = ({ width = "24px", height = "24px" }) => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width={width}
+            height={height} fill="var(--text-color)" viewBox="0 0 384 512"><path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z" /></svg>
     );
 };
 export const CloseIcon = ({ width = "24px", height = "24px" }) => {
@@ -449,7 +448,7 @@ export const WonderIcon = ({ width = "24px", height = "24px" }) => {
 export const LockIcon = ({ width = "24px", height = "24px" }) => {
     return (
 
-        <svg xmlns="http://www.w3.org/2000/svg"  width={width} fill="var(--text-color)"
-        height={height} viewBox="0 0 24 24" id="lock"><g><g><rect width="24" height="24" opacity="0"></rect><path d="M17 8h-1V6.11a4 4 0 1 0-8 0V8H7a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3zm-7-1.89A2.06 2.06 0 0 1 12 4a2.06 2.06 0 0 1 2 2.11V8h-4zM18 19a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z"></path><path d="M12 12a3 3 0 1 0 3 3 3 3 0 0 0-3-3zm0 4a1 1 0 1 1 1-1 1 1 0 0 1-1 1z"></path></g></g></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width={width} fill="var(--text-color)"
+            height={height} viewBox="0 0 24 24" id="lock"><g><g><rect width="24" height="24" opacity="0"></rect><path d="M17 8h-1V6.11a4 4 0 1 0-8 0V8H7a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3zm-7-1.89A2.06 2.06 0 0 1 12 4a2.06 2.06 0 0 1 2 2.11V8h-4zM18 19a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z"></path><path d="M12 12a3 3 0 1 0 3 3 3 3 0 0 0-3-3zm0 4a1 1 0 1 1 1-1 1 1 0 0 1-1 1z"></path></g></g></svg>
     );
 };

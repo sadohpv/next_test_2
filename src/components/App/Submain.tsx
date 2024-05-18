@@ -49,14 +49,14 @@ export default function Submain() {
       fetchData();
     }
   }, [userData])
-//  console.log(suggestedList);
+  //  console.log(suggestedList);
   return (
     <div className={cx("sub_main")}>
       <div className={cx("sub_header")}>
         <Avatar
           size={44}
           link={userData.slug}
-          src={"https://wallpaperset.com/w/full/e/a/7/444549.jpg"}
+          src={userData.avatar}
         />
         <div className={cx("header_infor")}>
           <div className={cx("text")}>

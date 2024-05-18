@@ -351,9 +351,17 @@ export default function UserPage({ params }: { params: { user: string } }) {
                 {
                   modalType === true
                     ?
-                    isFriend === "REQUIRED" &&
                     <>
-                      <FormattedMessage id="UserPage.Cancel_add_friend" />
+                      {
+                        isFriend === "REQUIRED" ?
+                          <>
+                            <FormattedMessage id="UserPage.Cancel_add_friend" />
+                          </>
+                          :
+                          <>
+                            <FormattedMessage id="UserPage.Unfriend" />
+                          </>
+                      }
                     </>
                     :
                     <>

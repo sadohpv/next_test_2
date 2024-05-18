@@ -13,18 +13,19 @@ interface UserCardHoverProps {
   data: any;
   follow?: boolean;
   setFollow?: any;
+  noneFollow?: any;
 }
 
-const UserCardHover: FC<UserCardHoverProps> = ({ data, follow, setFollow }) => {
+const UserCardHover: FC<UserCardHoverProps> = ({ noneFollow, data, follow, setFollow }) => {
 
-  // console.log(data);
+  console.log(data);
 
 
   return (
     <div className={cx("wrapper")}>
       <div className={cx("header")}>
         <div className={cx("avatar")}>
-          <Avatar link={data.slug} size={44} />
+          <Avatar src={data.avatar} link={data.slug} size={44} />
         </div>
         <div className={cx("infor")}>
           <Link href={`/${data.slug}`} className={cx("username")}>
@@ -104,22 +105,26 @@ const UserCardHover: FC<UserCardHoverProps> = ({ data, follow, setFollow }) => {
           )
         }
       </div>
-      <div className={cx("action")}>
+      {
+        noneFollow !== true &&
+        <div className={cx("action")}>
 
-        <div className={cx("button")} onClick={setFollow}>
-          {follow ? (
+          <div className={cx("button")} onClick={setFollow}>
+            {follow ? (
 
-            <span>
-              <FormattedMessage id="Common.Unfollow" />
-            </span>
-          ) : (
-            <span>
-              <FormattedMessage id="Common.Follow" />
-            </span>
-          )
-          }
+              <span>
+                <FormattedMessage id="Common.Unfollow" />
+              </span>
+            ) : (
+              <span>
+                <FormattedMessage id="Common.Follow" />
+              </span>
+            )
+            }
+          </div>
         </div>
-      </div>
+      }
+
     </div>
   );
 }

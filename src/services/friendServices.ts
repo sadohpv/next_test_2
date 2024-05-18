@@ -9,8 +9,12 @@ function handleAcceptFriend(friendData: any) {
 function handleGetFriendForMention(id: any) {
     return axios.get<any, any>(`/friend/mention/${id}`);
 }
+function getAllFriend(id: any) {
+    return axios.get<any, any>(`/friend/all/${id}`);
+}
 export default {
     handleCallApiFriend,
     handleAcceptFriend,
     handleGetFriendForMention,
+    getAllFriend,
 };

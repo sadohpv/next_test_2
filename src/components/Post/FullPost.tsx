@@ -26,6 +26,7 @@ import LikeModalList from "./LikeModalList";
 import { IRootState } from "~/redux/reducers/rootReducer";
 import friendServices from "~/services/friendServices";
 import UserCardHover from "../UserCard/UserCardHover";
+import { toast } from "react-toastify";
 // import vi from "moment/locale/vi"
 
 const cx = classNames.bind(styles);
@@ -39,12 +40,13 @@ interface FullPostCompProps {
   handleLike: any;
   like: any;
   only?: any;
+  published?: any;
+  setPublished?: any;
 }
 
-const FullPostComp: FC<FullPostCompProps> = ({ like, only = false, data, handleLike, likeFatherNumber, userPageLike, commentFatherNumber, setCommentFatherNumber }) => {
+const FullPostComp: FC<FullPostCompProps> = ({ setPublished, published, like, only = false, data, handleLike, likeFatherNumber, userPageLike, commentFatherNumber, setCommentFatherNumber }) => {
 
   const [play, setPlay] = useState<boolean>(false);
-
   const [focus, setFocus] = useState<boolean>(false);
   const [comment, setComment] = useState<any>("");
   const [commentList, setCommentList] = useState<any>([]);
@@ -52,6 +54,7 @@ const FullPostComp: FC<FullPostCompProps> = ({ like, only = false, data, handleL
   const [actionModal, setActionModal] = useState(false);
   const [likeModal, setLikeModal] = useState(false);
   const [userTagList, setUserTagList] = useState<any[]>([]);
+  const [isPublished, setIsPublished] = useState(published !== undefined ? published : data.published);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const language = useSelector<any>(state => state.app.language);
@@ -134,6 +137,30 @@ const FullPostComp: FC<FullPostCompProps> = ({ like, only = false, data, handleL
     navigator.clipboard.writeText(linkCopy);
     handleClosePostModal();
   }
+  const handleSetPublish = async () => {
+    // console.log()
+
+    const payload = {
+      postId: data.id,
+      published: !isPublished,
+    }
+    const res = await postServices.changePublished(payload);
+    if (res) {
+      setIsPublished(!isPublished);
+      setActionModal(false);
+      if (setPublished) {
+        setPublished(!isPublished)
+      }
+      toast.success(!isPublished ? <FormattedMessage id="Post.Private_post" /> : <FormattedMessage id="Post.Publish_post" />, {
+        autoClose: 3000
+      })
+    } else {
+      toast.error("Something wrong! Try later", {
+        autoClose: 3000
+      })
+    }
+
+  }
   useEffect(() => {
 
 
@@ -185,11 +212,11 @@ const FullPostComp: FC<FullPostCompProps> = ({ like, only = false, data, handleL
             <div className={cx("header")}>
               <div className={cx("infor")}>
                 <TippyCustom
-                  content={<UserCardHover key={data.id} data={data.author} />}
+                  content={<UserCardHover noneFollow key={data.id} data={data.author} />}
                   haveClick
                   theme="element"
-                  place="auto" 
-                  >
+                  place="auto"
+                >
                   <div className={cx("avatar")}>
                     <Avatar link={data.author.slug} src={data.author.avatar} size={42} />
                   </div>
@@ -224,12 +251,12 @@ const FullPostComp: FC<FullPostCompProps> = ({ like, only = false, data, handleL
                           <FormattedMessage id="Common.Delete" />
                         </div>
                         {
-                          data.published ?
-                            <div className={cx("action_item")}>
+                          isPublished ?
+                            <div className={cx("action_item")} onClick={handleSetPublish}>
                               <FormattedMessage id="Post.Publish_post" />
                             </div>
                             :
-                            <div className={cx("action_item")}>
+                            <div className={cx("action_item")} onClick={handleSetPublish}>
                               <FormattedMessage id="Post.Private_post" />
                             </div>
                         }
@@ -246,7 +273,7 @@ const FullPostComp: FC<FullPostCompProps> = ({ like, only = false, data, handleL
               data.content != "" &&
               <div className={cx("content")}>
                 <div className={cx("avatar")}>
-                  <Avatar link={data.author.slug} size={32} />
+                  <Avatar link={data.author.slug} src={data.author.avatar} size={32} />
                 </div>
                 <div className={cx("content_text")}>
 

@@ -5,7 +5,7 @@ import styles from "./MoreNavComp.module.scss";
 import { FC, useState } from "react";
 import TooltipCustom from "~/utility/Tippy/TooltipCustom";
 import { FormattedMessage } from "react-intl";
-import { LanguageIcon, LogoutIcon, MoonIcon, WriteIcon } from "~/assets/icon";
+import { LanguageIcon, LogoutIcon, MoonIcon, SaveFillIcon, WriteIcon } from "~/assets/icon";
 import TippyCustom from "~/utility/Tippy/TooltipCustom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,6 +16,8 @@ import { LANGUAGE, THEME } from "~/utility/constants/constants";
 import authServices from "~/services/authServices";
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
+import { IRootState } from "~/redux/reducers/rootReducer";
+import Avatar from "~/components/Avatar/Avatar";
 const cx = classNames.bind(styles);
 interface MoreNavModalProps { }
 
@@ -23,6 +25,11 @@ const MoreNavModal: FC<MoreNavModalProps> = ({ }) => {
   const router = useRouter();
   const language = useSelector((state: any) => state.app.language);
   const theme = useSelector((state: any) => state.app.theme);
+  const slug = useSelector<IRootState, any>(state => state.auth.data.slug);
+  const avatar = useSelector<IRootState, any>(state => state.auth.data.avatar);
+  const name = useSelector<IRootState, any>(state => state.auth.data.userName);
+
+
   const dispatch = useDispatch<any>();
   const handleToggleLanguage = () => {
     if (language === LANGUAGE.VI) {
@@ -51,14 +58,14 @@ const MoreNavModal: FC<MoreNavModalProps> = ({ }) => {
     <div className={cx("modal_wrapper")}>
       <div className={cx("funtion")}>
 
-        <div className={cx("more_item")}>
+        <Link href={`/settings`} className={cx("more_item")} >
           <div className={cx("more_icon")}>
             <WriteIcon />
           </div>
           <div className={cx("more_title")}>
             <FormattedMessage id="Navbar.setting" />
           </div>
-        </div>
+        </Link>
         <TippyCustom content={<FormattedMessage id="Navbar.language" />}>
           <div className={cx("more_item")} onClick={handleToggleLanguage}>
             <div className={cx("more_icon")}>
@@ -108,17 +115,40 @@ const MoreNavModal: FC<MoreNavModalProps> = ({ }) => {
             </div>
           </div>
         </TippyCustom>
+        <Link href={`/${slug}/save`} className={cx("more_item")}>
+
+          <div className={cx("more_icon")}>
+            <SaveFillIcon width="20px" height="20px" />
+          </div>
+          <div className={cx("more_title")}>
+            <FormattedMessage id="Common.Save_post" />
+          </div>
+        </Link>
+
       </div>
 
+      <div className={cx("funtion")}>
 
-      <div className={cx("more_item")} onClick={handleLogout}>
-        <div className={cx("more_icon")}>
-          <LogoutIcon />
+        <div className={cx("more_item")} onClick={handleLogout}>
+
+          <div className={cx("more_icon")}>
+            <LogoutIcon />
+          </div>
+          <div className={cx("more_title")}>
+            <FormattedMessage id="Navbar.logout" />
+          </div>
         </div>
-        <div className={cx("more_title")}>
-          <FormattedMessage id="Navbar.logout" />
-        </div>
+        <Link href={`/${slug}`} className={cx("more_item")}>
+
+          <div className={cx("more_icon")}>
+            <Avatar size={32} disableLink src={avatar} />
+          </div>
+          <div className={cx("more_title")}>
+            {name}
+          </div>
+        </Link>
       </div>
+
     </div>
   );
 };

@@ -16,10 +16,15 @@ interface UserPagePostCompProps {
     data: any;
     likeList: any;
     dataUserPage: any;
+    author?: any;
 }
 
-const UserPagePostComp: FC<UserPagePostCompProps> = ({ data, dataUserPage, likeList }) => {
-    data.author = dataUserPage;
+const UserPagePostComp: FC<UserPagePostCompProps> = ({ author, data, dataUserPage, likeList }) => {
+    if (author) {
+        data.author = author;
+    } else {
+        data.author = dataUserPage;
+    }
     const [hover, setHover] = useState<boolean | null>(null);
     const [modalFullPost, setModalFullPost] = useState<boolean>(false);
     const [like, setLike] = useState<boolean>(likeList ? likeList.includes(data.id) : false);

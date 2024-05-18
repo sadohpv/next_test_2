@@ -11,8 +11,8 @@ import Navbar from "~/components/Navbar/Navbar";
 import { useRouter } from "next/navigation";
 import PostComp from "~/components/Post/Post";
 import postServices from "~/services/postServices";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 import InfiniteScroll from "react-infinite-scroll-component";
 import IsLoading from "~/components/Skeleton/IsLoading";
 import { IRootState } from "~/redux/reducers/rootReducer";
@@ -26,6 +26,8 @@ export default function Home() {
   const [submain, setSubmain] = useState<boolean>(true);
   const { width = 0, height = 0 } = useWindowSize();
   const [likePostList, setLikePostList] = useState<any>([]);
+  const [savePostList, setSavePostList] = useState<any>([]);
+
   const idUser = useSelector<IRootState, any>(state => state.auth.data.id);
   const [postPage, setPostPage] = useState(0);
   const [hasMorePost, setHasMorePost] = useState(true);
@@ -62,10 +64,10 @@ export default function Home() {
 
     async function fetchData() {
       const result = await postServices.getAllPost(idUser);
-
+      // console.log(result);
       setPostList(result.dataPost);
       setLikePostList(result.checkLike);
-
+      setSavePostList(result.checkSave);
     }
     if (idUser) {
 
@@ -103,7 +105,7 @@ export default function Home() {
           >
             {
               postList.map((postData: any) =>
-                <PostComp key={postData.id} likeList={likePostList} data={postData} />
+                <PostComp key={postData.id} saveList={savePostList} likeList={likePostList} data={postData} />
               )
             }
           </InfiniteScroll>

@@ -23,8 +23,20 @@ function getPostPage(page: number, idUser: number) {
 function getPostById(idPost: number, idUser: number) {
     return axios.get<any, any>(`/post/one/${idPost}/${idUser}`);
 }
-function changePublished(changePublishedDto : any) {
+function changePublished(changePublishedDto: any) {
     return axios.post<any, any>(`/post/published`, changePublishedDto);
+}
+function handleDeletePost(id: number) {
+    return axios.delete<any, any>(`/post/${id}`);
+}
+function getAllPostSetting(id: number) {
+    return axios.get<any, any>(`/post/all/${id}`);
+}
+function handleUpdatePost(updatePostDto: any) {
+    return axios.patch<any, any>(`/post/`, updatePostDto);
+}
+function handleGetSavePost(slug: string, id: number) {
+    return axios.get<any, any>(`/post/save/${slug}/${id}`);
 }
 export default {
     handleCreatePost,
@@ -35,4 +47,8 @@ export default {
     getPostPage,
     getPostById,
     changePublished,
+    handleDeletePost,
+    getAllPostSetting,
+    handleUpdatePost,
+    handleGetSavePost,
 };

@@ -3,6 +3,7 @@ import "./globals.css";
 
 import styles from "$app/App.module.scss";
 import classNames from "classnames/bind";
+import 'react-toastify/dist/ReactToastify.css';
 
 import IntlProviderWrapper from "~/utility/Language/IntlProviderWrapper";
 import ReduxProvider from "~/redux/ReduxProvider";

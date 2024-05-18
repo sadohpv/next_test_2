@@ -8,7 +8,9 @@
         "Username": "Tên người dùng",
         "Gender": "Giới tính",
         "Address": "Địa chỉ",
-        "Re_Password": "Nhập lại mật khẩu"
+        "Re_Password": "Nhập lại mật khẩu",
+        "This_is_unique": "Thuộc tính này là duy nhất và không thể thay đổi",
+        "Double_click_to_change": "Ấn để chỉnh sửa"
     },
     "Navbar": {
         "home": "Trang chủ",
@@ -39,6 +41,8 @@
         "Posts": "Bài viết",
         "Videos": "Videos",
         "Photos": "Ảnh",
+        "Video": "Video",
+        "Photo": "Ảnh",
         "followers": "người theo dõi",
         "following": "đang theo dõi",
         "Follow": "Theo dõi",
@@ -50,7 +54,15 @@
         "Cancel": "Huỷ",
         "Reply": "Trả lời",
         "Edit": "Chỉnh sửa",
-        "Followed": "Đã theo dõi"
+        "Followed": "Đã theo dõi",
+        "Content": "Nội dung",
+        "Male": "Nam",
+        "Female": "Nữ",
+        "Save": "Lưu",
+        "Slug": "Liên kết",
+        "Copy": "Sao chép",
+        "Unsave": "Xoá lưu",
+        "Save_post" : "Bài viết đã lưu"
     },
     "Post": {
         "Share": "Chia sẻ",
@@ -72,7 +84,10 @@
         "Drag_something": "Kéo ảnh hoặc video",
         "Select_from_com": "Chọn từ máy tính",
         "Public_message": "Bài viết của bạn mặc định sẽ ở chế độ công khai. Ấn vào đây nếu muốn chuyển trạng thái thành riêng tư. Hãy nhớ chỉ bạn bè mới có thể thấy bài viết riêng tư trên trang cá nhân của bạn.",
-        "Private_message": "Bài viết của bạn đang được cài đặt ở chế độ riêng tư. Chỉ có bạn bè mới có thể thấy bài viết này trên trang cá nhân của bạn. Ấn vào đây nếu muốn chuyển trạng thái thành công khai để mọi người đều có thể thấy."
+        "Private_message": "Bài viết của bạn đang được cài đặt ở chế độ riêng tư. Chỉ có bạn bè mới có thể thấy bài viết này trên trang cá nhân của bạn. Ấn vào đây nếu muốn chuyển trạng thái thành công khai để mọi người đều có thể thấy.",
+        "Delete_post_message": "( Tất cả bình luận ở bài viết này sẽ bị xoá. Kiểm tra lại lần nữa để chắc chắn bạn muốn xoá bài viết này )",
+        "Delete_success": "Xoá bài viết thành công",
+        "Delete_failed": "Có lỗi xảy ra ! Hãy thử lại sau."
     },
     "Comment": {
         "Delete_comment_message": "Bạn chắc chắn muốn xoá bình luận này ?",
@@ -97,5 +112,20 @@
         "friend_request_1": "Bạn nhận được một lời mời kết bạn từ ",
         "friend_request_2": ", đừng để họ chờ nhé !!",
         "comment_tag_1": " đã nhắc đến bạn trong một bình luận."
+    },
+    "Settings": {
+        "General": "Thông tin cơ bản",
+        "Friends": "Bạn bè",
+        "Posts": "Bài viết",
+        "Change_data_message_success": "Thay đổi thành công !",
+        "Change_data_message_failed": "Có lỗi xảy ra ! Thử lại sau.",
+        "Current_pass": "Mật khẩu hiện tại",
+        "New_pass": "Mật khẩu mới",
+        "Re_new_pass": "Nhập lại mật khẩu mới",
+        "Re_new_pass_note": "Mật khẩu xác nhận không giống mật khẩu bạn muốn đổi",
+        "Re_empty_pass_note" : "Bạn nhập thiếu gì đó ! Hãy kiểm tra lại",
+        "Same_pass" : "Mật khẩu mới không được giống mật khẩu hiện tại",
+        "Not_current_pass": "Mật khẩu hiện tại không đúng ! Hãy kiểm tra lại",
+        "Check_change_avatar" : "Kiểm tra lại ảnh đại diện của bạn một lần nữa trước khi lưu"
     }
 }
