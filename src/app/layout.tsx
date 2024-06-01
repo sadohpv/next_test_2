@@ -32,11 +32,7 @@ export default function RootLayout({
                 <IntlProviderWrapper>
                   <AuthWrapper>
                     <>
-                      <nav>
-                        <NavbarSearch />
-
-                        <Navbar />
-                      </nav>
+                     
                       {children}
 
                     </>
